@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RBStore.Api.Database;
+using RBStore.Api.Repositories;
+using RBStore.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddControllers();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -22,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.MapControllers();
 app.Run();
 
 

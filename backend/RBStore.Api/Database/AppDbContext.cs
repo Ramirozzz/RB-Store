@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RBStore.Api.Models;
 
 namespace RBStore.Api.Database;
 
@@ -9,4 +10,6 @@ public class AppDbContext : DbContext
        : base(options)
     {
     }
+
+    public DbSet<Product> Products { get; set; }
 }
