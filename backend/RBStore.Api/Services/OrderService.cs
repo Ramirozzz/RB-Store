@@ -27,18 +27,35 @@ public class OrderService : IOrderService
 
     public async Task<Order> CreateAsync(CreateOrderDto orderDto)
     {
+
+        if (orderDto.Items.Count == 0)
+        {
+            throw new ArgumentException("Order must contain at least one item.");
+        }
+
+        var items = orderDto.Items.GroupBy(item => item.ProductId).Select(group => new CreateOrderItemDto
+        {
+            ProductId = group.Key,
+            Quantity = group.Sum(item => item.Quantity)
+        }).ToList();
+
         var order = new Order
         {
             OrderDate = DateTime.UtcNow
         };
 
-        foreach (var itemDto in orderDto.Items)
+        foreach (var itemDto in items)
         {
             var product = await _productRepository.GetByIdAsync(itemDto.ProductId);
 
             if (product is null)
             {
                 throw new ArgumentException($"Product with id {itemDto.ProductId} not found.");
+            }
+
+            if (itemDto.Quantity > product.StockQuantity)
+            {
+                throw new ArgumentException($"Not enough stock for product {product.Name}.");
             }
 
             var orderItem = new OrderItem
@@ -49,8 +66,8 @@ public class OrderService : IOrderService
             };
 
             order.OrderItems.Add(orderItem);
-
             order.TotalPrice += product.Price * itemDto.Quantity;
+            product.StockQuantity -= itemDto.Quantity;
         }
 
         return await _orderRepository.AddAsync(order);
