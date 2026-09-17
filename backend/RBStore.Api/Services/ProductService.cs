@@ -7,10 +7,12 @@ namespace RBStore.Api.Services;
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public ProductService(IProductRepository productRepository)
+    public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
     {
         _productRepository = productRepository;
+        _categoryRepository = categoryRepository;
     }
     public async Task<List<Product>> GetAllAsync()
     {
@@ -47,6 +49,13 @@ public class ProductService : IProductService
             );
         }
 
+        var category = await _categoryRepository.GetByIdAsync(productDto.CategoryId);
+
+        if (category is null)
+        {
+            throw new ArgumentException("Category not found.");
+        }
+
         var product = new Product
         {
             Name = productDto.Name,
@@ -54,7 +63,8 @@ public class ProductService : IProductService
             Price = productDto.Price,
             ImageUrl = productDto.ImageUrl,
             StockQuantity = productDto.StockQuantity,
-            IsBestSeller = productDto.IsBestSeller
+            IsBestSeller = productDto.IsBestSeller,
+            CategoryId = productDto.CategoryId
         };
 
         return await _productRepository.AddAsync(product);
@@ -67,6 +77,13 @@ public class ProductService : IProductService
         if (product is null)
         {
             return null;
+        }
+
+        var category = await _categoryRepository.GetByIdAsync(productDto.CategoryId);
+
+        if (category is null)
+        {
+            throw new ArgumentException("Category not found.");
         }
 
         if (string.IsNullOrWhiteSpace(productDto.Name))
@@ -101,6 +118,7 @@ public class ProductService : IProductService
         product.ImageUrl = productDto.ImageUrl;
         product.StockQuantity = productDto.StockQuantity;
         product.IsBestSeller = productDto.IsBestSeller;
+        product.CategoryId = productDto.CategoryId;
 
 
         return await _productRepository.UpdateAsync(product);

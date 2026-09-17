@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace RBStore.Api.DTOs;
 
 public class CreateProductDto
@@ -12,4 +14,7 @@ public class CreateProductDto
     public int StockQuantity { get; set; }
 
     public bool IsBestSeller { get; set; }
+
+    [Range(1, int.MaxValue)]
+    public int CategoryId { get; set; }
 }

@@ -19,4 +19,7 @@ public class UpdateProductDto
     public int StockQuantity { get; set; }
 
     public bool IsBestSeller { get; set; }
+
+    [Range(1, int.MaxValue)]
+    public int CategoryId { get; set; }
 }

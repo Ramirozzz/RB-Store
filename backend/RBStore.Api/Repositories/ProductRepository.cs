@@ -15,7 +15,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<List<Product>> GetAllAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products.Include(p => p.Category).ToListAsync();
     }
 
     public async Task<Product> AddAsync(Product product)
@@ -29,7 +29,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product?> GetByIdAsync(int id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
     }
 
 
@@ -48,6 +48,7 @@ public class ProductRepository : IProductRepository
         existingProduct.ImageUrl = product.ImageUrl;
         existingProduct.StockQuantity = product.StockQuantity;
         existingProduct.IsBestSeller = product.IsBestSeller;
+        existingProduct.CategoryId = product.CategoryId;
 
         await _context.SaveChangesAsync();
 
