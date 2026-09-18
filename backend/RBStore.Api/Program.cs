@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RBStore.Api.Models;
 using RBStore.Api.Database;
 using RBStore.Api.Repositories;
 using RBStore.Api.Services;
@@ -11,7 +13,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
-// Add services to the container.
+builder.Services
+    .AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();

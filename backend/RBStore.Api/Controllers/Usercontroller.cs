@@ -36,7 +36,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id)
+    public async Task<ActionResult<User>> GetUser(string id)
     {
         try
         {
@@ -58,7 +58,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}/orders")]
-    public async Task<ActionResult<List<Order>>> GetUserOrders(int id)
+    public async Task<ActionResult<List<Order>>> GetUserOrders(string id)
     {
         try
         {

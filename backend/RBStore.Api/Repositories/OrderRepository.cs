@@ -24,7 +24,7 @@ public class OrderRepository : IOrderRepository
         .FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public async Task<List<Order>> GetByUserIdAsync(int userId)
+    public async Task<List<Order>> GetByUserIdAsync(string userId)
     {
         return await _context.Orders
             .Where(o => o.UserId == userId)

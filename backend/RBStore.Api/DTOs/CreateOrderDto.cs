@@ -8,7 +8,7 @@ public class CreateOrderDto
     public List<CreateOrderItemDto> Items { get; set; } = new();
 
     [Range(1, int.MaxValue)]
-    public int UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
 
 
 }

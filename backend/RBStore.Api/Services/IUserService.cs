@@ -6,6 +6,6 @@ namespace RBStore.Api.Services;
 public interface IUserService
 {
     Task<List<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(int id);
+    Task<User?> GetByIdAsync(string id);
     Task<User> CreateAsync(CreateUserDto userDto);
 }
