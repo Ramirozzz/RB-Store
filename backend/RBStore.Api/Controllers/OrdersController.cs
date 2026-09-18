@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using RBStore.Api.DTOs;
 using RBStore.Api.Models;
 using RBStore.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace RBStore.Api.Controllers;
 
@@ -17,12 +20,22 @@ public class OrdersController : ControllerBase
         _orderService = orderService;
     }
 
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet]
     public async Task<ActionResult<List<Order>>> GetOrders()
     {
         try
         {
-            var orders = await _orderService.GetAllAsync();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId is null)
+            {
+                return Unauthorized();
+            }
+
+            var orders = await _orderService.GetAllAsync(userId);
 
             return Ok(orders);
         }
@@ -33,12 +46,22 @@ public class OrdersController : ControllerBase
         }
     }
 
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("{id}")]
     public async Task<ActionResult<Order>> GetOrder(int id)
     {
         try
         {
-            var order = await _orderService.GetByIdAsync(id);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId is null)
+            {
+                return Unauthorized();
+            }
+
+            var order = await _orderService.GetByIdAsync(id, userId);
 
             if (order is null)
             {
@@ -57,13 +80,20 @@ public class OrdersController : ControllerBase
         }
     }
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost]
-
     public async Task<ActionResult<Order>> CreateAsync(CreateOrderDto orderDto)
     {
         try
         {
-            var order = await _orderService.CreateAsync(orderDto);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId is null)
+            {
+                return Unauthorized();
+            }
+
+            var order = await _orderService.CreateAsync(orderDto, userId);
 
             return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
         }

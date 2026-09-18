@@ -7,9 +7,6 @@ public class CreateOrderDto
     [Required]
     public List<CreateOrderItemDto> Items { get; set; } = new();
 
-    [Range(1, int.MaxValue)]
-    public string UserId { get; set; } = string.Empty;
-
 
 }
 public class CreateOrderItemDto

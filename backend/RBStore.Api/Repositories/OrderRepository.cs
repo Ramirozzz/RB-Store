@@ -15,12 +15,13 @@ public class OrderRepository : IOrderRepository
 
     public async Task<List<Order>> GetAllAsync()
     {
-        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ToListAsync();
+        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ThenInclude(p => p.Category)
+        .ToListAsync();
     }
 
     public async Task<Order?> GetByIdAsync(int id)
     {
-        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product)
+        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ThenInclude(p => p.Category)
         .FirstOrDefaultAsync(o => o.Id == id);
     }
 

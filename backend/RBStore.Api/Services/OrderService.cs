@@ -18,17 +18,7 @@ public class OrderService : IOrderService
         _userRepository = userRepository;
     }
 
-    public async Task<List<Order>> GetAllAsync()
-    {
-        return await _orderRepository.GetAllAsync();
-    }
-
-    public async Task<Order?> GetByIdAsync(int id)
-    {
-        return await _orderRepository.GetByIdAsync(id);
-    }
-
-    public async Task<List<Order>> GetByUserIdAsync(string userId)
+    public async Task<List<Order>> GetAllAsync(string userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -40,7 +30,36 @@ public class OrderService : IOrderService
         return await _orderRepository.GetByUserIdAsync(userId);
     }
 
-    public async Task<Order> CreateAsync(CreateOrderDto orderDto)
+    public async Task<Order?> GetByIdAsync(int id, string userId)
+    {
+        var order = await _orderRepository.GetByIdAsync(id);
+
+        if (order is null)
+        {
+            return null;
+        }
+
+        if (order.UserId != userId)
+        {
+            return null;
+        }
+
+        return order;
+    }
+
+    // public async Task<List<Order>> GetByUserIdAsync(string userId)
+    // {
+    //     var user = await _userRepository.GetByIdAsync(userId);
+
+    //     if (user is null)
+    //     {
+    //         throw new ArgumentException("User not found.");
+    //     }
+
+    //     return await _orderRepository.GetByUserIdAsync(userId);
+    // }
+
+    public async Task<Order> CreateAsync(CreateOrderDto orderDto, string userId)
     {
 
         if (orderDto.Items.Count == 0)
@@ -48,7 +67,7 @@ public class OrderService : IOrderService
             throw new ArgumentException("Order must contain at least one item.");
         }
 
-        var user = await _userRepository.GetByIdAsync(orderDto.UserId);
+        var user = await _userRepository.GetByIdAsync(userId);
 
         if (user is null)
         {
