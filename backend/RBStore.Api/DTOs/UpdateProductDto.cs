@@ -4,18 +4,21 @@ namespace RBStore.Api.DTOs;
 public class UpdateProductDto
 {
     [Required]
+    [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
     [Required]
+    [MaxLength(500)]
     public string Description { get; set; } = string.Empty;
 
     [Required]
+    [Range(0.01, double.MaxValue)]
     public decimal Price { get; set; }
 
-    // [Required]
+    [Url]
     public string ImageUrl { get; set; } = string.Empty;
 
-    [Required]
+    [Range(0, int.MaxValue)]
     public int StockQuantity { get; set; }
 
     public bool IsBestSeller { get; set; }

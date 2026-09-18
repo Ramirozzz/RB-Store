@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using RBStore.Api.Models;
 using RBStore.Api.Services;
 using RBStore.Api.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace RBStore.Api.Controllers;
@@ -60,6 +62,8 @@ public class ProductsController : ControllerBase
 
     }
 
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
     {
@@ -80,14 +84,12 @@ public class ProductsController : ControllerBase
         }
         catch (Exception)
         {
-            return StatusCode(
-                500,
-                "An unexpected error occurred while creating the product."
-            );
+            return StatusCode(500, "An unexpected error occurred while creating the product.");
         }
 
     }
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPut("{id}")]
     public async Task<ActionResult<Product>> UpdateProduct(int id, UpdateProductDto productDto)
     {
@@ -98,7 +100,7 @@ public class ProductsController : ControllerBase
 
             if (product is null)
             {
-                NotFound("Product not found.");
+                return NotFound("Product not found.");
             }
 
             return Ok(product);
@@ -114,6 +116,8 @@ public class ProductsController : ControllerBase
 
     }
 
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> DeleteProduct(int id)
     {
@@ -132,10 +136,7 @@ public class ProductsController : ControllerBase
         catch (Exception)
         {
 
-            return StatusCode(
-            500,
-            "An unexpected error occurred while deleting the product."
-        );
+            return StatusCode(500, "An unexpected error occurred while deleting the product.");
         }
 
     }

@@ -35,7 +35,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product?> UpdateAsync(Product product)
     {
-        var existingProduct = await _context.Products.FindAsync(product.Id);
+        var existingProduct = await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == product.Id);
 
         if (existingProduct is null)
         {
