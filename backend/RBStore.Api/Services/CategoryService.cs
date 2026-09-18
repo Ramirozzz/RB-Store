@@ -37,16 +37,6 @@ public class CategoryService : ICategoryService
             return null;
         }
 
-        if (string.IsNullOrWhiteSpace(categoryDto.Name))
-        {
-            throw new ArgumentException("Category name is required.");
-        }
-
-        if (categoryDto.Name.Length > 50)
-        {
-            throw new ArgumentException("Category name cannot be longer than 50 characters.");
-        }
-
         category.Name = categoryDto.Name;
 
         return await _categoryRepository.UpdateAsync(category);

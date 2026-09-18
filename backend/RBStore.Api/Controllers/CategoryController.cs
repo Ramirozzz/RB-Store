@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using RBStore.Api.DTOs;
 using RBStore.Api.Models;
 using RBStore.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RBStore.Api.Controllers;
 
@@ -18,7 +20,6 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-
     public async Task<ActionResult<List<Category>>> GetCategories()
     {
         try
@@ -33,7 +34,7 @@ public class CategoriesController : ControllerBase
         }
     }
 
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost]
     public async Task<ActionResult<Category>> CreateCategory(CreateCategoryDto categoryDto)
     {
@@ -56,6 +57,8 @@ public class CategoriesController : ControllerBase
         }
     }
 
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPut("{id}")]
     public async Task<ActionResult<Category>> UpdateCategory(int id, UpdateCategoryDto categoryDto)
     {
@@ -81,8 +84,8 @@ public class CategoriesController : ControllerBase
         }
     }
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpDelete("{id}")]
-
     public async Task<ActionResult<bool>> DeleteCategory(int id)
     {
         try
