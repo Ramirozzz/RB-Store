@@ -5,7 +5,8 @@ namespace RBStore.Api.Services;
 
 public interface IUserService
 {
-    Task<List<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(string id);
-    Task<User> CreateAsync(CreateUserDto userDto);
+    Task<List<UserResponseDto>> GetAllAsync();
+    Task<UserResponseDto?> GetByIdAsync(string id);
+    Task<UserResponseDto> CreateAsync(CreateUserDto userDto);
+    Task<LoginResponseDto?> LoginAsync(LoginUserDto loginDto);
 }

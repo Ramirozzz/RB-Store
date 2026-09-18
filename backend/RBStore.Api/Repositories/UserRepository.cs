@@ -13,10 +13,10 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<List<User>> GetAllAsync()
-    {
-        return await _context.Users.ToListAsync();
-    }
+    // public async Task<List<User>> GetAllAsync()
+    // {
+    //     return await _context.Users.ToListAsync();
+    // }
 
     public async Task<User?> GetByIdAsync(string id)
     {
@@ -33,12 +33,12 @@ public class UserRepository : IUserRepository
     //     return await _context.Users.Include(u => u.Orders).FirstOrDefaultAsync(u => u.Id == id);
     // }
 
-    public async Task<User> AddAsync(User user)
-    {
-        _context.Users.Add(user);
+    // public async Task<User> AddAsync(User user)
+    // {
+    //     _context.Users.Add(user);
 
-        await _context.SaveChangesAsync();
+    //     await _context.SaveChangesAsync();
 
-        return user;
-    }
+    //     return user;
+    // }
 }

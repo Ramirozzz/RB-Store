@@ -2,29 +2,54 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RBStore.Api.DTOs;
 using RBStore.Api.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace RBStore.Api.Services;
 
 public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
+    private readonly IConfiguration _configuration;
 
-    public UserService(UserManager<User> userManager)
+    public UserService(UserManager<User> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
+        _configuration = configuration;
     }
 
-    public async Task<List<User>> GetAllAsync()
+    public async Task<List<UserResponseDto>> GetAllAsync()
     {
-        return await _userManager.Users.ToListAsync();
+        var users = await _userManager.Users.ToListAsync();
+
+        return users.Select(user => new UserResponseDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email!
+        }).ToList();
     }
 
-    public async Task<User?> GetByIdAsync(string id)
+    public async Task<UserResponseDto?> GetByIdAsync(string id)
     {
-        return await _userManager.FindByIdAsync(id);
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user is null)
+        {
+            return null;
+        }
+
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email!
+        };
     }
 
-    public async Task<User> CreateAsync(CreateUserDto userDto)
+    public async Task<UserResponseDto> CreateAsync(CreateUserDto userDto)
     {
         var user = new User
         {
@@ -48,6 +73,51 @@ public class UserService : IUserService
             throw new ArgumentException(errors);
         }
 
-        return user;
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email!
+        };
+    }
+
+
+    public async Task<LoginResponseDto?> LoginAsync(LoginUserDto loginDto)
+    {
+        var user = await _userManager.FindByEmailAsync(loginDto.Email);
+
+        if (user == null)
+        {
+            return null;
+        }
+
+        var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+
+        if (!result)
+        {
+            return null;
+        }
+
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email!)
+    };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
+        );
+
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddHours(1),
+            signingCredentials: credentials
+        );
+
+        return new LoginResponseDto
+        {
+            Token = new JwtSecurityTokenHandler().WriteToken(token)
+        };
     }
 }
