@@ -9,10 +9,13 @@ public class OrderService : IOrderService
     private readonly IOrderRepository _orderRepository;
     private readonly IProductRepository _productRepository;
 
-    public OrderService(IOrderRepository orderRepository, IProductRepository productRepository)
+    private readonly IUserRepository _userRepository;
+
+    public OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IUserRepository userRepository)
     {
         _orderRepository = orderRepository;
         _productRepository = productRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<List<Order>> GetAllAsync()
@@ -25,12 +28,31 @@ public class OrderService : IOrderService
         return await _orderRepository.GetByIdAsync(id);
     }
 
+    public async Task<List<Order>> GetByUserIdAsync(int userId)
+    {
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user is null)
+        {
+            throw new ArgumentException("User not found.");
+        }
+
+        return await _orderRepository.GetByUserIdAsync(userId);
+    }
+
     public async Task<Order> CreateAsync(CreateOrderDto orderDto)
     {
 
         if (orderDto.Items.Count == 0)
         {
             throw new ArgumentException("Order must contain at least one item.");
+        }
+
+        var user = await _userRepository.GetByIdAsync(orderDto.UserId);
+
+        if (user is null)
+        {
+            throw new ArgumentException("User not found.");
         }
 
         var items = orderDto.Items.GroupBy(item => item.ProductId).Select(group => new CreateOrderItemDto
@@ -41,7 +63,8 @@ public class OrderService : IOrderService
 
         var order = new Order
         {
-            OrderDate = DateTime.UtcNow
+            OrderDate = DateTime.UtcNow,
+            UserId = user.Id
         };
 
         foreach (var itemDto in items)
