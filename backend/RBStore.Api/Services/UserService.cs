@@ -73,6 +73,8 @@ public class UserService : IUserService
             throw new ArgumentException(errors);
         }
 
+        await _userManager.AddToRoleAsync(user, "User");
+
         return new UserResponseDto
         {
             Id = user.Id,
