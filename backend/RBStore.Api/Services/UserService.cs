@@ -58,10 +58,7 @@ public class UserService : IUserService
             Name = userDto.Name
         };
 
-        var result = await _userManager.CreateAsync(
-            user,
-            userDto.Password
-        );
+        var result = await _userManager.CreateAsync(user, userDto.Password);
 
         if (!result.Succeeded)
         {
@@ -100,11 +97,18 @@ public class UserService : IUserService
             return null;
         }
 
+        var roles = await _userManager.GetRolesAsync(user);
+
         var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim(JwtRegisteredClaimNames.Email, user.Email!)
-    };
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email!)
+        };
+
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
         );

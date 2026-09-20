@@ -75,6 +75,45 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+    var adminEmail = "admin@rbstore.com";
+
+    var admin = await userManager.FindByEmailAsync(adminEmail);
+
+    if (admin is null)
+    {
+        admin = new User
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            Name = "RB Store Admin"
+        };
+
+        var result = await userManager.CreateAsync(
+            admin,
+            "AdminPassword123!"
+        );
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(
+                ", ",
+                result.Errors.Select(error => error.Description)
+            );
+
+            throw new Exception($"Failed to create admin: {errors}");
+        }
+    }
+
+    if (!await userManager.IsInRoleAsync(admin, "Admin"))
+    {
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
