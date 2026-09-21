@@ -1,0 +1,17 @@
+@theme {
+  /* Typography */
+  --font-primary: "Salena", sans-serif;
+  --font-secondary: "Michroma", sans-serif;
+
+  /* Color palette */
+  --color-bg: #000000;
+  --color-text: #000000;
+  --color-border: #dddddd;
+  --color-muted: #43464e;
+  --color-font-dark: #111111;
+  --color-accent: #b24f4a;
+  --color-white: #ffffff;
+  --color-font-dark: #111111;
+  --color-light-gray: #bfc3c9;
+  --color-card-bg: rgb(255 255 255 / 4%);
+}
