@@ -5,6 +5,10 @@ import { getProducts } from "../services/productService";
 export const useProducts = () => {
   return useQuery<Product[]>({
     queryKey: ["products"],
-    queryFn: getProducts,
+    queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      return getProducts();
+    },
   });
 };
