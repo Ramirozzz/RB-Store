@@ -5,6 +5,11 @@ import { getCategories } from "../services/categoryService";
 export const useCategories = () => {
   return useQuery<Category[]>({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      return getCategories();
+    },
+    // queryFn: getCategories,
   });
 };
