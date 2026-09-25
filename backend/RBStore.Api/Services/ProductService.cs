@@ -14,9 +14,9 @@ public class ProductService : IProductService
         _productRepository = productRepository;
         _categoryRepository = categoryRepository;
     }
-    public async Task<List<Product>> GetAllAsync()
+    public async Task<List<Product>> GetAllAsync(string? search, string? sort)
     {
-        return await _productRepository.GetAllAsync();
+        return await _productRepository.GetAllAsync(search, sort);
     }
 
     public async Task<Product?> GetByIdAsync(int id)

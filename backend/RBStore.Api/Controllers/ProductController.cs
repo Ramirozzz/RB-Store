@@ -21,11 +21,11 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts()
+    public async Task<ActionResult<List<Product>>> GetProducts([FromQuery] string? search, [FromQuery] string? sort)
     {
         try
         {
-            var products = await _productService.GetAllAsync();
+            var products = await _productService.GetAllAsync(search, sort);
 
             return Ok(products);
 
