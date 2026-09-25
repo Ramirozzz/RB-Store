@@ -2,13 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import type { Product } from "../types/product";
 import { getProducts } from "../services/productService";
 
-export const useProducts = () => {
+export const useProducts = (search?: string, sort?: string) => {
   return useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      return getProducts();
-    },
+    queryKey: ["products", { search, sort }],
+    queryFn: () => getProducts(search, sort),
+    placeholderData: (previousData) => previousData,
   });
 };
