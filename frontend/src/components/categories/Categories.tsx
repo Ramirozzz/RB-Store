@@ -1,14 +1,19 @@
 import { useCategories } from "../../hooks/useCategories";
+import Sort from "../sorting/Sort";
 import CategoriesSkeleton from "./CategoriesSkeleton";
 
 interface CategoriesProps {
   selectedCategory: number | null;
   setSelectedCategory: (id: number | null) => void;
+  sort: string;
+  setSort: (sort: string) => void;
 }
 
 const Categories: React.FC<CategoriesProps> = ({
   selectedCategory,
   setSelectedCategory,
+  sort,
+  setSort,
 }) => {
   const { data: categories, isLoading, isError } = useCategories();
 
@@ -19,34 +24,40 @@ const Categories: React.FC<CategoriesProps> = ({
   if (!categories) return null;
 
   return (
-    <div className="pt-20">
+    <div className="mx-auto px-5 sm:px-8 lg:px-20 pt-25">
       {isLoading ? (
         <CategoriesSkeleton />
       ) : (
-        <div className="flex flex-wrap items-center justify-center gap-3 px-5">
-          <button
-            onClick={() => setSelectedCategory(null)}
-            className={`border border-border px-5 py-2 text-xs uppercase transition ${
-              selectedCategory === null
-                ? "bg-black text-white"
-                : "hover:bg-black hover:text-white"
-            }`}
-          >
-            All
-          </button>
-          {categories.map((category) => (
+        <div className="flex justify-between items-center">
+          <div className="flex flex-wrap items-center justify-center gap-3 ">
             <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`border border-border px-5 py-2 text-xs uppercase transition ${
-                selectedCategory === category.id
-                  ? "bg-black text-white"
-                  : "hover:bg-black hover:text-white"
+              onClick={() => setSelectedCategory(null)}
+              className={`border px-5 py-2 text-xs font-bold uppercase transition ${
+                selectedCategory === null
+                  ? "border-bg"
+                  : "border-border hover:border-bg"
               }`}
             >
-              {category.name}
+              All
             </button>
-          ))}
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`border px-5 py-2 text-xs font-bold transition ${
+                  selectedCategory === category.id
+                    ? "border-bg "
+                    : "border-border hover:border-bg"
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+
+          <div>
+            <Sort sort={sort} onSort={setSort} />
+          </div>
         </div>
       )}
     </div>

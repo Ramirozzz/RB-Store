@@ -4,10 +4,14 @@ import ProductCardSkeleton from "./ProductCardSkeleton";
 
 interface ProductsListProps {
   selectedCategory: number | null;
+  sort: string;
 }
 
-const ProductsList: React.FC<ProductsListProps> = ({ selectedCategory }) => {
-  const { data: products, isLoading, isError } = useProducts();
+const ProductsList: React.FC<ProductsListProps> = ({
+  selectedCategory,
+  sort,
+}) => {
+  const { data: products, isLoading, isError } = useProducts(undefined, sort);
 
   if (isError) {
     return <p>Could not load products.</p>;
