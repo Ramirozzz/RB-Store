@@ -24,7 +24,7 @@ const Categories: React.FC<CategoriesProps> = ({
   if (!categories) return null;
 
   return (
-    <div className="mx-auto px-5 sm:px-8 lg:px-20 pt-25">
+    <div className="mx-auto px-5 sm:px-8 lg:px-20 pt-20">
       {isLoading ? (
         <CategoriesSkeleton />
       ) : (
@@ -32,10 +32,10 @@ const Categories: React.FC<CategoriesProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 ">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`border px-5 py-2 text-xs font-bold uppercase transition ${
+              className={`border px-5 py-3 text-xs font-bold uppercase transition-all duration-300 ${
                 selectedCategory === null
-                  ? "border-bg"
-                  : "border-border hover:border-bg"
+                  ? "bg-bg text-white"
+                  : "border-border hover:bg-bg hover:text-white"
               }`}
             >
               All
@@ -44,10 +44,10 @@ const Categories: React.FC<CategoriesProps> = ({
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`border px-5 py-2 text-xs font-bold transition ${
+                className={`border px-5 py-3 text-xs font-bold transition-all duration-300 ${
                   selectedCategory === category.id
                     ? "border-bg "
-                    : "border-border hover:border-bg"
+                    : "border-border hover:bg-bg hover:text-white"
                 }`}
               >
                 {category.name}
