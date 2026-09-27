@@ -2,15 +2,27 @@ import type { Product } from "../../types/product";
 import { Link } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { GoHeart } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
+import useCartStore from "../../stores/cartStore";
+import useWishlistStore from "../../stores/wishlistStore";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
+  const wishlistItems = useWishlistStore((state) => state.items);
+
+  const isWishlisted = wishlistItems.some((item) => item.id === product.id);
+
   return (
-    <Link to={`/products/${product.id}`}>
-      <article className="group">
+    <article className="group ">
+      <Link to={`/products/${product.id}`}>
         <div className="relative aspect-square overflow-hidden bg-gray-100">
           <img
             src={product.imageUrl}
@@ -23,28 +35,45 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               Best seller
             </span>
           )}
-          <div className="absolute right-3 top-3 z-10 bg-white rounded-full p-1">
-            <GoHeart size={18} />
-          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
+              isWishlisted
+                ? removeFromWishlist(product.id)
+                : addToWishlist(product);
+            }}
+            className="absolute right-3 top-3 z-10 bg-white rounded-full p-1"
+            aria-label={
+              isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+            }
+          >
+            {isWishlisted ? <GoHeartFill size={18} /> : <GoHeart size={18} />}
+          </button>
+        </div>
+      </Link>
+
+      <div className="mt-4 flex items-start justify-between gap-4 px-2">
+        <div>
+          <h3 className="text-sm font-bold text-text">{product.name}</h3>
+
+          {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
+          <p className="shrink-0 text-sm font-semibold text-muted mt-1">
+            {product.price} kr
+          </p>
         </div>
 
-        <div className="mt-4 flex items-start justify-between gap-4 px-2">
-          <div>
-            <h3 className="text-sm font-bold text-text">{product.name}</h3>
-
-            {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
-            <p className="shrink-0 text-sm font-semibold text-muted mt-1">
-              {product.price} kr
-            </p>
-          </div>
-
-          <HiOutlineShoppingBag size={20} className="text-muted" />
-          {/* <p className="shrink-0 text-sm font-medium text-text">
+        <HiOutlineShoppingBag
+          onClick={() => addToCart(product)}
+          size={20}
+          className="text-muted cursor-pointer"
+        />
+        {/* <p className="shrink-0 text-sm font-medium text-text">
           {product.price} kr
         </p> */}
-        </div>
-      </article>
-    </Link>
+      </div>
+    </article>
   );
 };
 
