@@ -32,13 +32,13 @@ const Categories: React.FC<CategoriesProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 ">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`border px-5 py-3 text-xs font-bold uppercase transition-all duration-300 ${
+              className={`border px-5 py-3 text-xs font-bold transition-all duration-300 ${
                 selectedCategory === null
                   ? "bg-bg text-white"
                   : "border-border hover:bg-bg hover:text-white"
               }`}
             >
-              All
+              All Products
             </button>
             {categories.map((category) => (
               <button
