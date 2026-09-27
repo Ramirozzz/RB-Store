@@ -25,7 +25,11 @@ const ProductsList: React.FC<ProductsListProps> = ({
   );
 
   return (
-    <div className="mx-auto px-5 sm:px-8 lg:px-20 py-15">
+    <div className="mx-auto px-5 sm:px-8 lg:px-20 py-8">
+      <span className="text-sm">
+        {filteredProducts.length === 1 ? "product" : "products"}
+      </span>
+
       {filteredProducts.length === 0 && (
         <div className="flex justify-center items-center w-full min-h-[200px] ">
           <p className="text-base text-text">
@@ -33,7 +37,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
           </p>
         </div>
       )}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-10  sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12 mt-3">
         {isLoading
           ? Array.from({ length: 8 }).map((_, index) => (
               <ProductCardSkeleton key={index} />
