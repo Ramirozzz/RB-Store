@@ -49,7 +49,7 @@ public class UserService : IUserService
         };
     }
 
-    public async Task<UserResponseDto> CreateAsync(CreateUserDto userDto)
+    public async Task<LoginResponseDto> CreateAsync(CreateUserDto userDto)
     {
         var user = new User
         {
@@ -72,11 +72,39 @@ public class UserService : IUserService
 
         await _userManager.AddToRoleAsync(user, "User");
 
-        return new UserResponseDto
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email!),
+        new Claim(ClaimTypes.Role, "User")
+    };
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
+        );
+
+        var credentials = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256
+        );
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddHours(1),
+            signingCredentials: credentials
+        );
+
+        return new LoginResponseDto
         {
-            Id = user.Id,
-            Name = user.Name,
-            Email = user.Email!
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+
+            User = new UserResponseDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email!,
+                Role = "User"
+            }
         };
     }
 
@@ -123,7 +151,14 @@ public class UserService : IUserService
 
         return new LoginResponseDto
         {
-            Token = new JwtSecurityTokenHandler().WriteToken(token)
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+            User = new UserResponseDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email!,
+                Role = roles.FirstOrDefault() ?? "User"
+            }
         };
     }
 }
