@@ -8,6 +8,8 @@ import WishlistPage from "./pages/WishlistPage";
 import LoginPage from "./pages/LoginPage";
 import Toast from "./components/Toasts/Toast";
 import RegisterPage from "./pages/RegisterPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/orders" element={<OrdersPage />} />
+          </Route>
         </Route>
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
