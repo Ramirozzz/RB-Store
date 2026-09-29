@@ -1,6 +1,7 @@
 import { useCategories } from "../../hooks/useCategories";
 import Sort from "../sorting/Sort";
 import CategoriesSkeleton from "./CategoriesSkeleton";
+import { TbFaceIdError } from "react-icons/tb";
 
 interface CategoriesProps {
   selectedCategory: number | null;
@@ -18,10 +19,13 @@ const Categories: React.FC<CategoriesProps> = ({
   const { data: categories, isLoading, isError } = useCategories();
 
   if (isError) {
-    return <p>Could not load categories.</p>;
+    return (
+      <div className="flex items-center gap-2 py-4 text-sm text-text mx-auto px-5 sm:px-8 lg:px-20 pt-20 ">
+        <TbFaceIdError size={18} className="text-red-500" />
+        <span>Could not load categories.</span>
+      </div>
+    );
   }
-
-  if (!categories) return null;
 
   return (
     <div className="mx-auto px-5 sm:px-8 lg:px-20 pt-20">
@@ -29,7 +33,7 @@ const Categories: React.FC<CategoriesProps> = ({
         <CategoriesSkeleton />
       ) : (
         <div className="flex justify-between items-center">
-          <div className="flex flex-wrap items-center justify-center gap-3 ">
+          <div className="flex flex-wrap items-center gap-3 ">
             <button
               onClick={() => setSelectedCategory(null)}
               className={`border px-5 py-3 text-xs font-bold transition-all duration-300 ${
@@ -40,13 +44,13 @@ const Categories: React.FC<CategoriesProps> = ({
             >
               All Products
             </button>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
                 className={`border px-5 py-3 text-xs font-bold transition-all duration-300 ${
                   selectedCategory === category.id
-                    ? "border-bg "
+                    ? "bg-bg text-white "
                     : "border-border hover:bg-bg hover:text-white"
                 }`}
               >
