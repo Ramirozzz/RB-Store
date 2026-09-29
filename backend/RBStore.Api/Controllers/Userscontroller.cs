@@ -96,7 +96,7 @@ public class UsersController : ControllerBase
 
 
     [HttpPost]
-    public async Task<ActionResult<UserResponseDto>> CreateUser(CreateUserDto userDto)
+    public async Task<ActionResult<LoginResponseDto>> CreateUser(CreateUserDto userDto)
     {
         try
         {
@@ -112,7 +112,7 @@ public class UsersController : ControllerBase
         {
             return StatusCode(
                 500,
-                "An unexpected error occurred while creating the user."
+                "An unexpected error occurred while creating account."
             );
         }
     }
