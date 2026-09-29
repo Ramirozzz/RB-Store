@@ -5,15 +5,21 @@ import "./App.css";
 import ProductPage from "./pages/ProductPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import WishlistPage from "./pages/WishlistPage";
+import LoginPage from "./pages/LoginPage";
+import Toast from "./components/Toasts/Toast";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <>
+      <Toast />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
