@@ -1,8 +1,12 @@
 import type { Product } from "../../types/product";
+import { useNavigate } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import useCartStore from "./../../stores/cartStore";
 import { GoDotFill } from "react-icons/go";
+import useToastStore from "../../stores/ToastStore";
+import useWishlistStore from "../../stores/wishlistStore";
 
 interface ProductProps {
   product: Product;
@@ -10,6 +14,16 @@ interface ProductProps {
 
 const ProductDetails: React.FC<ProductProps> = ({ product }) => {
   const addToCart = useCartStore((state) => state.addToCart);
+  const wishlistItems = useWishlistStore((state) => state.items);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
+  const isWishlisted = wishlistItems.some((item) => item.id === product.id);
+
+  const showToast = useToastStore((state) => state.showToast);
+
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 pt-40">
@@ -21,7 +35,10 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
         <span className="text-accent">{product.name}</span>
       </div>
       <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
-        <button className="absolute top-5 -left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2">
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-5 -left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2"
+        >
           <FaArrowLeftLong size={13} className="text-muted" />{" "}
           <span>Go Back</span>
         </button>
@@ -38,7 +55,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
             {product.category.name}
           </span>
 
-          <h1 className="mt-3 text-4xl uppercase tracking-tight lg:text-4xl">
+          <h1 className="mt-3 text-4xl uppercase lg:text-5xl">
             {product.name}
           </h1>
 
@@ -51,21 +68,35 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
           <div className="mt-10 border-t border-border pt-6">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => addToCart(product)}
-                className="h-13 w-full bg-surface text-base font-medium uppercase tracking-wide text-white transition hover:opacity-90"
+                onClick={() => {
+                  addToCart(product);
+                  showToast(`${product.name} Added to cart`, "success");
+                }}
+                className="h-13 w-full bg-surface text-base uppercase tracking-wide text-white transition-all duration-300 hover:opacity-90"
                 aria-label="Add to wishlist"
               >
                 Add to cart
               </button>
 
               <button
-                className="flex h-13 w-13 shrink-0 items-center justify-center border border-bg "
-                aria-label="Add to wishlist"
+                className="flex h-13 w-13 shrink-0 items-center justify-center border border-bg transition-all duration-300 "
+                aria-label={
+                  isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                }
+                onClick={() => {
+                  isWishlisted
+                    ? removeFromWishlist(product.id)
+                    : addToWishlist(product);
+                }}
               >
-                <GoHeart
-                  size={23}
-                  className="text-muted transition group-hover:text-white"
-                />
+                {isWishlisted ? (
+                  <GoHeartFill size={23} />
+                ) : (
+                  <GoHeart
+                    size={23}
+                    className="text-muted transition hover:text-text"
+                  />
+                )}
               </button>
             </div>
             <div className="mt-4">
