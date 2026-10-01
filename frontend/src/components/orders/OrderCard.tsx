@@ -17,7 +17,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border px-5 py-5 sm:px-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center bg-black text-white">
+          <div className="flex h-10 w-10 items-center justify-center bg-surface text-white">
             <span className="text-xs font-bold">#</span>
           </div>
 
@@ -37,7 +37,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
       <div className="divide-y divide-border">
         {order.orderItems.map((item) => (
           <div key={item.id} className="flex gap-4 px-5 py-5 sm:px-6">
-            <div className="h-24 w-24 shrink-0 overflow-hidden bg-neutral-100 sm:h-28 sm:w-28">
+            <div className="h-24 w-24 shrink-0 overflow-hidden bg-background sm:h-28 sm:w-28">
               <img
                 src={item.product.imageUrl}
                 alt={item.product.name}
