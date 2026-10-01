@@ -46,11 +46,11 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex min-h-dvh items-center justify-center px-5 py-20">
+    <div className="flex min-h-dvh items-center justify-center px-5 py-40">
       <div className="w-full max-w-md">
         <div className="mb-10 text-center">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">
-            Join RB Store
+            Join Us
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-text">
             Create account
@@ -71,7 +71,7 @@ const RegisterPage = () => {
               onChange={(e) => setName(e.target.value)}
               required
               autoComplete="name"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-black"
+              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ const RegisterPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-black"
+              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
             />
           </div>
           <div>
@@ -105,7 +105,7 @@ const RegisterPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="new-password"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-black"
+              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
             />
             {errorMessage && (
               <p className="mt-2 text-sm text-red-600"> {errorMessage} </p>
@@ -114,7 +114,7 @@ const RegisterPage = () => {
           <button
             type="submit"
             disabled={registerMutation.isPending}
-            className="flex w-full cursor-pointer items-center justify-center bg-black py-4 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex w-full cursor-pointer items-center justify-center bg-surface py-4 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {registerMutation.isPending ? (
               <LoadingSpinner size={18} />
@@ -124,7 +124,7 @@ const RegisterPage = () => {
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-muted">
-          Already have an account?
+          Already have an account?{" "}
           <Link to="/login" className="font-medium text-text underline">
             Login
           </Link>

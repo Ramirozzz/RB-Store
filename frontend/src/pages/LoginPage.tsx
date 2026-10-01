@@ -109,7 +109,7 @@ const LoginPage = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-bg"
+              className="w-full border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-surface"
               placeholder="Enter your password"
             />
           </div>
@@ -120,7 +120,7 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={loginMutation.isPending}
-            className="w-full cursor-pointer bg-black py-4 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800"
+            className="w-full cursor-pointer bg-surface py-4 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800"
           >
             {loginMutation.isPending ? (
               <LoadingSpinner size={18} color="#ffffff" />
