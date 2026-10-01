@@ -5,6 +5,7 @@ import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import useCartStore from "../../stores/cartStore";
 import useWishlistStore from "../../stores/wishlistStore";
+import useToastStore from "../../stores/ToastStore";
 
 interface ProductCardProps {
   product: Product;
@@ -16,6 +17,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const removeFromWishlist = useWishlistStore(
     (state) => state.removeFromWishlist,
   );
+  const showToast = useToastStore((state) => state.showToast);
+
   const wishlistItems = useWishlistStore((state) => state.items);
 
   const isWishlisted = wishlistItems.some((item) => item.id === product.id);
@@ -23,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <article className="group ">
       <Link to={`/products/${product.id}`}>
-        <div className="relative aspect-square overflow-hidden bg-gray-100">
+        <div className="relative aspect-square overflow-hidden bg-background">
           <img
             src={product.imageUrl}
             alt={product.name}
@@ -31,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           />
 
           {product.isBestSeller && (
-            <span className="absolute left-3 bottom-3 bg-accent px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
+            <span className="absolute left-2 bottom-3 bg-accent px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
               Best seller
             </span>
           )}
@@ -54,20 +57,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </Link>
 
-      <div className="mt-4 flex items-start justify-between gap-4 px-2">
+      <div className="mt-3 flex items-start justify-between gap-4 px-2">
         <div>
           <h3 className="text-sm font-bold text-text">{product.name}</h3>
 
           {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
           <p className="shrink-0 text-sm font-semibold text-muted mt-1">
-            {product.price} kr
+            {product.price.toFixed(2)} kr
           </p>
         </div>
 
         <HiOutlineShoppingBag
-          onClick={() => addToCart(product)}
-          size={20}
-          className="text-muted cursor-pointer"
+          onClick={() => {
+            addToCart(product);
+            showToast(`${product.name} Added to cart`, "success");
+          }}
+          size={22}
+          className="text-muted cursor-pointer hover:text-surface"
         />
         {/* <p className="shrink-0 text-sm font-medium text-text">
           {product.price} kr

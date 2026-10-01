@@ -27,8 +27,8 @@ const ProductsList: React.FC<ProductsListProps> = ({
 
   return (
     <div className="mx-auto px-5 py-8 sm:px-8 lg:px-20">
-      <span className="text-sm">
-        {filteredProducts?.length}{" "}
+      <span className="text-sm text-muted">
+        Showing {filteredProducts?.length}{" "}
         {filteredProducts?.length === 1 ? "product" : "products"}
       </span>
 

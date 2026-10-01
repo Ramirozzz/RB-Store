@@ -2,6 +2,7 @@ import type { Product } from "../../types/product";
 import { GoHeart } from "react-icons/go";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import useCartStore from "./../../stores/cartStore";
+import { GoDotFill } from "react-icons/go";
 
 interface ProductProps {
   product: Product;
@@ -12,12 +13,19 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 pt-40">
+      <div className="flex items-center gap-2 mb-4 text-sm text-text">
+        <span>Home</span>
+        <span>/</span>
+        <span> {product.category.name}</span>
+        <span>/</span>
+        <span className="text-accent">{product.name}</span>
+      </div>
       <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
         <button className="absolute top-5 -left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2">
           <FaArrowLeftLong size={13} className="text-muted" />{" "}
           <span>Go Back</span>
         </button>
-        <div className="aspect-square overflow-hidden bg-neutral-100">
+        <div className="aspect-square overflow-hidden bg-background">
           <img
             src={product.imageUrl}
             alt={product.name}
@@ -26,17 +34,17 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="text-xs uppercase tracking-widest text-muted font-medium  ">
+          <span className="text-xs uppercase tracking-widest text-muted">
             {product.category.name}
-          </p>
+          </span>
 
-          <h1 className="mt-3 text-4xl font-bold uppercase tracking-tight lg:text-4xl">
+          <h1 className="mt-3 text-4xl uppercase tracking-tight lg:text-4xl">
             {product.name}
           </h1>
 
-          <p className="mt-6 text-xl font-bold">{product.price} kr</p>
+          <span className="mt-6 text-xl ">{product.price.toFixed(2)} kr</span>
 
-          <p className="mt-8 max-w-lg leading-7 text-muted font-medium">
+          <p className="mt-8 max-w-lg leading-6 text-muted">
             {product.description}
           </p>
 
@@ -44,7 +52,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => addToCart(product)}
-                className="h-13 w-full bg-bg text-base font-medium uppercase tracking-wide text-white transition hover:opacity-90"
+                className="h-13 w-full bg-surface text-base font-medium uppercase tracking-wide text-white transition hover:opacity-90"
                 aria-label="Add to wishlist"
               >
                 Add to cart
@@ -62,12 +70,13 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
             </div>
             <div className="mt-4">
               {product.stockQuantity > 5 ? (
-                <span className="text-sm text-green-600 font-semibold">
+                <span className="flex items-center gap-1 text-sm text-green-600">
+                  <GoDotFill size={16} />
                   {product.stockQuantity} left in stock
                 </span>
               ) : (
-                <span className="text-sm text-red-500 font-semibold">
-                  Only {product.stockQuantity} left in stock
+                <span className="text-sm text-red-500">
+                  <GoDotFill /> Only {product.stockQuantity} left in stock
                 </span>
               )}
             </div>
