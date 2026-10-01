@@ -49,12 +49,10 @@ const RegisterPage = () => {
     <div className="flex min-h-dvh items-center justify-center px-5 py-40">
       <div className="w-full max-w-md">
         <div className="mb-10 text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted">
             Join Us
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-text">
-            Create account
-          </h1>
+          <h1 className="mt-2 text-3xl text-text">Create account</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
@@ -125,7 +123,7 @@ const RegisterPage = () => {
         </form>
         <p className="mt-6 text-center text-sm text-muted">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-text underline">
+          <Link to="/login" className="font-bold text-text underline">
             Login
           </Link>
         </p>

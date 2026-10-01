@@ -33,10 +33,10 @@ const Categories: React.FC<CategoriesProps> = ({
         <CategoriesSkeleton />
       ) : (
         <div className="flex justify-between items-center">
-          <div className="flex flex-wrap items-center gap-9 ">
+          <div className="flex flex-wrap items-center gap-8 ">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={` text-base font-bold transition-all duration-300 ${
+              className={` text-base transition-all duration-100 ${
                 selectedCategory === null
                   ? "border-b-2 border-surface py-1"
                   : "hover:border-b-2 border-surface py-1 "
@@ -48,7 +48,7 @@ const Categories: React.FC<CategoriesProps> = ({
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`text-base text-text transition-all duration-300 ${
+                className={`text-base text-text transition-all duration-100 ${
                   selectedCategory === category.id
                     ? "border-b-2 border-surface py-1"
                     : "hover:border-b-2 border-surface py-1 "

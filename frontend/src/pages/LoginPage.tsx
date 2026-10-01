@@ -66,13 +66,11 @@ const LoginPage = () => {
     <div className="flex min-h-dvh items-center justify-center px-5 py-20">
       <div className="w-full max-w-md">
         <div className="mb-10 text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted">
             Welcome back
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-text">
-            Login
-          </h1>
+          <h1 className="mt-2 text-3xl text-text">Sign in</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -132,7 +130,7 @@ const LoginPage = () => {
 
         <p className="mt-6 text-center text-sm text-muted">
           Don't have an account?{" "}
-          <Link to="/register" className="font-medium text-text underline">
+          <Link to="/register" className="text-text underline">
             Register
           </Link>
         </p>

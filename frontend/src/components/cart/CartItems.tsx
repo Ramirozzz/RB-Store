@@ -1,5 +1,6 @@
-import { FiX } from "react-icons/fi";
 import useCartStore from "../../stores/cartStore";
+import { useNavigate } from "react-router-dom";
+import { FiX } from "react-icons/fi";
 import { IoIosAdd } from "react-icons/io";
 import { HiMiniMinusSmall } from "react-icons/hi2";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -15,6 +16,8 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
 
   const subtotal = cartItems.reduce(
@@ -29,7 +32,7 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
 
       <aside className="fixed right-0 top-0 z-50 flex h-dvh w-full max-w-md flex-col bg-white slide-bottom">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
-          <h2 className="text-lg font-bold">Your Cart</h2>
+          <h2 className="text-lg">Your Cart</h2>
 
           <button
             type="button"
@@ -44,7 +47,9 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
         <div className="flex-1 overflow-y-auto py-6">
           {cartItems.length === 0 ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-sm text-muted">Your cart is empty.</p>
+              <p className="text-base font-bold text-muted">
+                Your cart is empty.
+              </p>
             </div>
           ) : (
             <div className="space-y-6">
@@ -61,12 +66,10 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
                     />
 
                     <div>
-                      <h3 className="text-sm font-semibold">
-                        {item.product.name}
-                      </h3>
+                      <h3 className="text-sm ">{item.product.name}</h3>
 
-                      <p className="mt-1 text-sm text-muted font-medium">
-                        {item.product.price} kr
+                      <p className="mt-1 text-sm text-muted font-bold">
+                        {item.product.price.toFixed(2)} kr
                       </p>
 
                       <div className="mt-3 flex items-center gap-3">
@@ -78,9 +81,7 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
                           <HiMiniMinusSmall />
                         </button>
 
-                        <span className="text-sm font-semibold">
-                          {item.quantity}
-                        </span>
+                        <span className="text-sm">{item.quantity}</span>
 
                         <button
                           type="button"
@@ -114,17 +115,34 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="border-t border-border px-6 py-6">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">Subtotal</span>
+            <span className="text-sm">Subtotal</span>
 
-            <span className="text-sm font-bold">{subtotal} kr</span>
+            <span className="text-sm">{subtotal.toFixed(2)} kr</span>
           </div>
 
           <button
             type="button"
-            className="mt-5 w-full cursor-pointer bg-black py-4 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800"
+            onClick={() => {
+              onClose();
+              navigate("/checkout");
+            }}
+            className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
           >
             Checkout
           </button>
+
+          {/* <button
+            type="button"
+            onClick={handleCheckout}
+            disabled={createOrderMutation.isPending}
+            className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
+          >
+            {createOrderMutation.isPending ? (
+              <LoadingSpinner size={18} color="#ffffff" />
+            ) : (
+              "Checkout"
+            )}
+          </button> */}
         </div>
       </aside>
     </>

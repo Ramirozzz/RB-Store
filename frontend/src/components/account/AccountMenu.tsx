@@ -42,7 +42,7 @@ const AccountMenu = () => {
           aria-label="Open account menu"
         >
           {isAuthenticated ? (
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-xs font-bold text-white">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-xs text-white">
               {user?.name.slice(0, 1).toUpperCase()}
             </span>
           ) : (
@@ -55,9 +55,11 @@ const AccountMenu = () => {
             {isAuthenticated ? (
               <>
                 <div className="border-b border-border px-3 py-3">
-                  <p className="text-sm font-primary text-text">{user?.name}</p>
+                  <p className="text-sm font-primary text-text font-bold">
+                    {user?.name}
+                  </p>
 
-                  <p className="mt-1 text-xs text-muted">{user?.email}</p>
+                  <p className="mt-1 text-sm text-muted">{user?.email}</p>
                 </div>
 
                 <Link

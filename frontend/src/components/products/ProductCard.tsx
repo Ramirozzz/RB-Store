@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           />
 
           {product.isBestSeller && (
-            <span className="absolute left-2 bottom-3 bg-accent px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
+            <span className="absolute left-2 bottom-3 bg-accent px-2 py-1 text-xs uppercase tracking-wide text-white">
               Best seller
             </span>
           )}
@@ -52,17 +52,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               isWishlisted ? "Remove from wishlist" : "Add to wishlist"
             }
           >
-            {isWishlisted ? <GoHeartFill size={18} /> : <GoHeart size={18} />}
+            {isWishlisted ? <GoHeartFill size={22} /> : <GoHeart size={22} />}
           </button>
         </div>
       </Link>
 
       <div className="mt-3 flex items-start justify-between gap-4 px-2">
         <div>
-          <h3 className="text-sm font-bold text-text">{product.name}</h3>
+          <h3 className="text-sm text-text">{product.name}</h3>
 
           {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
-          <p className="shrink-0 text-sm font-semibold text-muted mt-1">
+          <p className="shrink-0 text-sm text-muted font-bold mt-1">
             {product.price.toFixed(2)} kr
           </p>
         </div>

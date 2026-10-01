@@ -11,7 +11,7 @@ const Sort: React.FC<SortProps> = ({ sort, onSort }) => {
       <select
         value={sort}
         onChange={(e) => onSort(e.target.value)}
-        className="cursor-pointer appearance-none border border-border bg-white py-3 pl-4 pr-10 text-sm font-bold uppercase tracking-wider text-text outline-none transition hover:border-black"
+        className="cursor-pointer appearance-none border border-border bg-white py-3 pl-4 pr-10 text-xs font-bold uppercase tracking-wider text-text outline-none transition hover:border-black"
       >
         <option className="bg-white text-text" value="">
           Sort by

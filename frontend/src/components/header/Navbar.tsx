@@ -26,17 +26,16 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-50 w-full">
-      <div className="flex items-center justify-center bg-surface px-4 py-1.5 text-center text-xs text-white font-bold">
+      <div className="flex items-center justify-center bg-surface px-4 py-1.5 text-center text-xs text-white">
         <span>Up to 50% sale | shop now</span>
       </div>
 
       <div className="bg-white border-b border-border px-5 py-4 md:px-10 lg:px-20">
-        {/* <div className="grid grid-cols-[1fr_auto_1fr] items-center"> */}
-        <div className="flex justify-between items-center">
-          <div className="justify-self-center pt-1">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center">
+          <div className="justify-self-start pt-1">
             <Link to={"/"}>
-              <span className="text-2xl font-extrabold  sm:text-3xl lg:text-2xl">
-                RB STORE
+              <span className="text-2xl font-primary-bold italic tracking-tight sm:text-3xl lg:text-2xl">
+                RB STORE.
               </span>
             </Link>
           </div>
@@ -49,8 +48,7 @@ const Navbar = () => {
 
           {/* Desktop */}
           <div className="hidden justify-self-start lg:block">
-            <ul className="flex items-center gap-5 text-sm text-text uppercase">
-              <li>Home</li>
+            <ul className="flex items-center gap-5 text-sm  text-text uppercase">
               <li>Shop</li>
               <li>Best Sellers</li>
               <li>About</li>

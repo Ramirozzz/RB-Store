@@ -14,7 +14,7 @@ const WishlistPage = () => {
             Saved for later
           </span>
 
-          <h1 className="mt-2 text-3xl tracking-tight text-text sm:text-4xl uppercase">
+          <h1 className="mt-2 text-3xl text-text sm:text-4xl uppercase">
             Wishlist
           </h1>
         </div>
@@ -33,7 +33,7 @@ const WishlistPage = () => {
 
           <h2 className="mt-5 text-2xl text-text">Your wishlist is empty</h2>
 
-          <p className="mt-2 max-w-sm text-base leading-6 text-muted">
+          <p className="mt-2 max-w-md text-sm leading-6 text-muted">
             Save your favorite sunglasses here and come back to them later.
           </p>
 
