@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
+import LoadingOverlay from "../LoadingSpinners/LoadingOverlay";
 import { AiOutlineUser } from "react-icons/ai";
-// import { IoLogOutOutline } from "react-icons/io5";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import LoadingOverlay from "../LoadingSpinners/LoadingOverlay";
+import { AiOutlineLogin } from "react-icons/ai";
+import { LuUserRoundPlus } from "react-icons/lu";
 
 const AccountMenu = () => {
   const [accountOpen, setAccountOpen] = useState(false);
@@ -45,7 +46,7 @@ const AccountMenu = () => {
               {user?.name.slice(0, 1).toUpperCase()}
             </span>
           ) : (
-            <AiOutlineUser size={24} />
+            <AiOutlineUser size={24} className="mt-1" />
           )}
         </button>
 
@@ -54,7 +55,7 @@ const AccountMenu = () => {
             {isAuthenticated ? (
               <>
                 <div className="border-b border-border px-3 py-3">
-                  <p className="text-sm font-medium text-text">{user?.name}</p>
+                  <p className="text-sm font-primary text-text">{user?.name}</p>
 
                   <p className="mt-1 text-xs text-muted">{user?.email}</p>
                 </div>
@@ -62,7 +63,7 @@ const AccountMenu = () => {
                 <Link
                   to="/orders"
                   onClick={() => setAccountOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 pt-3 text-sm text-text hover:bg-neutral-100"
+                  className="flex items-center gap-2 px-3 py-2.5 pt-3 text-sm text-text hover:bg-background"
                 >
                   <HiOutlineClipboardDocumentList
                     size={17}
@@ -74,7 +75,7 @@ const AccountMenu = () => {
                 <Link
                   to="/wishlist"
                   onClick={() => setAccountOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-neutral-100"
+                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
                 >
                   <GoHeart size={17} className="text-muted" />
                   Wishlist
@@ -83,7 +84,7 @@ const AccountMenu = () => {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="flex items-center gap-2 w-full cursor-pointer px-3 py-2.5 text-left text-sm text-text hover:bg-neutral-100"
+                  className="flex items-center gap-2 w-full cursor-pointer px-3 py-2.5 text-left text-sm text-text hover:bg-background"
                 >
                   <AiOutlineLogout size={17} className="text-muted" />
                   Logout
@@ -94,17 +95,18 @@ const AccountMenu = () => {
                 <Link
                   to="/login"
                   onClick={() => setAccountOpen(false)}
-                  className="block px-3 py-2.5 text-sm text-text hover:bg-neutral-100"
+                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
                 >
-                  Sign in
+                  <AiOutlineLogin size={18} className="text-muted" /> Sign in
                 </Link>
 
                 <Link
                   to="/register"
                   onClick={() => setAccountOpen(false)}
-                  className="block px-3 py-2.5 text-sm text-text hover:bg-neutral-100"
+                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
                 >
-                  Create account
+                  <LuUserRoundPlus size={18} className="text-muted" /> Create
+                  account
                 </Link>
               </>
             )}
