@@ -31,7 +31,7 @@ const Toast = () => {
           )}
         </div>
 
-        <p className="flex-1 text-sm text-text">{message}</p>
+        <p className="flex-1 text-sm font-primary text-text">{message}</p>
 
         <button
           type="button"

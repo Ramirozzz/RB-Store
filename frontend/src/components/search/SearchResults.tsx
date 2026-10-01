@@ -26,7 +26,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     <div className="bg-white p-8">
       {isLoading && (
         <div className="flex min-h-[100px] items-center justify-center">
-          <ClipLoader color="#36d7b7" />
+          <ClipLoader color="#000000" />
         </div>
       )}
 
@@ -39,7 +39,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
         products.length > 0 && (
           <>
             <span className="text-sm text-muted">
-              {products.length} products found
+              {products.length} {products.length === 1 ? "product" : "products"}{" "}
+              found
             </span>
 
             <div className="mt-4 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">

@@ -22,7 +22,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onClose }) => {
   if (!products) return null;
 
   return (
-    <div className="absolute top-8.5 left-1/2 z-50 w-[calc(100%-3rem)] -translate-x-1/2 bg-neutral-200">
+    <div className="absolute top-8.5 left-1/2 z-50 w-[calc(100%-3rem)] -translate-x-1/2 bg-background">
       <div className="flex items-center justify-between  rounded-lg px-5 py-3">
         <input
           type="text"
@@ -30,7 +30,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onClose }) => {
           value={search}
           placeholder="Search products..."
           autoFocus
-          className="w-full bg-transparent text-text outline-none placeholder:text-sm placeholder:text-muted"
+          className="w-full bg-transparent text-text outline-none placeholder:text-base font-primary-medium placeholder:text-muted/70"
         />
 
         <button onClick={onClose} className="ml-5 text-text">
