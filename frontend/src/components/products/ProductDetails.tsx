@@ -26,7 +26,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 pt-40">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8 lg:px-10 pt-40">
       <div className="flex items-center gap-2 mb-4 text-sm text-text">
         <span>Home</span>
         <span>/</span>
@@ -37,7 +37,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
       <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-5 -left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2"
+          className="absolute top-5 -left-4 md:-left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2"
         >
           <FaArrowLeftLong size={13} className="text-muted" />{" "}
           <span>Go Back</span>
@@ -59,13 +59,13 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
             {product.name}
           </h1>
 
-          <span className="mt-6 text-xl ">{product.price.toFixed(2)} kr</span>
+          <span className="mt-5 text-xl ">{product.price.toFixed(2)} kr</span>
 
-          <p className="mt-8 max-w-lg leading-6 text-muted">
+          <p className="mt-6 max-w-lg leading-6 text-muted">
             {product.description}
           </p>
 
-          <div className="mt-10 border-t border-border pt-6">
+          <div className="mt-8 border-t border-border pt-6">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {

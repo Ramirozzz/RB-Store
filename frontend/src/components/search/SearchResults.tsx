@@ -23,7 +23,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     );
   }
   return (
-    <div className="bg-white p-8">
+    <div className="bg-white px-5 lg:px-8 py-8 ">
       {isLoading && (
         <div className="flex min-h-[100px] items-center justify-center">
           <ClipLoader color="#000000" />

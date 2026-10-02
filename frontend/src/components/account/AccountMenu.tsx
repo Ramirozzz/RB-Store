@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
 import LoadingOverlay from "../LoadingSpinners/LoadingOverlay";
-import { AiOutlineUser } from "react-icons/ai";
+// import { AiOutlineUser } from "react-icons/ai";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { AiOutlineLogin } from "react-icons/ai";
 import { LuUserRoundPlus } from "react-icons/lu";
+import { PiUser } from "react-icons/pi";
 
 const AccountMenu = () => {
   const [accountOpen, setAccountOpen] = useState(false);
@@ -42,11 +43,11 @@ const AccountMenu = () => {
           aria-label="Open account menu"
         >
           {isAuthenticated ? (
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-xs text-white">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-sm text-white">
               {user?.name.slice(0, 1).toUpperCase()}
             </span>
           ) : (
-            <AiOutlineUser size={24} className="mt-1" />
+            <PiUser size={24} className="mt-1" />
           )}
         </button>
 

@@ -22,8 +22,8 @@ const Searchbar: React.FC<SearchbarProps> = ({ onClose }) => {
   if (!products) return null;
 
   return (
-    <div className="absolute top-9.5 left-1/2 z-50 w-[calc(100%-3rem)] -translate-x-1/2 bg-background">
-      <div className="flex items-center justify-between rounded-lg px-5 py-3">
+    <div className="absolute top-9.5 left-1/2 z-50 w-[calc(100%-0rem)] lg:w-[calc(100%-3rem)] -translate-x-1/2 bg-white lg:bg-background">
+      <div className="flex items-center justify-between rounded-lg  px-5 py-3 ">
         <input
           type="text"
           onChange={(e) => setSearch(e.target.value)}
@@ -38,7 +38,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onClose }) => {
         </button>
       </div>
 
-      <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto shadow-lg">
+      <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto shadow-lg ">
         {debouncedSearch && !isLoading && products && (
           <SearchResults
             products={products}
