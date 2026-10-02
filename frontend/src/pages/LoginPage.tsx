@@ -88,7 +88,7 @@ const LoginPage = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-black"
+              className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none transition focus:border-black"
               placeholder="Enter your email"
             />
           </div>
@@ -107,7 +107,7 @@ const LoginPage = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-surface"
+              className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none transition focus:border-surface"
               placeholder="Enter your password"
             />
           </div>

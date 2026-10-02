@@ -69,7 +69,7 @@ const RegisterPage = () => {
               onChange={(e) => setName(e.target.value)}
               required
               autoComplete="name"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
+              className="w-full border border-border bg-white px-4 py-3 text-[16px] text-text outline-none transition focus:border-surface"
             />
           </div>
           <div>
@@ -86,7 +86,7 @@ const RegisterPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
+              className="w-full border border-border bg-white px-4 py-3 text-[16px] text-text outline-none transition focus:border-surface"
             />
           </div>
           <div>
@@ -103,7 +103,7 @@ const RegisterPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="new-password"
-              className="w-full border border-border bg-white px-4 py-3 text-sm text-text outline-none transition focus:border-surface"
+              className="w-full border border-border bg-white px-4 py-3 text-[16px] text-text outline-none transition focus:border-surface"
             />
             {errorMessage && (
               <p className="mt-2 text-sm text-red-600"> {errorMessage} </p>
