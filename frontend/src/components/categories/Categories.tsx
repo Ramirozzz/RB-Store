@@ -1,6 +1,9 @@
 import { useCategories } from "../../hooks/useCategories";
 import Sort from "../sorting/Sort";
 import CategoriesSkeleton from "./CategoriesSkeleton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import "swiper/css";
 import { TbFaceIdError } from "react-icons/tb";
 
 interface CategoriesProps {
@@ -28,38 +31,61 @@ const Categories: React.FC<CategoriesProps> = ({
   }
 
   return (
-    <div className="mx-auto px-5 sm:px-8 lg:px-20 pt-20">
+    <div className="mx-auto px-4 pt-15 lg:pt-20 sm:px-8 lg:px-10 xl:px-15">
       {isLoading ? (
         <CategoriesSkeleton />
       ) : (
-        <div className="flex justify-between items-center">
-          <div className="flex flex-wrap items-center gap-8 ">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={` text-base transition-all duration-100 ${
-                selectedCategory === null
-                  ? "border-b-2 border-surface py-1"
-                  : "hover:border-b-2 border-surface py-1 "
-              }`}
-            >
-              All Products
-            </button>
-            {categories?.map((category) => (
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <Swiper
+            slidesPerView="auto"
+            // spaceBetween={30}
+            freeMode
+            modules={[FreeMode]}
+            className="w-full"
+            breakpoints={{
+              320: {
+                spaceBetween: 50,
+              },
+              640: {
+                spaceBetween: 34,
+              },
+              1024: {
+                spaceBetween: 28,
+              },
+            }}
+          >
+            <SwiperSlide className="!w-auto">
               <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`text-base text-text transition-all duration-100 ${
-                  selectedCategory === category.id
+                type="button"
+                onClick={() => setSelectedCategory(null)}
+                className={`whitespace-nowrap text-base transition-all duration-100 ${
+                  selectedCategory === null
                     ? "border-b-2 border-surface py-1"
-                    : "hover:border-b-2 border-surface py-1 "
+                    : "py-1 hover:border-b-2 hover:border-surface"
                 }`}
               >
-                {category.name}
+                All Products
               </button>
-            ))}
-          </div>
+            </SwiperSlide>
 
-          <div>
+            {categories?.map((category) => (
+              <SwiperSlide key={category.id} className="!w-auto">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`whitespace-nowrap text-base text-text transition-all duration-100 ${
+                    selectedCategory === category.id
+                      ? "border-b-2 border-surface py-1"
+                      : "py-1 hover:border-b-2 hover:border-surface"
+                  }`}
+                >
+                  {category.name}
+                </button>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className="shrink-0">
             <Sort sort={sort} onSort={setSort} />
           </div>
         </div>
