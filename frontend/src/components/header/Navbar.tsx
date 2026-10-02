@@ -5,12 +5,15 @@ import CartItems from "../cart/CartItems";
 import useCartStore from "../../stores/cartStore";
 import useWishlistStore from "../../stores/wishlistStore";
 import AccountMenu from "../account/AccountMenu";
-import { RiSearchLine } from "react-icons/ri";
+import MobileMenu from "./MobileMenu";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { IoMdHeartEmpty } from "react-icons/io";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
+import { VscMenu } from "react-icons/vsc";
 
 const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchBarOpen, setSearchBarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -30,20 +33,32 @@ const Navbar = () => {
         <span>Up to 50% sale | shop now</span>
       </div>
 
-      <div className="bg-white border-b border-border px-5 py-4 md:px-10 lg:px-20">
+      <div className="bg-white border-b border-border px-4 py-3.5 lg:py-4 sm:px-8 lg:px-10 xl:px-15">
         <div className="grid grid-cols-[1fr_auto_1fr] items-center">
-          <div className="justify-self-start pt-1">
+          {/* Mobile menu */}
+          <div className="flex items-center justify-self-start gap-3.5 lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              type="button"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileMenuOpen ? <IoClose size={28} /> : <VscMenu size={25} />}
+            </button>
+            <button
+              onClick={() => setSearchBarOpen(true)}
+              className="block lg:hidden cursor-pointer text-muted"
+              aria-label="Search"
+            >
+              <CiSearch size={25} strokeWidth={0.5} />
+            </button>
+          </div>
+
+          <div className="justify-self-center lg:justify-self-start">
             <Link to={"/"}>
               <span className="text-2xl font-primary-bold italic tracking-tight sm:text-3xl lg:text-2xl">
-                RB STORE.
+                RB STORE
               </span>
             </Link>
-          </div>
-          {/* Mobile menu */}
-          <div className="flex items-center lg:hidden">
-            <button type="button" aria-label="Open menu">
-              <RxHamburgerMenu size={20} />
-            </button>
           </div>
 
           {/* Desktop */}
@@ -56,21 +71,21 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <div className="justify-self-end">
-            <div className="flex items-center gap-1 text-muted sm:gap-4 lg:gap-4">
+          <div className="justify-self-end pr-1 lg:pr-0">
+            <div className="flex items-center gap-3.5 text-muted sm:gap-4 lg:gap-4">
               <button
                 onClick={() => setSearchBarOpen(true)}
-                className="cursor-pointer"
+                className="hidden lg:block cursor-pointer"
                 aria-label="Search"
               >
-                <RiSearchLine size={24} />
+                <CiSearch size={25} strokeWidth={0.5} />
               </button>
 
               <AccountMenu />
 
-              <Link to={"/wishlist"}>
+              <Link to={"/wishlist"} className="flex items-center">
                 <button
-                  className="relative hidden sm:block cursor-pointer"
+                  className="relative  cursor-pointer"
                   aria-label="Open wishlist"
                 >
                   <IoMdHeartEmpty size={25} />
@@ -90,7 +105,7 @@ const Navbar = () => {
               >
                 <HiOutlineShoppingBag size={24} />
                 {cartItemsCount > 0 && (
-                  <sup className="absolute -right-2.5 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
+                  <sup className="absolute -right-2 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
                     {cartItemsCount}
                   </sup>
                 )}
@@ -98,6 +113,9 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        {mobileMenuOpen && (
+          <MobileMenu onClose={() => setMobileMenuOpen(false)} />
+        )}
         {isSearchBarOpen && (
           <Searchbar onClose={() => setSearchBarOpen(false)} />
         )}
