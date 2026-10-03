@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Product } from "../../types/product";
 import { useNavigate } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
@@ -28,7 +29,9 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8 lg:px-10 pt-40">
       <div className="flex items-center gap-2 mb-4 text-sm text-text">
-        <span>Home</span>
+        <Link to={"/"}>
+          <span>Home</span>
+        </Link>
         <span>/</span>
         <span> {product.category.name}</span>
         <span>/</span>
@@ -73,7 +76,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
                   showToast(`${product.name} Added to cart`, "success");
                 }}
                 className="h-13 w-full bg-surface text-base uppercase tracking-wide text-white transition-all duration-300 hover:opacity-90"
-                aria-label="Add to wishlist"
+                aria-label="Add to cart"
               >
                 Add to cart
               </button>
