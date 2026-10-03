@@ -20,7 +20,7 @@ const OrdersPage = () => {
         </p>
 
         <div className="flex items-end justify-between gap-6">
-          <h1 className="text-3xl font-bold tracking-tight text-text sm:text-4xl uppercase">
+          <h1 className="text-3xl font-bold text-text sm:text-4xl uppercase">
             My Orders
           </h1>
 

@@ -31,11 +31,11 @@ const Categories: React.FC<CategoriesProps> = ({
   }
 
   return (
-    <div className="mx-auto px-4 pt-15 lg:pt-20 sm:px-8 lg:px-10 xl:px-15">
+    <div className="mx-auto px-4 pt-4 lg:pt-8 sm:px-8 lg:px-10 xl:px-15">
       {isLoading ? (
         <CategoriesSkeleton />
       ) : (
-        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-7 md:gap-5 md:flex-row md:items-center md:justify-between">
           <Swiper
             slidesPerView="auto"
             // spaceBetween={30}
@@ -50,7 +50,7 @@ const Categories: React.FC<CategoriesProps> = ({
                 spaceBetween: 34,
               },
               1024: {
-                spaceBetween: 28,
+                spaceBetween: 35,
               },
             }}
           >
