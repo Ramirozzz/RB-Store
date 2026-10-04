@@ -30,7 +30,7 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8 lg:px-10 pt-40">
       <div className="flex items-center gap-2 mb-4 text-sm text-text">
         <Link to={"/"}>
-          <span>Home</span>
+          <span className="underline">Home</span>
         </Link>
         <span>/</span>
         <span> {product.category.name}</span>
@@ -93,10 +93,10 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
                 }}
               >
                 {isWishlisted ? (
-                  <GoHeartFill size={23} />
+                  <GoHeartFill size={24} />
                 ) : (
                   <GoHeart
-                    size={23}
+                    size={24}
                     className="text-muted transition hover:text-text"
                   />
                 )}
