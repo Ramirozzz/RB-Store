@@ -30,8 +30,8 @@ const Navbar = () => {
   const wishlistItemsCount = wishlistItems.length;
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white">
-      <div className="flex items-center justify-center bg-surface px-4 py-1.5 text-center text-xs text-white mt-1.5">
+    <nav className="fixed top-0 z-50 w-full bg-white pt-1.5">
+      <div className="flex items-center justify-center bg-surface px-4 py-1.5 text-center text-xs text-white ">
         <span>Up to 50% sale | shop now</span>
       </div>
 
@@ -60,8 +60,10 @@ const Navbar = () => {
               <Link to="/shop">
                 <li>Shop</li>
               </Link>
+              <Link to="/best-sellers">
+                <li>Best Sellers</li>
+              </Link>
 
-              <li>Best Sellers</li>
               <li>About</li>
               <li>Contact</li>
             </ul>
@@ -83,22 +85,16 @@ const Navbar = () => {
 
             <Link
               to="/wishlist"
-              className="flex h-6 w-6 items-center justify-center"
+              className="relative flex h-6 w-6 cursor-pointer items-center justify-center"
               aria-label="Open wishlist"
             >
-              <button
-                type="button"
-                className="relative flex h-6 w-6 cursor-pointer items-center justify-center"
-                aria-label="Open wishlist"
-              >
-                <FiHeart size={25} strokeWidth={1.5} color="#000000" />
+              <FiHeart size={25} strokeWidth={1.5} color="#000000" />
 
-                {wishlistItemsCount > 0 && (
-                  <sup className="absolute -right-2.5 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
-                    {wishlistItemsCount}
-                  </sup>
-                )}
-              </button>
+              {wishlistItemsCount > 0 && (
+                <sup className="absolute -right-2.5 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
+                  {wishlistItemsCount}
+                </sup>
+              )}
             </Link>
 
             <button
