@@ -25,3 +25,27 @@
     transform: translateX(0);
   }
 }
+
+/* Global loading animation ------------------------------------------------ */
+.loader-line {
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-white),
+    var(--color-white),
+    transparent
+  );
+  animation: loader 1.5s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(350%);
+  }
+}

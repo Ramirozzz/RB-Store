@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
 import "./App.css";
 import ProductPage from "./pages/ProductPage";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import WishlistPage from "./pages/WishlistPage";
 import LoginPage from "./pages/LoginPage";
 import Toast from "./components/Toasts/Toast";
@@ -12,15 +12,19 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import OrdersPage from "./pages/OrdersPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProductsPage from "./pages/ProductsPage";
+import GlobalSpinner from "./components/LoadingSpinners/GlobalSpinner";
+import BestSellersPage from "./pages/BestSellersPage";
 
 function App() {
   return (
     <>
+      <GlobalSpinner />
       <Toast />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/shop" element={<ProductsPage />} />
+          <Route path="/best-sellers" element={<BestSellersPage />} />
           <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -31,7 +35,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
 }
