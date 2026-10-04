@@ -4,13 +4,15 @@ import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 
 interface ProductsListProps {
-  selectedCategory: number | null;
-  sort: string;
+  selectedCategory?: number | null;
+  sort?: string;
+  bestSellers?: boolean;
 }
 
 const ProductsList: React.FC<ProductsListProps> = ({
   selectedCategory,
   sort,
+  bestSellers = false,
 }) => {
   const { data: products, isLoading, isError } = useProducts(undefined, sort);
 
@@ -21,8 +23,18 @@ const ProductsList: React.FC<ProductsListProps> = ({
   // if (!products) return null;
 
   const filteredProducts = products?.filter(
-    (product) =>
-      selectedCategory === null || product.categoryId === selectedCategory,
+    (product) => {
+      if (bestSellers) {
+        return product.isBestSeller;
+      }
+
+      return (
+        selectedCategory === null ||
+        selectedCategory === undefined ||
+        product.categoryId === selectedCategory
+      );
+    },
+    // selectedCategory === null || product.categoryId === selectedCategory,
   );
 
   return (
