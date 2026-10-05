@@ -18,8 +18,6 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
 
   const navigate = useNavigate();
 
-  if (!isOpen) return null;
-
   const subtotal = cartItems.reduce(
     (total, item) => total + item.product.price * item.quantity,
     0,
@@ -28,9 +26,18 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Overlay */}
-      <div onClick={onClose} className="fixed inset-0 z-40 bg-bg/50" />
+      <div
+        onClick={onClose}
+        className={`fixed inset-0 z-40 bg-surface/50 transition-opacity duration-500 ${
+          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
 
-      <aside className="fixed right-0 top-0 z-50 flex h-dvh w-full max-w-md flex-col bg-white slide-bottom">
+      <aside
+        className={`slide-animation ${
+          isOpen ? "slide-open" : "slide-from-right"
+        } fixed top-0 right-0 z-50 h-dvh w-full max-w-md flex flex-col bg-white`}
+      >
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <h2 className="text-lg">Your Cart</h2>
 
