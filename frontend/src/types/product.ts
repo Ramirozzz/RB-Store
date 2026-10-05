@@ -8,6 +8,7 @@ export interface Product {
   imageUrl: string;
   stockQuantity: number;
   isBestSeller: boolean;
+  createdAt: string;
   categoryId: number;
   category: Category;
 }
