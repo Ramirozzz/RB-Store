@@ -35,20 +35,20 @@ const Navbar = () => {
         <span>Up to 50% sale | shop now</span>
       </div>
 
-      <div className="border-b border-border bg-white px-4 py-3.5 sm:px-8 lg:px-10 lg:py-4.5 xl:px-15">
+      <div className="border-b border-border bg-white px-4 py-3.5 sm:px-7 lg:px-10 lg:py-4.5 xl:px-15">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="lg:hidden"
+              className="lg:hidden text-text"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              {mobileMenuOpen ? <IoClose size={28} /> : <VscMenu size={25} />}
+              {mobileMenuOpen ? <IoClose size={23} /> : <VscMenu size={23} />}
             </button>
 
             <Link to="/">
-              <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.45rem]">
+              <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.4rem]">
                 Rb Eyewear
               </span>
             </Link>
@@ -57,26 +57,30 @@ const Navbar = () => {
           {/* Desktop */}
           <div className="hidden lg:block">
             <ul className="flex items-center gap-5 text-sm uppercase text-text">
+              <Link to="/">
+                <li>Home</li>
+              </Link>
+
               <Link to="/shop">
                 <li>Shop</li>
               </Link>
               <Link to="/best-sellers">
                 <li>Best Sellers</li>
               </Link>
-
-              <li>About</li>
-              <li>Contact</li>
+              <Link to="/login">
+                <li>My Account</li>
+              </Link>
             </ul>
           </div>
 
-          <div className="flex items-center gap-3.5 text-muted sm:gap-4">
+          <div className="flex items-center gap-3 text-text sm:gap-4">
             <button
               type="button"
               onClick={() => setSearchBarOpen(true)}
               className="flex h-6 w-6 cursor-pointer items-center justify-center"
               aria-label="Search"
             >
-              <GoSearch size={25} strokeWidth={0.1} />
+              <GoSearch size={23} strokeWidth={0.3} className="text-muted" />
             </button>
 
             <div className="flex h-6 w-6 items-center justify-center">
@@ -88,7 +92,7 @@ const Navbar = () => {
               className="relative flex h-6 w-6 cursor-pointer items-center justify-center"
               aria-label="Open wishlist"
             >
-              <FiHeart size={25} strokeWidth={1.5} color="#000000" />
+              <FiHeart size={23} strokeWidth={1.5} />
 
               {wishlistItemsCount > 0 && (
                 <sup className="absolute -right-2.5 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
@@ -103,7 +107,7 @@ const Navbar = () => {
               className="relative flex h-6 w-6 cursor-pointer items-center justify-center"
               aria-label="Open cart"
             >
-              <HiOutlineShoppingBag size={25} color="#000000" />
+              <HiOutlineShoppingBag size={23} />
 
               {cartItemsCount > 0 && (
                 <sup className="absolute -right-2 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-surface px-1 text-[11px] font-medium text-white">
@@ -115,9 +119,13 @@ const Navbar = () => {
         </div>
 
         {/* Mobile menu */}
-        {mobileMenuOpen && (
+        <div
+          className={`slide-animation ${
+            mobileMenuOpen ? "slide-open" : "slide-from-left"
+          } absolute top-full right-0 left-0 z-40 w-full bg-white`}
+        >
           <MobileMenu onClose={() => setMobileMenuOpen(false)} />
-        )}
+        </div>
 
         {isSearchBarOpen && (
           <Searchbar onClose={() => setSearchBarOpen(false)} />
