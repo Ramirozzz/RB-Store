@@ -6,7 +6,8 @@ import { GoHeart } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { PiUser } from "react-icons/pi";
-
+// import { BiUser } from "react-icons/bi";
+import { LiaUser } from "react-icons/lia";
 const AccountMenu = () => {
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -51,7 +52,7 @@ const AccountMenu = () => {
               {user?.name.slice(0, 1).toUpperCase()}
             </span>
           ) : (
-            <PiUser size={24} className="mt-1" />
+            <LiaUser size={26} className="mt-1" />
           )}
         </button>
 

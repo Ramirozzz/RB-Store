@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import hero from "../../assets/images/hero/hero.jpg";
+import { MdArrowRightAlt } from "react-icons/md";
+
 const Hero = () => {
   return (
     <section className="relative flex min-h-[calc(100vh-310px)] items-end overflow-hidden bg-surface md:min-h-[calc(100vh-110px)]">
@@ -21,9 +23,9 @@ const Hero = () => {
 
           <Link
             to="/shop"
-            className="mt-6 inline-flex text-sm uppercase tracking-wider text-white transition hover:text-neutral-200"
+            className="mt-6 inline-flex items-center gap-1 text-sm uppercase tracking-wider text-white transition hover:text-neutral-200"
           >
-            Shop now
+            Shop now <MdArrowRightAlt size={20} />
           </Link>
         </div>
       </div>

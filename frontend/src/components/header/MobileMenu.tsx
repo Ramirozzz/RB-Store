@@ -12,20 +12,34 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
   return (
-    <div className="absolute top-22 right-0 left-0 z-40 w-full max-h-[calc(100vh-88px)] overflow-y-auto border-t border-border bg-white pb-6 shadow-lg sm:hidden">
+    <div className="absolute top-0 right-0 left-0 z-40 w-full max-h-[calc(100vh-88px)] overflow-y-auto border-t border-border bg-white pb-6 shadow-lg lg:hidden">
       <nav className="flex flex-col ">
         <Link
           to="/"
           onClick={onClose}
-          className="border-b border-border px-5 py-4 text-base font-semibold uppercase tracking-wider text-text"
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
+        >
+          Home
+        </Link>
+        <Link
+          to="/shop"
+          onClick={onClose}
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
         >
           Shop
+        </Link>
+        <Link
+          to="/best-sellers"
+          onClick={onClose}
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
+        >
+          Best Sellers
         </Link>
 
         <Link
           to="/wishlist"
           onClick={onClose}
-          className="border-b border-border px-5 py-4 text-base font-semibold uppercase tracking-wider text-text"
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
         >
           Wishlist
         </Link>
@@ -33,26 +47,26 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
         <Link
           to="/orders"
           onClick={onClose}
-          className="border-b border-border px-5 py-4 text-base font-semibold uppercase tracking-wider text-text"
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
         >
           My Orders
         </Link>
-        <Link
-          to="/orders"
+        {/* <Link
+          to="/register"
           onClick={onClose}
-          className="border-b border-border px-5 py-4 text-base font-semibold uppercase tracking-wider text-text"
+          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
         >
-          My Orders
-        </Link>
+          Join us
+        </Link> */}
       </nav>
       <div className="mt-15 px-5">
         <Link
           to="/login"
           onClick={onClose}
-          className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-text"
+          className="flex items-center gap-2 text-sm uppercase tracking-wider text-text"
         >
           <PiUser size={24} />
-          Sign in
+          My account <span className="text-muted">( Sign in / sign up )</span>
         </Link>
       </div>
 
