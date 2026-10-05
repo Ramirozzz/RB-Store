@@ -8,6 +8,7 @@ import useCartStore from "./../../stores/cartStore";
 import { GoDotFill } from "react-icons/go";
 import useToastStore from "../../stores/ToastStore";
 import useWishlistStore from "../../stores/wishlistStore";
+import ProductSlider from "./ProductSlider";
 
 interface ProductProps {
   product: Product;
@@ -26,98 +27,114 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
 
   const navigate = useNavigate();
 
+  const productImage = product.imageUrl || "/products/placeholder-product.jpg";
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8 lg:px-10 pt-40">
-      <div className="flex items-center gap-2 mb-4 text-sm text-text">
-        <Link to={"/"}>
-          <span className="underline">Home</span>
-        </Link>
-        <span>/</span>
-        <span> {product.category.name}</span>
-        <span>/</span>
-        <span className="text-accent">{product.name}</span>
-      </div>
-      <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute top-5 -left-4 md:-left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2"
-        >
-          <FaArrowLeftLong size={13} className="text-muted" />{" "}
-          <span>Go Back</span>
-        </button>
-        <div className="aspect-square overflow-hidden bg-background">
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="h-full w-full object-cover"
-          />
+    <>
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-10 py-10 pt-40 sm:mb-8 lg:mb-14">
+        <div className="flex items-center gap-2 mb-4 text-sm text-text">
+          <Link to={"/"}>
+            <span className="underline">Home</span>
+          </Link>
+          <span>/</span>
+          <span> {product.category.name}</span>
+          <span>/</span>
+          <span className="text-accent">{product.name}</span>
         </div>
+        <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-5 -left-4 md:-left-7 flex items-center gap-2 bg-white text-xs font-normal shadow-xl py-2 px-2"
+          >
+            <FaArrowLeftLong size={13} className="text-muted" />{" "}
+            <span>Go Back</span>
+          </button>
+          <div className="aspect-square overflow-hidden bg-background">
+            <img
+              src={productImage}
+              alt={product.name}
+              className="h-full w-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "/images/products/placeholder-product.jpg";
+              }}
+            />
+          </div>
 
-        <div className="flex flex-col justify-center">
-          <span className="text-xs uppercase tracking-widest text-muted">
-            {product.category.name}
-          </span>
+          <div className="flex flex-col justify-center">
+            <span className="text-xs uppercase tracking-widest text-muted">
+              {product.category.name}
+            </span>
 
-          <h1 className="mt-3 text-4xl uppercase lg:text-5xl">
-            {product.name}
-          </h1>
+            <h1 className="mt-3 text-4xl uppercase lg:text-5xl">
+              {product.name}
+            </h1>
 
-          <span className="mt-5 text-xl ">{product.price.toFixed(2)} kr</span>
+            <span className="mt-5 text-xl ">{product.price.toFixed(2)} kr</span>
 
-          <p className="mt-6 max-w-lg leading-6 text-muted">
-            {product.description}
-          </p>
+            <p className="mt-6 max-w-lg leading-6 text-muted">
+              {product.description}
+            </p>
 
-          <div className="mt-8 border-t border-border pt-6">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => {
-                  addToCart(product);
-                  showToast(`${product.name} Added to cart`, "success");
-                }}
-                className="h-13 w-full bg-surface text-base uppercase tracking-wide text-white transition-all duration-300 hover:opacity-90"
-                aria-label="Add to cart"
-              >
-                Add to cart
-              </button>
+            <div className="mt-8 border-t border-border pt-6">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    addToCart(product);
+                    showToast(`${product.name} Added to cart`, "success");
+                  }}
+                  className="h-13 w-full bg-surface text-base uppercase tracking-wide text-white transition-all duration-300 hover:opacity-90"
+                  aria-label="Add to cart"
+                >
+                  Add to cart
+                </button>
 
-              <button
-                className="flex h-13 w-13 shrink-0 items-center justify-center border border-bg transition-all duration-300 "
-                aria-label={
-                  isWishlisted ? "Remove from wishlist" : "Add to wishlist"
-                }
-                onClick={() => {
-                  isWishlisted
-                    ? removeFromWishlist(product.id)
-                    : addToWishlist(product);
-                }}
-              >
-                {isWishlisted ? (
-                  <GoHeartFill size={24} />
+                <button
+                  className="flex h-13 w-13 shrink-0 items-center justify-center border border-bg transition-all duration-300 "
+                  aria-label={
+                    isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                  }
+                  onClick={() => {
+                    isWishlisted
+                      ? removeFromWishlist(product.id)
+                      : addToWishlist(product);
+                  }}
+                >
+                  {isWishlisted ? (
+                    <GoHeartFill size={24} />
+                  ) : (
+                    <GoHeart
+                      size={24}
+                      className="text-muted transition hover:text-text"
+                    />
+                  )}
+                </button>
+              </div>
+              <div className="mt-4">
+                {product.stockQuantity > 5 ? (
+                  <span className="flex items-center gap-1 text-sm text-green-600">
+                    <GoDotFill size={16} />
+                    {product.stockQuantity} left in stock
+                  </span>
                 ) : (
-                  <GoHeart
-                    size={24}
-                    className="text-muted transition hover:text-text"
-                  />
+                  <span className="text-sm text-red-500">
+                    <GoDotFill /> Only {product.stockQuantity} left in stock
+                  </span>
                 )}
-              </button>
-            </div>
-            <div className="mt-4">
-              {product.stockQuantity > 5 ? (
-                <span className="flex items-center gap-1 text-sm text-green-600">
-                  <GoDotFill size={16} />
-                  {product.stockQuantity} left in stock
-                </span>
-              ) : (
-                <span className="text-sm text-red-500">
-                  <GoDotFill /> Only {product.stockQuantity} left in stock
-                </span>
-              )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="md:px-4 lg:px-0">
+        <ProductSlider
+          type="related"
+          title="You might also like"
+          categoryId={product.categoryId}
+          excludeProductId={product.id}
+        />
+      </div>
+    </>
   );
 };
 

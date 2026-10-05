@@ -9,9 +9,13 @@ import useToastStore from "../../stores/ToastStore";
 
 interface ProductCardProps {
   product: Product;
+  showIsBestSeller?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  showIsBestSeller = true,
+}) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
   const removeFromWishlist = useWishlistStore(
@@ -23,18 +27,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const isWishlisted = wishlistItems.some((item) => item.id === product.id);
 
+  const productImage = product.imageUrl || "/products/placeholder-product.jpg";
+
   return (
     <article className="group ">
       <Link to={`/products/${product.id}`}>
         <div className="relative aspect-square overflow-hidden bg-background">
           <img
-            src={product.imageUrl}
+            src={productImage}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              e.currentTarget.src = "/images/products/placeholder-product.jpg";
+            }}
           />
 
-          {product.isBestSeller && (
+          {showIsBestSeller && product.isBestSeller && (
             <span className="absolute left-2 bottom-3 bg-accent px-2 py-1 text-xs uppercase tracking-wide text-white">
               Best seller
             </span>
