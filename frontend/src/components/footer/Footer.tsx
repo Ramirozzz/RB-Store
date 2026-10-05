@@ -16,19 +16,24 @@ const Footer = () => {
               </span>
             </Link>
 
-            <p className="mt-4 max-w-xs text-sm leading-6 text-muted">
-              Modern eyewear designed for everyday style.
+            <p className="mt-4 max-w-xs text-sm leading-5 text-muted">
+              Modern eyewear designed for <br /> everyday style.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-text">
+            <h3 className="text-xs font-bold font-primary uppercase tracking-widest text-text">
               Shop
             </h3>
 
             <ul className="mt-4 space-y-3 text-sm text-muted">
               <li>
                 <Link to="/" className="transition hover:text-text">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop" className="transition hover:text-text">
                   All Products
                 </Link>
               </li>
@@ -66,6 +71,11 @@ const Footer = () => {
                   Create Account
                 </Link>
               </li>
+              <li>
+                <Link to="#" className="transition hover:text-text">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -88,6 +98,11 @@ const Footer = () => {
               <li>
                 <a href="#" className="transition hover:text-text">
                   TikTok
+                </a>
+              </li>
+              <li>
+                <a href="#" className="transition hover:text-text">
+                  YouTube
                 </a>
               </li>
             </ul>
