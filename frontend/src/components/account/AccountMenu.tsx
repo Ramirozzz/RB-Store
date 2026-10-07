@@ -5,9 +5,11 @@ import LoadingOverlay from "../LoadingSpinners/LoadingOverlay";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import { PiUser } from "react-icons/pi";
+// import { PiUser } from "react-icons/pi";
 // import { BiUser } from "react-icons/bi";
 import { LiaUser } from "react-icons/lia";
+import { HiOutlineShieldCheck } from "react-icons/hi2";
+
 const AccountMenu = () => {
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -88,6 +90,17 @@ const AccountMenu = () => {
                   <GoHeart size={17} className="text-muted" />
                   Wishlist
                 </Link>
+
+                {user?.role === "Admin" && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
+                  >
+                    <HiOutlineShieldCheck size={17} className="text-muted" />
+                    Admin Dashboard
+                  </Link>
+                )}
 
                 <button
                   type="button"
