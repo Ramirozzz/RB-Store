@@ -12,3 +12,13 @@ export interface Product {
   categoryId: number;
   category: Category;
 }
+
+export interface CreateProduct {
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  stockQuantity: number;
+  isBestSeller: boolean;
+  categoryId: number;
+}

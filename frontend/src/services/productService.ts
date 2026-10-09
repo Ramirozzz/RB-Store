@@ -1,5 +1,5 @@
 import api from "./api";
-import type { Product } from "../types/product";
+import type { CreateProduct, Product } from "../types/product";
 
 export const getProducts = async (
   search?: string,
@@ -18,6 +18,14 @@ export const getProducts = async (
 
 export const getProductById = async (id: number): Promise<Product> => {
   const res = await api.get<Product>(`/products/${id}`);
+
+  return res.data;
+};
+
+export const createProduct = async (
+  product: CreateProduct,
+): Promise<Product> => {
+  const res = await api.post<Product>("/products", product);
 
   return res.data;
 };
