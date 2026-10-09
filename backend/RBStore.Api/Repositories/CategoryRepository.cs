@@ -16,7 +16,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<List<Category>> GetAllAsync()
     {
-        return await _context.Categories.ToListAsync();
+        return await _context.Categories.OrderByDescending(category => category.Id).ToListAsync();
     }
 
     public async Task<Category> AddAsync(Category category)

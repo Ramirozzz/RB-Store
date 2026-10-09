@@ -40,6 +40,10 @@ public class ProductRepository : IProductRepository
         {
             query = query.OrderByDescending(p => p.Name);
         }
+        else
+        {
+            query = query.OrderByDescending(p => p.CreatedAt);
+        }
 
         return await query.ToListAsync();
     }
