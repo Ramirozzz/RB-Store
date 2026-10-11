@@ -1,0 +1,289 @@
+import { useState } from "react";
+import { useCategories } from "../../hooks/useCategories";
+import { useCreateCategory } from "../../hooks/useCreateCategory";
+import { HiOutlinePlus } from "react-icons/hi2";
+import ErrorState from "../../components/states/ErrorState";
+import { useUpdateCategories } from "../../hooks/useUpdateCategories";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import LoadingSpinner from "../../components/LoadingSpinners/LoadingSpinner";
+import { useDeleteCategory } from "../../hooks/useDeleteCategory";
+import useToastStore from "../../stores/ToastStore";
+import AdminCategoriesSkeleton from "../AdminSkeletons/AdminCategoriesSkeleton";
+import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
+
+const AdminCategoriesPage = () => {
+  const { data: categories, isLoading, isError } = useCategories();
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [deleteCategory, setDeleteCategory] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
+
+  const [editId, setEditId] = useState<number | null>(null);
+  const [editName, setEditName] = useState("");
+
+  const showToast = useToastStore((state) => state.showToast);
+
+  const createCategoryMutation = useCreateCategory();
+  const updateCategoryMutation = useUpdateCategories();
+  const deleteCategoryMutation = useDeleteCategory();
+
+  const handleCreateCategory = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    createCategoryMutation.mutate(
+      {
+        name,
+      },
+      {
+        onSuccess: () => {
+          showToast(" Category added successfully", "success");
+          setName("");
+          setShowForm(false);
+        },
+        onError: () => {
+          showToast("Failed to add category.", "error");
+        },
+      },
+    );
+  };
+
+  const handleUpdateCategory = (categoryId: number) => {
+    updateCategoryMutation.mutate(
+      {
+        id: categoryId,
+        category: {
+          name: editName,
+        },
+      },
+      {
+        onSuccess: () => {
+          showToast(" Category updated successfully", "success");
+          setEditId(null);
+          setEditName("");
+        },
+        onError: () => {
+          showToast("Failed to update category.", "error");
+        },
+      },
+    );
+  };
+
+  const handleDeleteCategory = () => {
+    if (!deleteCategory) return;
+
+    deleteCategoryMutation.mutate(deleteCategory.id, {
+      onSuccess: () => {
+        showToast("Category deleted successfully.", "success");
+        setDeleteCategory(null);
+      },
+      onError: () => {
+        showToast("Failed to delete category.", "error");
+      },
+    });
+  };
+
+  // if (isLoading) {
+  //   return <AdminCategoriesSkeleton />;
+  // }
+
+  // if (isError || !categories) {
+  //   return <ErrorState message="Could not load products." />;
+  // }
+
+  return (
+    <>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl">Categories</h1>
+
+          <p className="mt-2 text-sm text-muted">
+            Manage your product categories.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setShowForm(true)}
+          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm text-white"
+        >
+          <HiOutlinePlus size={18} />
+          Add Category
+        </button>
+      </div>
+      {showForm && (
+        <form
+          onSubmit={handleCreateCategory}
+          className="mt-6 max-w-full rounded-md bg-white p-6 shadow-lg"
+        >
+          <label htmlFor="categoryName" className="mb-2 block text-sm">
+            Category name
+          </label>
+
+          <input
+            id="categoryName"
+            type="text"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Enter category name"
+            className="w-full border border-border px-4 py-2.5 text-sm outline-none"
+            required
+            maxLength={50}
+          />
+
+          <div className="mt-4 flex gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                setName("");
+                setShowForm(false);
+              }}
+              className="cursor-pointer border border-border px-5 py-2 text-sm"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              disabled={createCategoryMutation.isPending}
+              className="cursor-pointer bg-surface px-5 py-3 text-sm text-white transition hover:bg-neutral-800"
+            >
+              {createCategoryMutation.isPending ? (
+                <span className="flex items-center justify-center gap-2">
+                  <LoadingSpinner size={18} color="#ffffff" />
+                  Saving...
+                </span>
+              ) : (
+                "Add Category"
+              )}
+            </button>
+          </div>
+
+          {/* {createCategoryMutation.isError && (
+            <p className="mt-3 text-sm text-red-600">
+              Failed to create category.
+            </p>
+          )} */}
+        </form>
+      )}
+      <div className="mt-6 rounded-lg bg-white shadow-lg">
+        {isLoading ? (
+          <AdminCategoriesSkeleton />
+        ) : isError || !categories ? (
+          <ErrorState message="Could not load categories." />
+        ) : (
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-border text-left text-sm">
+                <th className="px-5 py-4 text-text">Name</th>
+                <th className="px-5 py-4 text-right text-text">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {categories.map((category) =>
+                editId === category.id ? (
+                  <tr
+                    key={category.id}
+                    className="border-b border-border last:border-0"
+                  >
+                    <td colSpan={2} className="px-5 py-4">
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          handleUpdateCategory(category.id);
+                        }}
+                        className="flex items-center gap-3"
+                      >
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(event) => setEditName(event.target.value)}
+                          className="border border-border px-3 py-2 text-sm outline-none"
+                          maxLength={50}
+                          required
+                        />
+
+                        <button
+                          type="submit"
+                          disabled={updateCategoryMutation.isPending}
+                          className="cursor-pointer text-sm disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          {updateCategoryMutation.isPending
+                            ? "Saving..."
+                            : "Save"}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditId(null);
+                            setEditName("");
+                          }}
+                          className="cursor-pointer text-sm text-muted"
+                        >
+                          Cancel
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr
+                    key={category.id}
+                    className="border-b border-border last:border-0"
+                  >
+                    <td className="px-5 py-4 text-sm">{category.name}</td>
+
+                    <td className="px-5 py-4 text-right">
+                      <div className="flex justify-end items-center gap-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditId(category.id);
+                            setEditName(category.name);
+                          }}
+                          className="cursor-pointer text-muted transition hover:text-text"
+                          aria-label={`Edit category ${category.name}`}
+                        >
+                          <MdOutlineModeEdit size={20} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="cursor-pointer text-muted transition hover:text-red-600"
+                          onClick={() =>
+                            setDeleteCategory({
+                              id: category.id,
+                              name: category.name,
+                            })
+                          }
+                          disabled={deleteCategoryMutation.isPending}
+                          aria-label={`Delete category ${category.name}`}
+                        >
+                          <RiDeleteBin6Line size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+        )}
+      </div>
+      // Modal opens when there is category saved in deleteCategory state
+      <DeleteConfirmationModal
+        isOpen={deleteCategory !== null}
+        title="Delete category"
+        message={`Are you sure you want to delete "${deleteCategory?.name}"? This action cannot be undone.`}
+        isDeleting={deleteCategoryMutation.isPending}
+        onDelete={handleDeleteCategory}
+        onCancel={() => setDeleteCategory(null)}
+      />
+    </>
+  );
+};
+
+export default AdminCategoriesPage;
