@@ -15,7 +15,7 @@ public class UpdateProductDto
     [Range(0.01, double.MaxValue)]
     public decimal Price { get; set; }
 
-    [Url]
+    // [Url]
     public string ImageUrl { get; set; } = string.Empty;
 
     [Range(0, int.MaxValue)]

@@ -1,25 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import type { CreateProduct } from "../../../types/product";
+import type { CreateProduct, Product } from "../../../types/product";
 import { useCategories } from "../../../hooks/useCategories";
 import LoadingSpinner from "../../../components/LoadingSpinners/LoadingSpinner";
 
 interface AdminProductsFormProps {
   onSubmit: (product: CreateProduct) => void;
+  product?: Product;
   isSubmitting?: boolean;
+  isEditting?: boolean;
 }
 
 const AdminProductForm: React.FC<AdminProductsFormProps> = ({
   onSubmit,
+  product,
   isSubmitting = false,
+  isEditting = false,
 }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [stockQuantity, setStockQuantity] = useState("");
-  const [isBestSeller, setIsBestSeller] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
+  const [name, setName] = useState(product?.name ?? "");
+  const [description, setDescription] = useState(product?.description ?? "");
+  const [price, setPrice] = useState(product ? String(product.price) : "");
+  const [imageUrl, setImageUrl] = useState(product?.imageUrl ?? "");
+  const [stockQuantity, setStockQuantity] = useState(
+    product ? String(product.stockQuantity) : "",
+  );
+  const [isBestSeller, setIsBestSeller] = useState(
+    product?.isBestSeller ?? false,
+  );
+  const [categoryId, setCategoryId] = useState(
+    product ? String(product.categoryId) : "",
+  );
 
   const { data: categories, isError } = useCategories();
 
@@ -36,6 +46,18 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
       categoryId: Number(categoryId),
     });
   };
+
+  useEffect(() => {
+    if (!product) return;
+
+    setName(product.name);
+    setDescription(product.description);
+    setPrice(String(product.price));
+    setImageUrl(product.imageUrl ?? "");
+    setStockQuantity(String(product.stockQuantity));
+    setIsBestSeller(product.isBestSeller);
+    setCategoryId(String(product.categoryId));
+  }, [product]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 w-full">
@@ -165,8 +187,10 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <LoadingSpinner size={18} color="#ffffff" />
-              Adding Product...
+              {isEditting ? "Updating Product..." : "Adding Product..."}
             </span>
+          ) : isEditting ? (
+            "Update Product"
           ) : (
             "Add Product"
           )}

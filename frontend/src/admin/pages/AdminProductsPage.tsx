@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import ErrorState from "../../components/states/ErrorState";
@@ -6,17 +7,34 @@ import { HiOutlinePlus } from "react-icons/hi2";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AdminProductsSkeleton from "../AdminSkeletons/AdminProductsSkeleton";
+import { useDeleteProduct } from "../../hooks/useDeleteProduct";
+import useToastStore from "../../stores/ToastStore";
+import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
 
 const AdminProductsPage = () => {
   const { data: products, isLoading, isError } = useProducts();
+  const [deleteProduct, setDeleteProduct] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
-  // if (isLoading) {
-  //   return <AdminProductsSkeleton />;
-  // }
+  const deleteProductMutation = useDeleteProduct();
 
-  // if (isError || !products) {
-  //   return <ErrorState message="Could not load products." />;
-  // }
+  const showToast = useToastStore((state) => state.showToast);
+
+  const handleDeleteProduct = () => {
+    if (!deleteProduct) return;
+
+    deleteProductMutation.mutate(deleteProduct.id, {
+      onSuccess: () => {
+        showToast("Product deleted successfully.", "success");
+        setDeleteProduct(null);
+      },
+      onError: () => {
+        showToast("Failed to delete product.", "error");
+      },
+    });
+  };
 
   return (
     <>
@@ -36,7 +54,6 @@ const AdminProductsPage = () => {
           Add Product
         </Link>
       </div>
-
       <div className="mt-6 overflow-x-auto bg-white shadow-lg">
         {isLoading ? (
           <AdminProductsSkeleton />
@@ -95,16 +112,25 @@ const AdminProductsPage = () => {
 
                   <td className="px-5 py-4">
                     <div className="flex gap-4">
-                      <button
-                        type="button"
-                        className="cursor-pointer text-muted"
+                      <Link
+                        to={`/admin/products/${product.id}/edit`}
+                        className="cursor-pointer text-muted transition hover:text-text"
+                        aria-label={`Edit product ${product.name}`}
                       >
                         <MdOutlineModeEdit size={20} />
-                      </button>
+                      </Link>
 
                       <button
                         type="button"
-                        className="cursor-pointer text-muted"
+                        onClick={() =>
+                          setDeleteProduct({
+                            id: product.id,
+                            name: product.name,
+                          })
+                        }
+                        disabled={deleteProductMutation.isPending}
+                        className="cursor-pointer text-muted transition hover:text-red-600"
+                        aria-label={`Delete product ${product.name}`}
                       >
                         <RiDeleteBin6Line size={20} />
                       </button>
@@ -116,6 +142,15 @@ const AdminProductsPage = () => {
           </table>
         )}
       </div>
+      // Modal opens when there is a product saved in deleteProduct state
+      <DeleteConfirmationModal
+        isOpen={deleteProduct !== null}
+        title="Delete product?"
+        message={`Are you sure you want to delete "${deleteProduct?.name}"? This action cannot be undone.`}
+        isDeleting={deleteProductMutation.isPending}
+        onDelete={handleDeleteProduct}
+        onCancel={() => setDeleteProduct(null)}
+      />
     </>
   );
 };

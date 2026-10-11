@@ -29,3 +29,14 @@ export const createProduct = async (
 
   return res.data;
 };
+
+export const updateProduct = async (
+  id: number,
+  product: CreateProduct,
+): Promise<void> => {
+  await api.put(`/products/${id}`, product);
+};
+
+export const deleteProduct = async (id: number): Promise<void> => {
+  await api.delete(`/products/${id}`);
+};
