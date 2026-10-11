@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
-import "./App.css";
 import ProductPage from "./pages/ProductPage";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import WishlistPage from "./pages/WishlistPage";
 import LoginPage from "./pages/LoginPage";
 import Toast from "./components/Toasts/Toast";
@@ -14,6 +13,15 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ProductsPage from "./pages/ProductsPage";
 import GlobalSpinner from "./components/LoadingSpinners/GlobalSpinner";
 import BestSellersPage from "./pages/BestSellersPage";
+import AdminRoute from "./components/auth/AdminRoute";
+import AdminDashboardPage from "./admin/pages/AdminDashboardPage";
+
+import "./App.css";
+import AdminLayout from "./admin/components/layout/AdminLayout";
+import AdminProductsPage from "./admin/pages/AdminProductsPage";
+import AdminCreateProductPage from "./admin/pages/AdminCreateProductPage";
+import AdminCategoriesPage from "./admin/pages/AdminCategoriesPage";
+import AdminEditProductPage from "./admin/pages/AdminEditProductPage";
 
 function App() {
   return (
@@ -34,8 +42,24 @@ function App() {
             <Route path="/orders" element={<OrdersPage />} />
           </Route>
         </Route>
+
+        <Route element={<AdminRoute />}>
+          <Route path="admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
+            <Route path="products" element={<AdminProductsPage />} />
+            <Route path="categories" element={<AdminCategoriesPage />} />
+            <Route
+              path="products/new-product"
+              element={<AdminCreateProductPage />}
+            />
+            <Route
+              path="products/:id/edit"
+              element={<AdminEditProductPage />}
+            />
+          </Route>
+        </Route>
       </Routes>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </>
   );
 }
