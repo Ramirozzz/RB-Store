@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RBStore.Api.DTOs;
+using RBStore.Api.Models;
 using RBStore.Api.Services;
 
 
@@ -17,10 +18,14 @@ namespace RBStore.Api.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly IAdminService _adminService;
+    private readonly IOrderService _orderService;
 
-    public AdminController(IAdminService adminService)
+    public AdminController(
+     IAdminService adminService,
+     IOrderService orderService)
     {
         _adminService = adminService;
+        _orderService = orderService;
     }
 
     [HttpGet]
@@ -47,4 +52,73 @@ public class AdminController : ControllerBase
             );
         }
     }
+
+    [HttpGet("orders")]
+    public async Task<ActionResult<List<AdminOrderDto>>> GetOrders()
+    {
+        try
+        {
+            var orders = await _orderService.GetAllForAdminAsync();
+
+            return Ok(orders);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                500,
+                "An unexpected error occurred while retrieving orders."
+            );
+        }
+    }
+
+
+    [HttpPut("orders/{id}/status")]
+    public async Task<IActionResult> UpdateOrderStatus(
+        int id,
+        [FromBody] UpdateOrderStatusDto dto)
+    {
+        try
+        {
+            var order = await _orderService.UpdateStatusAsync(id, dto.Status);
+
+            if (order is null)
+            {
+                return NotFound("Order not found.");
+            }
+
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                500,
+                "Something went wrong while updating the order status."
+            );
+        }
+    }
+
+
+    [HttpGet("users")]
+    public async Task<ActionResult<List<AdminUserDto>>> getUsers()
+    {
+        try
+        {
+            var users = await _adminService.getAllUsersAsync();
+            return Ok(users);
+        }
+        catch (Exception)
+        {
+
+            return StatusCode(
+          500,
+          "An unexpected error occurred while retrieving users."
+      );
+        }
+    }
+
+
 }
