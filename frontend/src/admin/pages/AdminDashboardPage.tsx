@@ -20,7 +20,7 @@ const AdminDashboardPage = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className=" text-2xl">Dashboard</h1>
 
       <p className="mt-2 text-sm text-muted">Overview of your store.</p>
@@ -47,7 +47,7 @@ const AdminDashboardPage = () => {
           icon={<HiOutlineExclamationTriangle size={35} />}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -94,7 +94,7 @@ const AdminCategoriesPage = () => {
   // }
 
   return (
-    <>
+    <section>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl">Categories</h1>
@@ -282,7 +282,7 @@ const AdminCategoriesPage = () => {
         onDelete={handleDeleteCategory}
         onCancel={() => setDeleteCategory(null)}
       />
-    </>
+    </section>
   );
 };
 

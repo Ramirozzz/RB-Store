@@ -43,7 +43,7 @@ const AdminEditProductPage = () => {
   }
 
   return (
-    <div className="mt-4 rounded-lg px-6 md:mt-0 md:bg-white md:py-8 md:shadow-lg">
+    <section className="mt-4 rounded-lg px-6 md:mt-0 md:bg-white md:py-8 md:shadow-lg">
       <div className="mx-auto max-w-6xl">
         <h1 className="text-2xl">Edit Product</h1>
         <p className="mt-2 text-sm text-muted">
@@ -59,7 +59,7 @@ const AdminEditProductPage = () => {
           isSubmitting={updateProductMutation.isPending}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

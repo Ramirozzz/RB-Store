@@ -37,7 +37,7 @@ const AdminProductsPage = () => {
   };
 
   return (
-    <>
+    <section>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl ">Products</h1>
@@ -151,7 +151,7 @@ const AdminProductsPage = () => {
         onDelete={handleDeleteProduct}
         onCancel={() => setDeleteProduct(null)}
       />
-    </>
+    </section>
   );
 };
 
