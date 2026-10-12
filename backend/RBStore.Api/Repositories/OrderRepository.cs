@@ -15,29 +15,47 @@ public class OrderRepository : IOrderRepository
 
     public async Task<List<Order>> GetAllAsync()
     {
-        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ThenInclude(p => p.Category)
-        .ToListAsync();
+        return await _context.Orders.Include(o => o.User).Include(o => o.OrderItems)
+        .ThenInclude(oi => oi.Product)
+        .ThenInclude(p => p.Category).ToListAsync();
     }
 
     public async Task<Order?> GetByIdAsync(int id)
     {
-        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).ThenInclude(p => p.Category)
+        return await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product)
+        .ThenInclude(p => p.Category)
         .FirstOrDefaultAsync(o => o.Id == id);
     }
 
     public async Task<List<Order>> GetByUserIdAsync(string userId)
     {
-        return await _context.Orders
-            .Where(o => o.UserId == userId)
-            .Include(o => o.OrderItems)
-            .ThenInclude(oi => oi.Product)
-            .ThenInclude(p => p.Category)
-            .ToListAsync();
+        return await _context.Orders.Where(o => o.UserId == userId).Include(o => o.OrderItems)
+        .ThenInclude(oi => oi.Product)
+        .ThenInclude(p => p.Category)
+        .ToListAsync();
     }
 
     public async Task<Order> AddAsync(Order order)
     {
         _context.Orders.Add(order);
+
+        await _context.SaveChangesAsync();
+
+        return order;
+    }
+
+
+    public async Task<Order?> UpdateStatusAsync(int id, OrderStatus status)
+    {
+        var order = await _context.Orders
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (order is null)
+        {
+            return null;
+        }
+
+        order.Status = status;
 
         await _context.SaveChangesAsync();
 
