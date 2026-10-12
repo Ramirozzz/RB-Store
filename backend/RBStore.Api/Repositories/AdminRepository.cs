@@ -33,4 +33,10 @@ public class AdminRepository : IAdminRepository
     {
         return await _context.Products.CountAsync(product => product.StockQuantity <= 5);
     }
+
+    public async Task<List<User>> GetAllUsersAsync()
+    {
+        return await _context.Set<User>().ToListAsync();
+    }
+
 }
