@@ -30,6 +30,8 @@ public class OrderService : IOrderService
         return await _orderRepository.GetByUserIdAsync(userId);
     }
 
+
+
     public async Task<Order?> GetByIdAsync(int id, string userId)
     {
         var order = await _orderRepository.GetByIdAsync(id);
@@ -113,5 +115,31 @@ public class OrderService : IOrderService
         }
 
         return await _orderRepository.AddAsync(order);
+    }
+
+    public async Task<List<AdminOrderDto>> GetAllForAdminAsync()
+    {
+        var orders = await _orderRepository.GetAllAsync();
+
+        return orders.Select(order => new AdminOrderDto
+        {
+            Id = order.Id,
+            OrderDate = order.OrderDate,
+            TotalPrice = order.TotalPrice,
+            Status = order.Status,
+            CustomerName = order.User.Name,
+            CustomerEmail = order.User.Email ?? string.Empty
+        }).ToList();
+    }
+
+
+    public async Task<Order?> UpdateStatusAsync(int id, OrderStatus status)
+    {
+        if (!Enum.IsDefined(typeof(OrderStatus), status))
+        {
+            throw new ArgumentException("Invalid order status.");
+        }
+
+        return await _orderRepository.UpdateStatusAsync(id, status);
     }
 }
