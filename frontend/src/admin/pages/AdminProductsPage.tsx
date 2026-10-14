@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import ErrorState from "../../components/states/ErrorState";
 import { HiOutlinePlus } from "react-icons/hi2";
-// import LoadingSpinner from "../../components/LoadingSpinners/LoadingSpinner";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AdminProductsSkeleton from "../AdminSkeletons/AdminProductsSkeleton";
@@ -55,6 +54,9 @@ const AdminProductsPage = () => {
         </Link>
       </div>
       <div className="mt-6 overflow-x-auto bg-white shadow-lg">
+        <p className="text-sm text-muted p-4 ">
+          Total products: {products?.length ?? 0}
+        </p>
         {isLoading ? (
           <AdminProductsSkeleton />
         ) : isError || !products ? (
@@ -73,76 +75,84 @@ const AdminProductsPage = () => {
             </thead>
 
             <tbody>
-              {products.map((product) => (
-                <tr
-                  key={product.id}
-                  className="border-b border-border last:border-b-0"
-                >
-                  <td className="px-5 py-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="h-12 w-12 object-cover"
-                      />
-
-                      <span className="text-sm font-medium">
-                        {product.name}
-                      </span>
-                    </div>
-                  </td>
-
-                  <td className="px-5 py-4 text-sm text-muted">
-                    {product.category.name}
-                  </td>
-
-                  <td className="px-5 py-4 text-sm">
-                    {product.price.toFixed(2)} kr
-                  </td>
-
-                  <td
-                    className={`px-5 py-4 text-sm ${product.stockQuantity > 5 ? "text-text" : "text-red-600"}`}
-                  >
-                    {product.stockQuantity}
-                  </td>
-
-                  <td className="px-5 py-4 text-sm">
-                    {product.isBestSeller ? "Best Seller" : "—"}
-                  </td>
-
-                  <td className="px-5 py-4">
-                    <div className="flex gap-4">
-                      <Link
-                        to={`/admin/products/${product.id}/edit`}
-                        className="cursor-pointer text-muted transition hover:text-text"
-                        aria-label={`Edit product ${product.name}`}
-                      >
-                        <MdOutlineModeEdit size={20} />
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setDeleteProduct({
-                            id: product.id,
-                            name: product.name,
-                          })
-                        }
-                        disabled={deleteProductMutation.isPending}
-                        className="cursor-pointer text-muted transition hover:text-red-600"
-                        aria-label={`Delete product ${product.name}`}
-                      >
-                        <RiDeleteBin6Line size={20} />
-                      </button>
-                    </div>
+              {products.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-5 py-8 text-center text-muted">
+                    No products found.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                products.map((product) => (
+                  <tr
+                    key={product.id}
+                    className="border-b border-border last:border-b-0"
+                  >
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          className="h-12 w-12 object-cover"
+                        />
+
+                        <span className="text-sm font-medium">
+                          {product.name}
+                        </span>
+                      </div>
+                    </td>
+
+                    <td className="px-5 py-4 text-sm text-muted">
+                      {product.category.name}
+                    </td>
+
+                    <td className="px-5 py-4 text-sm">
+                      {product.price.toFixed(2)} kr
+                    </td>
+
+                    <td
+                      className={`px-5 py-4 text-sm ${product.stockQuantity > 5 ? "text-text" : "text-red-600"}`}
+                    >
+                      {product.stockQuantity}
+                    </td>
+
+                    <td className="px-5 py-4 text-sm">
+                      {product.isBestSeller ? "Best Seller" : "—"}
+                    </td>
+
+                    <td className="px-5 py-4">
+                      <div className="flex gap-4">
+                        <Link
+                          to={`/admin/products/${product.id}/edit`}
+                          className="cursor-pointer text-muted transition hover:text-text"
+                          aria-label={`Edit product ${product.name}`}
+                        >
+                          <MdOutlineModeEdit size={20} aria-hidden="true" />
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setDeleteProduct({
+                              id: product.id,
+                              name: product.name,
+                            })
+                          }
+                          disabled={deleteProductMutation.isPending}
+                          className="cursor-pointer text-muted transition hover:text-red-600"
+                          aria-label={`Delete product ${product.name}`}
+                        >
+                          <RiDeleteBin6Line size={20} aria-hidden="true" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         )}
       </div>
-      // Modal opens when there is a product saved in deleteProduct state
+      {/* Modal opens when there is a product saved in deleteProduct state */}
       <DeleteConfirmationModal
         isOpen={deleteProduct !== null}
         title="Delete product?"
