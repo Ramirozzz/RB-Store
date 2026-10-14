@@ -25,7 +25,7 @@ const GlobalSpinner = () => {
   //   console.log("isFetching:", isFetching);
 
   return (
-    <div className="fixed left-0 top-1.5 z-[9999] h-[2.5px] w-full overflow-hidden">
+    <div className="fixed left-0 top-0 z-[9999] h-[2.5px] w-full overflow-hidden">
       <div className="loader-line" />
     </div>
   );

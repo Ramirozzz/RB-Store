@@ -16,7 +16,7 @@ const LoginPage = () => {
   const showToast = useToastStore((state) => state.showToast);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setErrorMessage("");

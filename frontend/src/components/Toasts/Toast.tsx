@@ -27,7 +27,7 @@ const Toast = () => {
           {type === "success" ? (
             <FiCheck size={20} strokeWidth={3} className="text-green-600" />
           ) : (
-            <FiAlertCircle size={20} />
+            <FiAlertCircle size={20} className="text-red-600" />
           )}
         </div>
 

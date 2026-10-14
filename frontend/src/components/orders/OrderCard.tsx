@@ -58,7 +58,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                 <div className="mt-3 flex items-center gap-3 text-xs text-muted">
                   <span>Qty {item.quantity}</span>
                   <span className="h-1 w-1 rounded-full bg-neutral-300" />
-                  <span>{item.price} kr each</span>
+                  <span>{item.price.toFixed(2)} kr each</span>
                 </div>
               </div>
 

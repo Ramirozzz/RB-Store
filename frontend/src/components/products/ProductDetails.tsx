@@ -37,6 +37,10 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
             <span className="underline">Home</span>
           </Link>
           <span>/</span>
+          <Link to={"/shop"}>
+            <span className="underline">Shop</span>
+          </Link>
+          <span>/</span>
           <span> {product.category.name}</span>
           <span>/</span>
           <span className="text-accent">{product.name}</span>
@@ -110,14 +114,14 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
                   )}
                 </button>
               </div>
-              <div className="mt-4">
+              <div className="mt-5">
                 {product.stockQuantity > 5 ? (
                   <span className="flex items-center gap-1 text-sm text-green-600">
                     <GoDotFill size={16} />
                     {product.stockQuantity} left in stock
                   </span>
                 ) : (
-                  <span className="text-sm text-red-500">
+                  <span className="flex items-center gap-1 text-sm text-red-500">
                     <GoDotFill /> Only {product.stockQuantity} left in stock
                   </span>
                 )}

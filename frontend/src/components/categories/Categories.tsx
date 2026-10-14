@@ -38,7 +38,6 @@ const Categories: React.FC<CategoriesProps> = ({
         <div className="flex flex-col gap-7 md:gap-5 md:flex-row md:items-center md:justify-between">
           <Swiper
             slidesPerView="auto"
-            // spaceBetween={30}
             freeMode
             modules={[FreeMode]}
             className="w-full"
@@ -68,21 +67,27 @@ const Categories: React.FC<CategoriesProps> = ({
               </button>
             </SwiperSlide>
 
-            {categories?.map((category) => (
-              <SwiperSlide key={category.id} className="!w-auto">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`whitespace-nowrap text-base text-text transition-all duration-100 ${
-                    selectedCategory === category.id
-                      ? "border-b-2 border-surface py-1"
-                      : "py-1 hover:border-b-2 hover:border-surface"
-                  }`}
-                >
-                  {category.name}
-                </button>
-              </SwiperSlide>
-            ))}
+            {categories?.length === 0 ? (
+              <p>No categories found</p>
+            ) : (
+              <>
+                {categories?.map((category) => (
+                  <SwiperSlide key={category.id} className="!w-auto">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`whitespace-nowrap text-base text-text transition-all duration-100 ${
+                        selectedCategory === category.id
+                          ? "border-b-2 border-surface py-1"
+                          : "py-1 hover:border-b-2 hover:border-surface"
+                      }`}
+                    >
+                      {category.name}
+                    </button>
+                  </SwiperSlide>
+                ))}
+              </>
+            )}
           </Swiper>
 
           <div className="shrink-0">

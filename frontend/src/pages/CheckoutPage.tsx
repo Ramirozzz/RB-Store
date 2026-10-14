@@ -126,7 +126,7 @@ const CheckoutPage = () => {
             className="mt-8 flex w-full cursor-pointer items-center justify-center bg-surface py-4 text-sm uppercase tracking-wider text-white transition-all duration-300 hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {createOrderMutation.isPending ? (
-              <LoadingSpinner size={18} />
+              <LoadingSpinner size={18} color="#ffffff" />
             ) : (
               "Confirm Order"
             )}
