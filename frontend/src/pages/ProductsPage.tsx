@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Categories from "../components/categories/Categories";
 import ProductsList from "../components/products/ProductsList";
 import PageHeader from "../components/pageHeader/PageHeader";
@@ -19,7 +19,6 @@ const ProductsPage = () => {
     }
   };
 
-  // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [sort, setSort] = useState("");
 
   return (

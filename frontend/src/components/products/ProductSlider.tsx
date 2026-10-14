@@ -52,29 +52,9 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   const prevClass = `product-slider-${type}-prev`;
   const nextClass = `product-slider-${type}-next`;
 
-  //   const relatedProducts = products
-  //   ?.filter(
-  //     (product) =>
-  //       product.categoryId === categoryId &&
-  //       product.id !== excludeProductId,
-  //   )
-  //   .slice(0, 6);
-
-  // const fallbackProducts = products
-  //   ?.filter(
-  //     (product) =>
-  //       product.id !== excludeProductId &&
-  //       !relatedProducts?.some((related) => related.id === product.id),
-  //   )
-  //   .slice(0, 6 - (relatedProducts?.length ?? 0));
-
-  // const sliderProducts = [
-  //   ...(relatedProducts ?? []),
-  //   ...(fallbackProducts ?? []),
-  // ];
-  if (isError) {
-    return <ErrorState message="Could not load products." />;
-  }
+  // if (isError) {
+  //   return <ErrorState message="Could not load products." />;
+  // }
 
   return (
     <div className="relative mb-4 py-4 pl-4 md:mb-8 lg:pl-16">
@@ -140,17 +120,23 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
           },
         }}
       >
-        {isLoading
-          ? Array.from({ length: 4 }).map((_, index) => (
-              <SwiperSlide key={index}>
-                <ProductCardSkeleton />
-              </SwiperSlide>
-            ))
-          : sliderProducts.map((product) => (
-              <SwiperSlide key={product.id}>
-                <ProductCard product={product} showIsBestSeller={false} />
-              </SwiperSlide>
-            ))}
+        {isLoading ? (
+          Array.from({ length: 4 }).map((_, index) => (
+            <SwiperSlide key={index}>
+              <ProductCardSkeleton />
+            </SwiperSlide>
+          ))
+        ) : isError || !sliderProducts ? (
+          <SwiperSlide>
+            <ErrorState message="Could not load products." />
+          </SwiperSlide>
+        ) : (
+          sliderProducts.map((product) => (
+            <SwiperSlide key={product.id}>
+              <ProductCard product={product} showIsBestSeller={false} />
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </div>
   );

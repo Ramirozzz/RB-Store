@@ -6,12 +6,6 @@ import ErrorState from "../components/states/ErrorState";
 const OrdersPage = () => {
   const { data: orders, isLoading, isError } = useOrders();
 
-  if (isError) {
-    return (
-      <ErrorState message="Could not load orders." className="min-h-screen" />
-    );
-  }
-
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 mt-25">
       <div className="mb-12">
@@ -36,7 +30,9 @@ const OrdersPage = () => {
             <OrderCardSkeleton key={index} />
           ))}
         </div>
-      ) : orders?.length === 0 ? (
+      ) : isError || !orders ? (
+        <ErrorState message="Could not load orders." className="min-h-screen" />
+      ) : orders.length === 0 ? (
         <div className="border border-border px-6 py-16 text-center">
           <h2 className="text-lg font-semibold text-text">
             You have no orders yet.
@@ -48,7 +44,7 @@ const OrdersPage = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          {orders?.map((order) => (
+          {orders.map((order) => (
             <OrderCard key={order.id} order={order} />
           ))}
         </div>

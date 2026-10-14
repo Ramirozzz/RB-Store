@@ -16,26 +16,23 @@ const ProductsList: React.FC<ProductsListProps> = ({
 }) => {
   const { data: products, isLoading, isError } = useProducts(undefined, sort);
 
-  if (isError) {
-    return <ErrorState message="Could not load products." />;
-  }
+  // if (isError) {
+  //   return <ErrorState message="Could not load products." />;
+  // }
 
   // if (!products) return null;
 
-  const filteredProducts = products?.filter(
-    (product) => {
-      if (bestSellers) {
-        return product.isBestSeller;
-      }
+  const filteredProducts = products?.filter((product) => {
+    if (bestSellers) {
+      return product.isBestSeller;
+    }
 
-      return (
-        selectedCategory === null ||
-        selectedCategory === undefined ||
-        product.categoryId === selectedCategory
-      );
-    },
-    // selectedCategory === null || product.categoryId === selectedCategory,
-  );
+    return (
+      selectedCategory === null ||
+      selectedCategory === undefined ||
+      product.categoryId === selectedCategory
+    );
+  });
 
   return (
     <div className="mx-auto px-4 py-8 sm:px-8 lg:px-10 xl:px-15 pb-25">
@@ -50,7 +47,9 @@ const ProductsList: React.FC<ProductsListProps> = ({
             <ProductCardSkeleton key={index} />
           ))}
         </div>
-      ) : filteredProducts?.length === 0 ? (
+      ) : isError || !filteredProducts ? (
+        <ErrorState message="Could not load products." />
+      ) : filteredProducts.length === 0 ? (
         <div className="flex min-h-[200px] w-full items-center justify-center">
           <p className="text-base text-text">
             No products found in this category.
@@ -58,7 +57,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
         </div>
       ) : (
         <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12">
-          {filteredProducts?.map((product) => (
+          {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
