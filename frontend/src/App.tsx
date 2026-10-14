@@ -22,6 +22,8 @@ import AdminProductsPage from "./admin/pages/AdminProductsPage";
 import AdminCreateProductPage from "./admin/pages/AdminCreateProductPage";
 import AdminCategoriesPage from "./admin/pages/AdminCategoriesPage";
 import AdminEditProductPage from "./admin/pages/AdminEditProductPage";
+import AdminOrdersPage from "./admin/pages/AdminOrdersPage";
+import AdminUsersPage from "./admin/pages/AdminUsersPage";
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
               path="products/:id/edit"
               element={<AdminEditProductPage />}
             />
+            <Route path="orders" element={<AdminOrdersPage />} />
+            <Route path="customers" element={<AdminUsersPage />} />
           </Route>
         </Route>
       </Routes>
