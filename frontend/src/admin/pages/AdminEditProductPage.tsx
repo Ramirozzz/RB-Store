@@ -4,6 +4,8 @@ import { useUpdateProduct } from "../../hooks/useUpdateProduct";
 import useToastStore from "../../stores/ToastStore";
 import type { CreateProduct } from "../../types/product";
 import AdminProductForm from "../components/forms/AdminProductForm";
+import ErrorState from "../../components/states/ErrorState";
+import AdminProductFormSkeleton from "../AdminSkeletons/AdminProductFormSkeleton";
 
 const AdminEditProductPage = () => {
   const { id } = useParams();
@@ -34,14 +36,6 @@ const AdminEditProductPage = () => {
     );
   };
 
-  if (isLoading) {
-    return <p>Loading product...</p>;
-  }
-
-  if (isError || !product) {
-    return <p>Failed to load product.</p>;
-  }
-
   return (
     <section className="mt-4 rounded-lg px-6 md:mt-0 md:bg-white md:py-8 md:shadow-lg">
       <div className="mx-auto max-w-6xl">
@@ -52,12 +46,18 @@ const AdminEditProductPage = () => {
       </div>
 
       <div className="mx-auto mt-12 max-w-6xl bg-white">
-        <AdminProductForm
-          product={product}
-          isEditting
-          onSubmit={handleUpdateProduct}
-          isSubmitting={updateProductMutation.isPending}
-        />
+        {isLoading ? (
+          <AdminProductFormSkeleton />
+        ) : isError || !product ? (
+          <ErrorState message="Could not load product." />
+        ) : (
+          <AdminProductForm
+            product={product}
+            isEditting
+            onSubmit={handleUpdateProduct}
+            isSubmitting={updateProductMutation.isPending}
+          />
+        )}
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { CreateProduct, Product } from "../../../types/product";
 import { useCategories } from "../../../hooks/useCategories";
 import LoadingSpinner from "../../../components/LoadingSpinners/LoadingSpinner";
+import ErrorState from "../../../components/states/ErrorState";
 
 interface AdminProductsFormProps {
   onSubmit: (product: CreateProduct) => void;
@@ -31,7 +32,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
     product ? String(product.categoryId) : "",
   );
 
-  const { data: categories, isError } = useCategories();
+  const { data: categories, isLoading, isError } = useCategories();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,19 +156,21 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           onChange={(e) => setCategoryId(e.target.value)}
           className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
           required
+          disabled={isLoading || isError}
         >
-          <option value="">Select a category</option>
+          <option value="">
+            {isLoading
+              ? "Loading categories..."
+              : isError
+                ? "Could not load categories"
+                : "Select a category"}
+          </option>
           {categories?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
             </option>
           ))}
         </select>
-        {isError && (
-          <p className="mt-2 text-sm text-red-700">
-            Failed to load categories.
-          </p>
-        )}
       </div>
 
       <label className="flex cursor-pointer items-center gap-3 text-sm">

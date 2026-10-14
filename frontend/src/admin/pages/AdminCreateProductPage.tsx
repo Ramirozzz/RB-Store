@@ -37,11 +37,6 @@ const AdminCreateProductPage = () => {
           onSubmit={handleCreateProduct}
           isSubmitting={createProductMutation.isPending}
         />
-        {/* {createProductMutation.isError && (
-          <p className="flex items-center gap-2 mt-4 text-sm text-red-700">
-            <TbFaceIdError size={22} /> Failed to create product.
-          </p>
-        )} */}
       </div>
     </section>
   );

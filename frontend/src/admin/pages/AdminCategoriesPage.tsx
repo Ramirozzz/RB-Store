@@ -85,14 +85,6 @@ const AdminCategoriesPage = () => {
     });
   };
 
-  // if (isLoading) {
-  //   return <AdminCategoriesSkeleton />;
-  // }
-
-  // if (isError || !categories) {
-  //   return <ErrorState message="Could not load products." />;
-  // }
-
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -160,15 +152,12 @@ const AdminCategoriesPage = () => {
               )}
             </button>
           </div>
-
-          {/* {createCategoryMutation.isError && (
-            <p className="mt-3 text-sm text-red-600">
-              Failed to create category.
-            </p>
-          )} */}
         </form>
       )}
       <div className="mt-6 rounded-lg bg-white shadow-lg">
+        <p className="text-sm text-muted p-4 ">
+          Total categories: {categories?.length ?? 0}
+        </p>
         {isLoading ? (
           <AdminCategoriesSkeleton />
         ) : isError || !categories ? (
@@ -183,97 +172,108 @@ const AdminCategoriesPage = () => {
             </thead>
 
             <tbody>
-              {categories.map((category) =>
-                editId === category.id ? (
-                  <tr
-                    key={category.id}
-                    className="border-b border-border last:border-0"
-                  >
-                    <td colSpan={2} className="px-5 py-4">
-                      <form
-                        onSubmit={(event) => {
-                          event.preventDefault();
-                          handleUpdateCategory(category.id);
-                        }}
-                        className="flex items-center gap-3"
-                      >
-                        <input
-                          type="text"
-                          value={editName}
-                          onChange={(event) => setEditName(event.target.value)}
-                          className="border border-border px-3 py-2 text-sm outline-none"
-                          maxLength={50}
-                          required
-                        />
-
-                        <button
-                          type="submit"
-                          disabled={updateCategoryMutation.isPending}
-                          className="cursor-pointer text-sm disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                          {updateCategoryMutation.isPending
-                            ? "Saving..."
-                            : "Save"}
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditId(null);
-                            setEditName("");
+              {categories.length === 0 ? (
+                <tr>
+                  <td colSpan={2} className="px-5 py-8 text-center text-muted">
+                    No categories found.
+                  </td>
+                </tr>
+              ) : (
+                categories.map((category) =>
+                  editId === category.id ? (
+                    <tr
+                      key={category.id}
+                      className="border-b border-border last:border-0"
+                    >
+                      <td colSpan={2} className="px-5 py-4">
+                        <form
+                          onSubmit={(event) => {
+                            event.preventDefault();
+                            handleUpdateCategory(category.id);
                           }}
-                          className="cursor-pointer text-sm text-muted"
+                          className="flex items-center gap-3"
                         >
-                          Cancel
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                ) : (
-                  <tr
-                    key={category.id}
-                    className="border-b border-border last:border-0"
-                  >
-                    <td className="px-5 py-4 text-sm">{category.name}</td>
+                          <input
+                            type="text"
+                            value={editName}
+                            onChange={(event) =>
+                              setEditName(event.target.value)
+                            }
+                            className="border border-border px-3 py-2 text-sm outline-none"
+                            maxLength={50}
+                            required
+                            disabled={updateCategoryMutation.isPending}
+                          />
 
-                    <td className="px-5 py-4 text-right">
-                      <div className="flex justify-end items-center gap-4">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditId(category.id);
-                            setEditName(category.name);
-                          }}
-                          className="cursor-pointer text-muted transition hover:text-text"
-                          aria-label={`Edit category ${category.name}`}
-                        >
-                          <MdOutlineModeEdit size={20} />
-                        </button>
+                          <button
+                            type="submit"
+                            disabled={updateCategoryMutation.isPending}
+                            className="cursor-pointer text-sm disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            {updateCategoryMutation.isPending
+                              ? "Saving..."
+                              : "Save"}
+                          </button>
 
-                        <button
-                          type="button"
-                          className="cursor-pointer text-muted transition hover:text-red-600"
-                          onClick={() =>
-                            setDeleteCategory({
-                              id: category.id,
-                              name: category.name,
-                            })
-                          }
-                          disabled={deleteCategoryMutation.isPending}
-                          aria-label={`Delete category ${category.name}`}
-                        >
-                          <RiDeleteBin6Line size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ),
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditId(null);
+                              setEditName("");
+                            }}
+                            className="cursor-pointer text-sm text-muted"
+                          >
+                            Cancel
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr
+                      key={category.id}
+                      className="border-b border-border last:border-0"
+                    >
+                      <td className="px-5 py-4 text-sm">{category.name}</td>
+
+                      <td className="px-5 py-4 text-right">
+                        <div className="flex justify-end items-center gap-4">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditId(category.id);
+                              setEditName(category.name);
+                            }}
+                            className="cursor-pointer text-muted transition hover:text-text"
+                            aria-label={`Edit category ${category.name}`}
+                          >
+                            <MdOutlineModeEdit size={20} aria-hidden="true" />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="cursor-pointer text-muted transition hover:text-red-600"
+                            onClick={() =>
+                              setDeleteCategory({
+                                id: category.id,
+                                name: category.name,
+                              })
+                            }
+                            disabled={deleteCategoryMutation.isPending}
+                            aria-label={`Delete category ${category.name}`}
+                          >
+                            <RiDeleteBin6Line size={20} aria-hidden="true" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ),
+                )
               )}
             </tbody>
           </table>
         )}
       </div>
-      // Modal opens when there is category saved in deleteCategory state
+      {/* Modal opens when there is category saved in deleteCategory state */}
       <DeleteConfirmationModal
         isOpen={deleteCategory !== null}
         title="Delete category"
