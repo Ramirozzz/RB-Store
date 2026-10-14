@@ -1,5 +1,5 @@
 import api from "./api";
-import type { AdminDashboard } from "../types/AdminDashboard";
+import type { AdminDashboard } from "../types/adminDashboard";
 
 export const getAdminDashboard = async (): Promise<AdminDashboard> => {
   const res = await api.get<AdminDashboard>("/admin/dashboard");

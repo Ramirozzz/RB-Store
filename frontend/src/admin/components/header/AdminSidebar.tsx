@@ -15,8 +15,8 @@ interface AdminSidebarProps {
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
   return (
     <aside className="flex h-full flex-col bg-white">
-      <div className="flex items-center justify-between border-b border-border px-6 py-5">
-        <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.4rem]">
+      <div className="flex items-center justify-between border-b border-border px-6 py-5.5">
+        <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.35rem]">
           Rb Eyewear
         </span>
 
