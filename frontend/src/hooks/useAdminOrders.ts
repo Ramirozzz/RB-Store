@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { AdminOrder } from "../types/adminOrders";
+import type { AdminOrder } from "../types/adminOrder";
 import { getAdminOrders } from "../services/orderService";
 
 export const useAdminOrders = () => {
