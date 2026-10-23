@@ -11,9 +11,11 @@ const Sort: React.FC<SortProps> = ({ sort, onSort }) => {
       <select
         value={sort}
         onChange={(e) => onSort(e.target.value)}
-        className="w-full cursor-pointer appearance-none border border-border bg-white py-3 pl-4 pr-12 text-xs font-bold uppercase tracking-wider text-text outline-none transition hover:border-black sm:w-auto"
+        className="w-full cursor-pointer appearance-none border border-border bg-white py-3 pl-4 pr-12 text-sm font-bold tracking-wider text-text outline-none transition hover:border-black sm:w-auto"
       >
-        <option value="">Sort by</option>
+        <option value="">
+          <span className="text-muted">Sort By: </span> Latest
+        </option>
         <option value="price-asc">Price: Low to High</option>
         <option value="price-desc">Price: High to Low</option>
         <option value="name-asc">Name: A-Z</option>
