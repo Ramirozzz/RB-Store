@@ -1,6 +1,7 @@
 import type { Product } from "../../types/product";
 import ProductCard from "../products/ProductCard";
 import { ClipLoader } from "react-spinners";
+import ErrorState from "../states/ErrorState";
 
 interface SearchResultsProps {
   products: Product[];
@@ -15,42 +16,41 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   isLoading,
   isError,
 }) => {
-  {
-    isError && (
-      <p className="p-8 text-sm text-muted">
-        Something went wrong while searching.
-      </p>
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[100px] items-center justify-center bg-white px-5 py-8 lg:px-8">
+        <ClipLoader color="#000000" />
+      </div>
     );
   }
+
+  if (isError) {
+    return (
+      <div className="bg-white px-5 py-8 lg:px-8">
+        <ErrorState message="Something went wrong while searching." />
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="flex min-h-[100px] items-center justify-center bg-white px-5 py-8 lg:px-8">
+        <p className="text-sm font-bold">No results found for "{search}"</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white px-5 lg:px-8 py-8 ">
-      {isLoading && (
-        <div className="flex min-h-[100px] items-center justify-center">
-          <ClipLoader color="#000000" />
-        </div>
-      )}
+    <div className="bg-white px-5 py-8 lg:px-8">
+      <span className="text-sm text-muted">
+        {products.length} {products.length === 1 ? "product" : "products"} found
+      </span>
 
-      {!isLoading && products.length === 0 ? (
-        <div className="flex min-h-[100px] items-center justify-center">
-          <p className="text-sm font-bold">No results found for "{search}"</p>
-        </div>
-      ) : (
-        !isLoading &&
-        products.length > 0 && (
-          <>
-            <span className="text-sm text-muted">
-              {products.length} {products.length === 1 ? "product" : "products"}{" "}
-              found
-            </span>
-
-            <div className="mt-4 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </>
-        )
-      )}
+      <div className="mt-4 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

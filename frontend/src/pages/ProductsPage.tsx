@@ -3,12 +3,14 @@ import { useSearchParams } from "react-router-dom";
 import Categories from "../components/categories/Categories";
 import ProductsList from "../components/products/ProductsList";
 import PageHeader from "../components/pageHeader/PageHeader";
+import { useAdminSearchSort } from "../hooks/useAdminSearchSort";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryUrl = searchParams.get("category");
 
   const selectedCategory = categoryUrl ? Number(categoryUrl) : null;
+  const { sort, setSort } = useAdminSearchSort();
 
   // Updates the URL query parameter based on the selected category.
   const setSelectedCategory = (categoryId: number | null) => {
@@ -18,8 +20,6 @@ const ProductsPage = () => {
       setSearchParams({ category: String(categoryId) });
     }
   };
-
-  const [sort, setSort] = useState("");
 
   return (
     <section className="pt-33 sm:pt-38">

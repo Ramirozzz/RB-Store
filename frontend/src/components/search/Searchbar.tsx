@@ -1,23 +1,14 @@
-import { useState, useEffect } from "react";
 import { useProducts } from "../../hooks/useProducts";
 import { IoClose } from "react-icons/io5";
 import SearchResults from "./SearchResults";
+import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
 
 interface SearchbarProps {
   onClose: () => void;
 }
 const Searchbar: React.FC<SearchbarProps> = ({ onClose }) => {
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-
+  const { search, setSearch, debouncedSearch } = useAdminSearchSort();
   const { data: products, isLoading, isError } = useProducts(debouncedSearch);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [search]);
 
   if (!products) return null;
 
