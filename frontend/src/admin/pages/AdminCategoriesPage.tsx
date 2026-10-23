@@ -11,9 +11,37 @@ import { useDeleteCategory } from "../../hooks/useDeleteCategory";
 import useToastStore from "../../stores/ToastStore";
 import AdminCategoriesSkeleton from "../AdminSkeletons/AdminCategoriesSkeleton";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
+import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
+import AdminSearchBar from "../components/search/AdminSearchBar";
+import Sort from "../components/sort/Sort";
 
 const AdminCategoriesPage = () => {
+  const { search, setSearch, debouncedSearch, sort, setSort } =
+    useAdminSearchSort();
   const { data: categories, isLoading, isError } = useCategories();
+
+  const filteredCategories = (categories ?? [])
+    .filter((category) =>
+      category.name.toLowerCase().includes(debouncedSearch.toLowerCase()),
+    )
+    .sort((a, b) => {
+      switch (sort) {
+        case "name-asc":
+          return a.name.localeCompare(b.name);
+
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+
+        default:
+          return b.id - a.id;
+      }
+    });
+
+  const categorySortOptions = [
+    { label: "Name: A–Z", value: "name-asc" },
+    { label: "Name: Z–A", value: "name-desc" },
+  ];
+
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [deleteCategory, setDeleteCategory] = useState<{
@@ -154,13 +182,26 @@ const AdminCategoriesPage = () => {
           </div>
         </form>
       )}
+      <div className="flex items-center justify-between mt-6">
+        <AdminSearchBar
+          value={search}
+          onChange={setSearch}
+          placeholder="Search categories"
+        />
+        <Sort
+          sort={sort}
+          onSort={setSort}
+          options={categorySortOptions}
+          ariaLabel="Sort categories"
+        />
+      </div>
       <div className="mt-6 rounded-lg bg-white shadow-lg">
         <p className="text-sm text-muted p-4 ">
-          Total categories: {categories?.length ?? 0}
+          Total categories: {filteredCategories?.length ?? 0}
         </p>
         {isLoading ? (
           <AdminCategoriesSkeleton />
-        ) : isError || !categories ? (
+        ) : isError || !filteredCategories ? (
           <ErrorState message="Could not load categories." />
         ) : (
           <table className="w-full">
@@ -172,14 +213,14 @@ const AdminCategoriesPage = () => {
             </thead>
 
             <tbody>
-              {categories.length === 0 ? (
+              {filteredCategories.length === 0 ? (
                 <tr>
                   <td colSpan={2} className="px-5 py-8 text-center text-muted">
                     No categories found.
                   </td>
                 </tr>
               ) : (
-                categories.map((category) =>
+                filteredCategories.map((category) =>
                   editId === category.id ? (
                     <tr
                       key={category.id}

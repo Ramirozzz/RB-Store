@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useProducts } from "../../hooks/useProducts";
 import ErrorState from "../../components/states/ErrorState";
 import { HiOutlinePlus } from "react-icons/hi2";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -9,9 +8,32 @@ import AdminProductsSkeleton from "../AdminSkeletons/AdminProductsSkeleton";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import useToastStore from "../../stores/ToastStore";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
+import { useAdminProducts } from "../../hooks/useAdminProducts";
+import AdminSearchBar from "../components/search/AdminSearchBar";
+import Sort from "../components/sort/Sort";
+import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
 
 const AdminProductsPage = () => {
-  const { data: products, isLoading, isError } = useProducts();
+  // const [search, setSearch] = useState("");
+  // const [debouncedSearch, setDebouncedSearch] = useState("");
+  // const [sort, setSort] = useState("");
+
+  const { search, setSearch, debouncedSearch, sort, setSort } =
+    useAdminSearchSort();
+
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useAdminProducts(debouncedSearch, sort);
+
+  const productSortOptions = [
+    { label: "Name: A–Z", value: "name-asc" },
+    { label: "Name: Z–A", value: "name-desc" },
+    { label: "Price: Low to High", value: "price-asc" },
+    { label: "Price: High to Low", value: "price-desc" },
+  ];
+
   const [deleteProduct, setDeleteProduct] = useState<{
     id: number;
     name: string;
@@ -35,6 +57,14 @@ const AdminProductsPage = () => {
     });
   };
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setDebouncedSearch(search);
+  //   }, 300);
+
+  //   return () => clearTimeout(timer);
+  // }, [search]);
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -47,15 +77,30 @@ const AdminProductsPage = () => {
         <Link
           to={"/admin/products/new-product"}
           type="button"
-          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
+          className="flex cursor-pointer items-center gap-2 bg-surface rounded-sm px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
         >
           <HiOutlinePlus size={18} />
           Add Product
         </Link>
       </div>
-      <div className="mt-6 overflow-x-auto bg-white shadow-lg">
-        <p className="text-sm text-muted p-4 ">
-          Total products: {products?.length ?? 0}
+      <div className="flex items-center justify-between flex-wrap gap-3 mt-6">
+        <AdminSearchBar
+          value={search}
+          onChange={setSearch}
+          placeholder="Search products"
+        />
+        <Sort
+          sort={sort}
+          onSort={setSort}
+          options={productSortOptions}
+          ariaLabel="Sort products"
+        />
+      </div>
+
+      <div className="mt-6 overflow-x-auto bg-white shadow-lg rounded-sm">
+        <p className="text-sm text-muted p-4 font-normal ">
+          <span className="text-text font-bold">Total products: </span>(
+          {products?.length ?? 0})
         </p>
         {isLoading ? (
           <AdminProductsSkeleton />
@@ -138,7 +183,7 @@ const AdminProductsPage = () => {
                             })
                           }
                           disabled={deleteProductMutation.isPending}
-                          className="cursor-pointer text-muted transition hover:text-red-600"
+                          className="cursor-pointer text-muted  transition hover:text-red-600"
                           aria-label={`Delete product ${product.name}`}
                         >
                           <RiDeleteBin6Line size={20} aria-hidden="true" />
