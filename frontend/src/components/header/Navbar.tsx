@@ -67,8 +67,8 @@ const Navbar = () => {
               <Link to="/best-sellers">
                 <li>Best Sellers</li>
               </Link>
-              <Link to="/login">
-                <li>My Account</li>
+              <Link to="/orders">
+                <li>My Orders</li>
               </Link>
             </ul>
           </div>
