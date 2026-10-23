@@ -9,6 +9,9 @@ export const useCreateProduct = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: ["adminProducts"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

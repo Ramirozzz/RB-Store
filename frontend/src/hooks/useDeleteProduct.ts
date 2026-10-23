@@ -12,6 +12,9 @@ export const useDeleteProduct = () => {
         queryKey: ["products"],
       });
       queryClient.invalidateQueries({
+        queryKey: ["adminProducts"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["product", { id }],
       });
     },
