@@ -10,7 +10,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ message, className }) => {
       className={`flex min-h-[60vh] flex-col items-center justify-center px-5 text-center ${className}`}
     >
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
-        <TbFaceIdError size={32} className="text-red-500" />
+        <TbFaceIdError size={32} className="text-red-600" />
       </div>
 
       <h2 className="mt-5 text-lg font-semibold text-text">
