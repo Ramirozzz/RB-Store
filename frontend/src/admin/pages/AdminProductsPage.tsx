@@ -155,7 +155,7 @@ const AdminProductsPage = () => {
                     </td>
 
                     <td
-                      className={`px-5 py-4 text-sm ${product.stockQuantity > 5 ? "text-text" : "text-red-600"}`}
+                      className={`px-5 py-4 text-sm ${product.stockQuantity > 5 ? "text-text" : product.stockQuantity === 0 ? "text-red-600" : "text-amber-600"}`}
                     >
                       {product.stockQuantity}
                     </td>
