@@ -72,22 +72,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <h3 className="text-sm text-text">{product.name}</h3>
 
           {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
-          <p className="shrink-0 text-sm text-muted font-bold mt-1">
-            {product.price.toFixed(2)} kr
-          </p>
+          <div className="flex items-center gap-4 mt-1 ">
+            <p className="shrink-0 text-sm text-muted">
+              {product.price.toFixed(2)} kr
+            </p>
+
+            <span className="text-sm text-red-600">
+              {product.stockQuantity === 0 ? "Sold Out" : ""}
+            </span>
+          </div>
         </div>
 
-        <HiOutlineShoppingBag
+        <button
+          type="button"
+          disabled={product.stockQuantity === 0}
           onClick={() => {
             addToCart(product);
-            showToast(`${product.name} Added to cart`, "success");
+            showToast(`${product.name} added to cart`, "success");
           }}
-          size={22}
-          className="text-muted cursor-pointer hover:text-surface"
-        />
-        {/* <p className="shrink-0 text-sm font-medium text-text">
-          {product.price} kr
-        </p> */}
+          className="cursor-pointer text-muted transition hover:text-surface disabled:cursor-not-allowed "
+          aria-label={
+            product.stockQuantity === 0 ? "Out of stock" : "Add to cart"
+          }
+        >
+          <HiOutlineShoppingBag size={22} />
+        </button>
       </div>
     </article>
   );
