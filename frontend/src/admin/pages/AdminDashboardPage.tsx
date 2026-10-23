@@ -1,23 +1,19 @@
 import ErrorState from "../../components/states/ErrorState";
 import { useAdminDashboard } from "../../hooks/useAdminDashboard";
-import AdminDashboardCard from "../components/cards/AdminDashboardCard";
+import AdminDashboardSkeleton from "../AdminSkeletons/AdminDashboardSkeleton";
+import AdminDashboardCard from "../components/dashboard-Home/AdminDashboardCard";
 import {
   HiOutlineShoppingBag,
+  HiOutlineSquares2X2,
   HiOutlineClipboardDocumentList,
   HiOutlineUsers,
   HiOutlineExclamationTriangle,
 } from "react-icons/hi2";
+import RecentOrders from "../components/dashboard-Home/RecentOrders";
+import QuickActions from "../components/dashboard-Home/QuickActions";
 
 const AdminDashboardPage = () => {
   const { data, isLoading, isError } = useAdminDashboard();
-
-  if (isLoading) {
-    return <p className="text-sm text-muted">Loading dashboard...</p>;
-  }
-
-  if (isError || !data) {
-    return <ErrorState message="Could not load dashboard data." />;
-  }
 
   return (
     <section>
@@ -25,28 +21,41 @@ const AdminDashboardPage = () => {
 
       <p className="mt-2 text-sm text-muted">Overview of your store.</p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <AdminDashboardCard
-          title="Products"
-          data={data.totalProducts}
-          icon={<HiOutlineShoppingBag size={35} />}
-        />
-        <AdminDashboardCard
-          title="Orders"
-          data={data.totalOrders}
-          icon={<HiOutlineClipboardDocumentList size={35} />}
-        />
-        <AdminDashboardCard
-          title="Customers"
-          data={data.totalCustomers}
-          icon={<HiOutlineUsers size={35} />}
-        />
-        <AdminDashboardCard
-          title="Low Stock"
-          data={data.lowStockProducts}
-          icon={<HiOutlineExclamationTriangle size={35} />}
-        />
-      </div>
+      {isLoading ? (
+        <AdminDashboardSkeleton />
+      ) : isError || !data ? (
+        <ErrorState message="Could not load dashboard data." />
+      ) : (
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <AdminDashboardCard
+            title="Products"
+            data={data.totalProducts}
+            icon={<HiOutlineShoppingBag size={35} color="#df7057" />}
+          />
+          <AdminDashboardCard
+            title="Categories"
+            data={data.totalCategories}
+            icon={<HiOutlineSquares2X2 size={35} color="#7a6ee4" />}
+          />
+          <AdminDashboardCard
+            title="Orders"
+            data={data.totalOrders}
+            icon={<HiOutlineClipboardDocumentList size={35} color="#4f7fe6" />}
+          />
+          <AdminDashboardCard
+            title="Customers"
+            data={data.totalCustomers}
+            icon={<HiOutlineUsers size={35} color="#16834A" />}
+          />
+          <AdminDashboardCard
+            title="Low Stock"
+            data={data.lowStockProducts}
+            icon={<HiOutlineExclamationTriangle size={35} color="#B77909" />}
+          />
+        </div>
+      )}
+      <QuickActions />
+      <RecentOrders />
     </section>
   );
 };
