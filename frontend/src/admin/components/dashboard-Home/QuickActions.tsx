@@ -9,7 +9,7 @@ const QuickActions = () => {
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Link
           to="/admin/products/new-product"
-          className="flex items-center gap-3 rounded-xl bg-white border border-border p-4 transition-colors hover:bg-bg"
+          className="flex items-center gap-4 rounded-xl bg-white border border-border p-4 transition-colors hover:bg-bg"
         >
           <HiOutlinePlusCircle size={24} />
           <div>
@@ -22,7 +22,7 @@ const QuickActions = () => {
 
         <Link
           to="/admin/categories/categories"
-          className="flex items-center gap-3 rounded-xl bg-white border border-border p-4 transition-colors hover:bg-bg"
+          className="flex items-center gap-4 rounded-xl bg-white border border-border p-4 transition-colors hover:bg-bg"
         >
           <HiOutlineFolderPlus size={24} />
           <div>
