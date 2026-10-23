@@ -50,7 +50,7 @@ const AdminDashboardPage = () => {
           <AdminDashboardCard
             title="Low Stock"
             data={data.lowStockProducts}
-            icon={<HiOutlineExclamationTriangle size={35} color="#B77909" />}
+            icon={<HiOutlineExclamationTriangle size={35} color="#f59e0b" />}
           />
         </div>
       )}
