@@ -29,8 +29,8 @@ const AccountMenu = () => {
       logout();
 
       setIsLoggingOut(false);
+      navigate("/");
     }, 500);
-    navigate("/");
   };
 
   return (
