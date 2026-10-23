@@ -7,24 +7,23 @@ import AdminHeader from "../header/AdminHeader";
 const AdminLayout = () => {
   return (
     <div className="min-h-screen bg-background-light">
-      {/* Header mobile */}
-      <header className="flex items-center justify-between border-b border-border bg-white px-5 py-4 lg:hidden">
+      {/* Header Mobile */}
+      <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-white px-5 lg:hidden">
         <AdminHeaderMobile />
       </header>
 
-      <div className="flex min-h-[calc(100vh-65px)] lg:min-h-screen">
-        {/* Desktop */}
-        <div className="hidden lg:block w-64 bg-white border-r border-border">
-          <AdminSidebar />
-        </div>
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-border bg-white lg:block">
+        <AdminSidebar />
+      </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col">
+      <div className="pt-16 lg:ml-64 lg:pt-0">
+        <div className="fixed right-0 top-0 z-30 hidden h-16 bg-white lg:block lg:left-64">
           <AdminHeader />
-
-          <main className="flex-1 p-5 sm:p-8">
-            <Outlet />
-          </main>
         </div>
+
+        <main className="min-w-0 p-5 pt-20 sm:p-8 sm:pt-24 lg:pt-24">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
