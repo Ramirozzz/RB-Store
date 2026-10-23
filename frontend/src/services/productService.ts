@@ -5,7 +5,6 @@ export const getProducts = async (
   search?: string,
   sort?: string,
 ): Promise<Product[]> => {
-  // await new Promise((resolve) => setTimeout(resolve, 1500));
   const res = await api.get<Product[]>("/products", {
     params: {
       search,
@@ -39,4 +38,18 @@ export const updateProduct = async (
 
 export const deleteProduct = async (id: number): Promise<void> => {
   await api.delete(`/products/${id}`);
+};
+
+export const getAdminProducts = async (
+  search?: string,
+  sort?: string,
+): Promise<Product[]> => {
+  const res = await api.get<Product[]>("/admin/products", {
+    params: {
+      search,
+      sort,
+    },
+  });
+
+  return res.data;
 };
