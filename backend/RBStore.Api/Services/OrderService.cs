@@ -142,4 +142,25 @@ public class OrderService : IOrderService
 
         return await _orderRepository.UpdateStatusAsync(id, status);
     }
+
+    public async Task<List<AdminOrderDto>> GetRecentForAdminAsync()
+    {
+        var orders = await _orderRepository.GetAllAsync();
+
+        return orders
+            .OrderByDescending(order => order.OrderDate)
+            .Take(5)
+            .Select(order => new AdminOrderDto
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Status = order.Status,
+                CustomerName = order.User.Name,
+                CustomerEmail = order.User.Email ?? string.Empty
+            })
+            .ToList();
+    }
+
+
 }

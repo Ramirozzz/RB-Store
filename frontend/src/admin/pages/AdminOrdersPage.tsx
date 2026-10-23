@@ -2,42 +2,31 @@ import ErrorState from "../../components/states/ErrorState";
 import { useAdminOrders } from "../../hooks/useAdminOrders";
 import { useUpdateAdminOrderStatus } from "../../hooks/useUpdateAdminOrderStatus";
 import type { OrderStatus } from "../../types/adminOrder";
+import { statuses, getStatusStyle } from "../utils/orderstatus";
 import AdminOrdersSkeleton from "../AdminSkeletons/AdminOrdersSkeleton";
 
-const getStatusStyle = (status: OrderStatus) => {
-  switch (status) {
-    case 0:
-      return "bg-amber-100 text-amber-800";
-    case 1:
-      return "bg-green-100 text-green-800";
-    case 2:
-      return "bg-red-100 text-red-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+// const getStatusStyle = (status: OrderStatus) => {
+//   switch (status) {
+//     case 0:
+//       return "bg-amber-100 text-amber-800";
+//     case 1:
+//       return "bg-green-100 text-green-800";
+//     case 2:
+//       return "bg-red-100 text-red-800";
+//     default:
+//       return "bg-gray-100 text-gray-800";
+//   }
+// };
 
 const AdminOrdersPage = () => {
   const { data: orders, isLoading, isError } = useAdminOrders();
   const updateStatus = useUpdateAdminOrderStatus();
 
-  const statuses: { value: OrderStatus; label: string }[] = [
-    { value: 0 as unknown as OrderStatus, label: "Pending" },
-    { value: 1 as unknown as OrderStatus, label: "Delivered" },
-    { value: 2 as unknown as OrderStatus, label: "Cancelled" },
-  ];
-
-  // if (isLoading) {
-  //   return <p>Loading orders...</p>;
-  // }
-
-  // if (isError) {
-  //   return <ErrorState message="Could not load orders." />;
-  // }
-
-  // if (!orders?.length) {
-  //   return <p>No orders found.</p>;
-  // }
+  // const statuses: { value: OrderStatus; label: string }[] = [
+  //   { value: 0 as unknown as OrderStatus, label: "Pending" },
+  //   { value: 1 as unknown as OrderStatus, label: "Delivered" },
+  //   { value: 2 as unknown as OrderStatus, label: "Cancelled" },
+  // ];
 
   return (
     <section>
@@ -57,7 +46,7 @@ const AdminOrdersPage = () => {
         ) : (
           <table className="w-full text-left text-sm mt-4">
             <thead>
-              <tr className="border-b border-border text-muted">
+              <tr className="border-b border-border text-text">
                 <th className="p-4">Order ID</th>
                 <th className="p-4">Customer</th>
                 <th className="p-4">Email</th>
@@ -93,7 +82,7 @@ const AdminOrdersPage = () => {
                             status: Number(e.target.value) as OrderStatus,
                           })
                         }
-                        className={`cursor-pointer rounded-md border-0 px-3 py-1.5 text-sm font-medium ${getStatusStyle(order.status)}`}
+                        className={`cursor-pointer rounded-md border-0 px-3 py-1.5 text-sm  ${getStatusStyle(order.status)}`}
                         aria-label={`Change status for order ${order.id}`}
                       >
                         {statuses.map((status) => (
