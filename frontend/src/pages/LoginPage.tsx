@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../stores/authStore";
-// import { loginUser } from "../services/authService";
 import { useLogin } from "../hooks/useLogin";
 import useToastStore from "../stores/ToastStore";
 import LoadingSpinner from "../components/LoadingSpinners/LoadingSpinner";
@@ -38,29 +37,6 @@ const LoginPage = () => {
       },
     );
   };
-
-  //   const handleSubmit = async (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     setErrorMessage("");
-  //     setIsLoading(true);
-
-  //     try {
-  //       const data = await loginUser({
-  //         email,
-  //         password,
-  //       });
-
-  //       login(data.token, data.user);
-
-  //       showToast("Successfully logged in", "success");
-
-  //       navigate("/");
-  //     } catch {
-  //       setErrorMessage("Invalid email or password.");
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
 
   return (
     <div className="flex min-h-dvh items-center justify-center px-5 py-20">
@@ -112,7 +88,7 @@ const LoginPage = () => {
             />
           </div>
           {errorMessage && (
-            <p className="text-sm text-red-600">{errorMessage}</p>
+            <p className="text-sm text-red-600 font-normal">{errorMessage}</p>
           )}
 
           <button
@@ -129,7 +105,7 @@ const LoginPage = () => {
         </form>
 
         <p className="mt-6 text-center text-sm text-muted">
-          Don't have an account?{" "}
+          Don't have an account?{"  "}
           <Link to="/register" className="text-text underline">
             Register
           </Link>

@@ -17,7 +17,7 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     registerMutation.mutate(
@@ -109,7 +109,10 @@ const RegisterPage = () => {
               placeholder="Enter your password"
             />
             {errorMessage && (
-              <p className="mt-2 text-sm text-red-600"> {errorMessage} </p>
+              <p className="mt-2 text-sm text-red-600 font-normal">
+                {" "}
+                {errorMessage}{" "}
+              </p>
             )}
           </div>
           <button
