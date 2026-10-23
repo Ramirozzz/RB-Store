@@ -20,6 +20,7 @@ public class AdminService : IAdminService
     public async Task<AdminDashboardDto> GetDashboardAsync()
     {
         var totalProducts = await _adminRepository.GetTotalProductsAsync();
+        var totalCategories = await _adminRepository.GetTotalCategoriesAsync();
         var totalOrders = await _adminRepository.GetTotalOrdersAsync();
         var totalCustomers = await _adminRepository.GetTotalCustomersAsync();
         var lowStockProducts = await _adminRepository.GetLowStockProductsAsync();
@@ -27,6 +28,7 @@ public class AdminService : IAdminService
         return new AdminDashboardDto
         {
             TotalProducts = totalProducts,
+            TotalCategories = totalCategories,
             TotalOrders = totalOrders,
             TotalCustomers = totalCustomers,
             LowStockProducts = lowStockProducts

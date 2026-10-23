@@ -18,6 +18,11 @@ public class AdminRepository : IAdminRepository
         return await _context.Products.CountAsync();
     }
 
+    public async Task<int> GetTotalCategoriesAsync()
+    {
+        return await _context.Categories.CountAsync();
+    }
+
 
     public async Task<int> GetTotalOrdersAsync()
     {

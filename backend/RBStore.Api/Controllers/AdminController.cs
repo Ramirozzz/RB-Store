@@ -19,23 +19,30 @@ public class AdminController : ControllerBase
 {
     private readonly IAdminService _adminService;
     private readonly IOrderService _orderService;
+    private readonly IProductService _productService;
+    private readonly ICategoryService _categoryService;
 
     public AdminController(
      IAdminService adminService,
-     IOrderService orderService)
+     IOrderService orderService,
+     IProductService productService,
+     ICategoryService categoryService)
+
     {
         _adminService = adminService;
         _orderService = orderService;
+        _productService = productService;
+        _categoryService = categoryService;
     }
 
-    [HttpGet]
-    public IActionResult GetAdmin()
-    {
-        return Ok(new
-        {
-            message = "Welcome to the admin area."
-        });
-    }
+    // [HttpGet]
+    // public IActionResult GetAdmin()
+    // {
+    //     return Ok(new
+    //     {
+    //         message = "Welcome to the admin area."
+    //     });
+    // }
 
     [HttpGet("dashboard")]
     public async Task<ActionResult<AdminDashboardDto>> GetDashboard()
@@ -119,6 +126,43 @@ public class AdminController : ControllerBase
       );
         }
     }
+
+    [HttpGet("products")]
+    public async Task<ActionResult<List<Product>>> GetProducts([FromQuery] string? search,
+    [FromQuery] string? sort)
+    {
+        try
+        {
+            var products = await _productService.GetAllAsync(search, sort);
+
+            return Ok(products);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                500,
+                "An unexpected error occurred while retrieving products."
+            );
+        }
+    }
+
+    [HttpGet("orders/recent")]
+    public async Task<ActionResult<List<AdminOrderDto>>> GetRecentOrders()
+    {
+        var orders = await _orderService.GetRecentForAdminAsync();
+
+        return Ok(orders);
+    }
+
+    // [HttpGet("categories")]
+    // public async Task<ActionResult<List<Category>>> GetCategories(
+    // [FromQuery] string? search,
+    // [FromQuery] string? sort)
+    // {
+    //     var categories = await _categoryService.GetAllAsync(search, sort);
+
+    //     return Ok(categories);
+    // }
 
 
 }

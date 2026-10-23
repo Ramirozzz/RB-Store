@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { AdminDashboard } from "../types/AdminDashboard";
+import type { AdminDashboard } from "../types/adminDashboard";
 import { getAdminDashboard } from "../services/AdminService";
 
 export const useAdminDashboard = () => {

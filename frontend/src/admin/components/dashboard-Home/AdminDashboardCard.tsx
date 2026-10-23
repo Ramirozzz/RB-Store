@@ -12,8 +12,8 @@ const AdminDashboardCard: React.FC<AdminDashboardCardsProps> = ({
   icon,
 }) => {
   return (
-    <div className="flex items-center gap-6 bg-white p-5 shadow-lg">
-      <div className="text-muted bg-background-light rounded-full p-3">
+    <div className="flex items-center gap-6 bg-white p-5 border border-border rounded-xl">
+      <div className="bg-orange-50 p-3 text-[#B77909] rounded-full p-3">
         {icon}
       </div>
       <div className="flex flex-col gap-1">
