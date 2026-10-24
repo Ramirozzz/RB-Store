@@ -8,6 +8,7 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 // import { PiUser } from "react-icons/pi";
 // import { BiUser } from "react-icons/bi";
 import { LiaUser } from "react-icons/lia";
+import { FiX } from "react-icons/fi";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 
 const AccountMenu = () => {
@@ -58,62 +59,73 @@ const AccountMenu = () => {
           )}
         </button>
 
-        {accountOpen && (
-          <div className="absolute right-0 top-full z-50 mt-3 w-56 border border-border bg-white p-2 shadow-lg">
-            {isAuthenticated && (
-              <>
-                <div className="border-b border-border px-3 py-3">
-                  <p className="text-sm font-primary text-text font-bold">
-                    {user?.name}
-                  </p>
-
-                  <p className="mt-1 text-sm text-muted">{user?.email}</p>
-                </div>
-
-                <Link
-                  to="/orders"
-                  onClick={() => setAccountOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 pt-3 text-sm text-text hover:bg-background"
-                >
-                  <HiOutlineClipboardDocumentList
-                    size={17}
-                    className="text-muted"
-                  />
-                  My orders
-                </Link>
-
-                <Link
-                  to="/wishlist"
-                  onClick={() => setAccountOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
-                >
-                  <GoHeart size={17} className="text-muted" />
-                  Wishlist
-                </Link>
-
-                {user?.role === "Admin" && (
-                  <Link
-                    to="/admin"
-                    onClick={() => setAccountOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-background"
-                  >
-                    <HiOutlineShieldCheck size={17} className="text-muted" />
-                    Admin Dashboard
-                  </Link>
-                )}
-
+        <div
+          className={`absolute right-0 top-full z-50 mt-3 w-60 origin-top-right border border-border bg-white p-2 shadow-lg transition-all duration-200 ease-out ${
+            accountOpen
+              ? "visible translate-y-0 scale-100 opacity-100"
+              : "invisible -translate-y-1 scale-95 opacity-0 pointer-events-none"
+          }`}
+        >
+          {isAuthenticated && (
+            <div>
+              <div className="relative border-b border-border px-3 py-3">
                 <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 w-full cursor-pointer px-3 py-2.5 text-left text-sm text-text hover:bg-background"
+                  onClick={() => setAccountOpen(false)}
+                  className="absolute top-0.5 right-1 cursor-pointer"
                 >
-                  <AiOutlineLogout size={17} className="text-muted" />
-                  Logout
+                  <FiX size={18} />
                 </button>
-              </>
-            )}
-          </div>
-        )}
+
+                <p className="text-sm font-primary text-text font-bold">
+                  {user?.name}
+                </p>
+
+                <p className="mt-1 text-sm text-muted">{user?.email}</p>
+              </div>
+
+              <Link
+                to="/orders"
+                onClick={() => setAccountOpen(false)}
+                className="flex items-center gap-2 px-3 py-2.5 pt-3 text-sm text-text hover:bg-neutral-100"
+              >
+                <HiOutlineClipboardDocumentList
+                  size={17}
+                  className="text-muted"
+                />
+                My orders
+              </Link>
+
+              <Link
+                to="/wishlist"
+                onClick={() => setAccountOpen(false)}
+                className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-neutral-100"
+              >
+                <GoHeart size={17} className="text-muted" />
+                Wishlist
+              </Link>
+
+              {user?.role === "Admin" && (
+                <Link
+                  to="/admin"
+                  onClick={() => setAccountOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-text hover:bg-neutral-100"
+                >
+                  <HiOutlineShieldCheck size={17} className="text-muted" />
+                  Admin Dashboard
+                </Link>
+              )}
+
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex items-center gap-2 w-full cursor-pointer px-3 py-2.5 text-left text-sm text-text hover:bg-neutral-100"
+              >
+                <AiOutlineLogout size={17} className="text-muted" />
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <LoadingOverlay isVisible={isLoggingOut} />
     </>
