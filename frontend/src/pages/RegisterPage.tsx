@@ -38,6 +38,7 @@ const RegisterPage = () => {
               error.response?.data || "Could not create account.",
             );
           } else {
+            showToast("Failed to register.", "error");
             setErrorMessage("Could not create account.");
           }
         },

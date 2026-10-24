@@ -32,6 +32,7 @@ const LoginPage = () => {
           navigate("/");
         },
         onError: () => {
+          showToast("Failed to login.", "error");
           setErrorMessage("Invalid email or password.");
         },
       },
