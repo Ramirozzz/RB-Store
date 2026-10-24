@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ErrorState from "../../components/states/ErrorState";
 import { HiOutlinePlus } from "react-icons/hi2";
@@ -14,10 +14,6 @@ import Sort from "../components/sort/Sort";
 import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
 
 const AdminProductsPage = () => {
-  // const [search, setSearch] = useState("");
-  // const [debouncedSearch, setDebouncedSearch] = useState("");
-  // const [sort, setSort] = useState("");
-
   const { search, setSearch, debouncedSearch, sort, setSort } =
     useAdminSearchSort();
 
@@ -56,14 +52,6 @@ const AdminProductsPage = () => {
       },
     });
   };
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setDebouncedSearch(search);
-  //   }, 300);
-
-  //   return () => clearTimeout(timer);
-  // }, [search]);
 
   return (
     <section>
