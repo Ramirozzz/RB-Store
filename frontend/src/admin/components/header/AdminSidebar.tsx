@@ -57,7 +57,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           to="/admin"
           end
           onClick={onClose}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className={({ isActive }) =>
+            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+              isActive
+                ? "bg-neutral-100 underline underline-offset-3"
+                : "hover:bg-neutral-100 "
+            }`
+          }
         >
           <HiOutlineChartBar size={19} />
           Dashboard
@@ -66,7 +72,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <NavLink
           to="/admin/products"
           onClick={onClose}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className={({ isActive }) =>
+            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+              isActive
+                ? "bg-neutral-100 underline underline-offset-3"
+                : "hover:bg-neutral-100 "
+            }`
+          }
         >
           <HiOutlineShoppingBag size={19} />
           Products
@@ -75,7 +87,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <NavLink
           to="/admin/categories"
           onClick={onClose}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className={({ isActive }) =>
+            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+              isActive
+                ? "bg-neutral-100 underline underline-offset-3"
+                : "hover:bg-neutral-100 "
+            }`
+          }
         >
           <HiOutlineSquares2X2 size={19} />
           Categories
@@ -84,7 +102,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <NavLink
           to="/admin/orders"
           onClick={onClose}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className={({ isActive }) =>
+            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+              isActive
+                ? "bg-neutral-100 underline underline-offset-3"
+                : "hover:bg-neutral-100 "
+            }`
+          }
         >
           <HiOutlineClipboardDocumentList size={19} />
           Orders
@@ -93,7 +117,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <NavLink
           to="/admin/customers"
           onClick={onClose}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className={({ isActive }) =>
+            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+              isActive
+                ? "bg-neutral-100 underline underline-offset-3"
+                : "hover:bg-neutral-100 "
+            }`
+          }
         >
           <HiOutlineUsers size={19} />
           Customers
@@ -102,7 +132,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <button
           type="button"
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 text-sm"
+          className="flex items-center gap-3 w-full px-3 py-2 text-sm mt-1 hover:bg-neutral-100 "
         >
           <AiOutlineLogout size={19} />
           Log out
