@@ -12,13 +12,13 @@ const AdminSearchBar: React.FC<AdminSearchBarProps> = ({
   placeholder = "search...",
 }) => {
   return (
-    <div className="flex w-full items-center gap-3 border border-border rounded-sm bg-white px-4 py-2.5 sm:max-w-sm">
+    <div className="flex w-full items-center gap-3 border border-border bg-white px-4 py-2 sm:max-w-sm">
       <input
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent text-sm outline-none placeholder:text-muted"
+        className="w-full bg-transparent text-[16px] outline-none placeholder:text-muted placeholder:text-sm"
         aria-label={placeholder}
       />
       <IoSearch size={20} className="shrink-0 text-muted" aria-hidden="true" />

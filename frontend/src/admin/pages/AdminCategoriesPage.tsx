@@ -148,7 +148,7 @@ const AdminCategoriesPage = () => {
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Enter category name"
-            className="w-full border border-border px-4 py-2.5 text-sm outline-none"
+            className="w-full border border-border px-4 py-2.5 text-[16px] outline-none"
             required
             maxLength={50}
           />
@@ -182,7 +182,7 @@ const AdminCategoriesPage = () => {
           </div>
         </form>
       )}
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between gap-3 mt-6">
         <AdminSearchBar
           value={search}
           onChange={setSearch}

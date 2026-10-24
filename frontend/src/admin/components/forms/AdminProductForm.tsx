@@ -72,7 +72,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+          className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none focus:border-surface placeholder:text-sm"
           placeholder="Enter product name"
           required
         />
@@ -87,7 +87,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="min-h-32 w-full resize-y border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+          className="min-h-32 w-full resize-y border border-border bg-white px-4 py-3 text-[16px] outline-none focus:border-surface placeholder:text-sm"
           placeholder="Write a description of the product"
           required
         />
@@ -106,7 +106,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
             step="0.01"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+            className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none focus:border-surface placeholder:text-sm"
             placeholder="Enter product price"
             required
           />
@@ -123,7 +123,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
             min="0"
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
-            className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+            className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none focus:border-surface placeholder:text-sm"
             placeholder="Enter stock quantity"
             required
           />
@@ -141,7 +141,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="/images/products/product.jpg"
-          className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+          className="w-full border border-border bg-white px-4 py-3 text-[16px] outline-none focus:border-surface placeholder:text-sm"
         />
       </div>
 
@@ -154,7 +154,7 @@ const AdminProductForm: React.FC<AdminProductsFormProps> = ({
           id="categoryId"
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
-          className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface rounded-md"
+          className="w-full border border-border bg-white px-4 py-3 text-sm outline-none focus:border-surface placeholder:text-sm"
           required
           disabled={isLoading || isError}
         >
