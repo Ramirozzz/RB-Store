@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import { HiOutlineBars3 } from "react-icons/hi2";
 
@@ -7,9 +8,11 @@ const AdminHeaderMobile = () => {
 
   return (
     <>
-      <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.4rem]">
-        Rb Eyewear
-      </span>
+      <Link to="/">
+        <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.4rem]">
+          Rb Eyewear
+        </span>
+      </Link>
 
       <button
         type="button"
