@@ -116,7 +116,9 @@ const ProductDetails: React.FC<ProductProps> = ({ product }) => {
               </div>
               <div className="mt-5">
                 {product.stockQuantity === 0 ? (
-                  <span className="text-sm text-red-600">Sold Out</span>
+                  <span className="flex items-center gap-1 text-sm text-red-600">
+                    <GoDotFill size={16} /> Sold Out
+                  </span>
                 ) : product.stockQuantity < 5 ? (
                   <span className="flex items-center gap-1 text-sm text-amber-500">
                     <GoDotFill size={16} />
