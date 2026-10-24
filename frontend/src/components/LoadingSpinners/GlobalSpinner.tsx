@@ -13,7 +13,7 @@ const GlobalSpinner = () => {
     } else {
       timer = setTimeout(() => {
         setShowLoader(false);
-      }, 300);
+      }, 500);
     }
 
     return () => clearTimeout(timer);
