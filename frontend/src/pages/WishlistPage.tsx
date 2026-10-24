@@ -38,7 +38,7 @@ const WishlistPage = () => {
           </p>
 
           <Link
-            to="/"
+            to="/shop"
             className="mt-6 bg-surface px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-neutral-800"
           >
             Discover sunglasses
