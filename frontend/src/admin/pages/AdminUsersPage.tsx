@@ -14,7 +14,7 @@ const AdminUsersPage = () => {
         </p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg bg-white">
+      <div className="overflow-x-auto rounded-lg bg-white rounded-sm">
         <p className="text-sm text-muted p-4 ">
           Total customers: {users?.length ?? 0}
         </p>

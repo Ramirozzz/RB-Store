@@ -127,7 +127,7 @@ const AdminCategoriesPage = () => {
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm text-white"
+          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm rounded-sm text-white"
         >
           <HiOutlinePlus size={18} />
           Add Category
@@ -136,7 +136,7 @@ const AdminCategoriesPage = () => {
       {showForm && (
         <form
           onSubmit={handleCreateCategory}
-          className="mt-6 max-w-full rounded-md bg-white p-6 shadow-lg"
+          className="mt-6 max-w-full rounded-sm bg-white p-6 shadow-lg"
         >
           <label htmlFor="categoryName" className="mb-2 block text-sm">
             Category name
@@ -148,7 +148,7 @@ const AdminCategoriesPage = () => {
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Enter category name"
-            className="w-full border border-border px-4 py-2.5 text-[16px] outline-none"
+            className="w-full border border-border rounded-sm px-4 py-2.5 text-[16px] outline-none"
             required
             maxLength={50}
           />
@@ -160,7 +160,7 @@ const AdminCategoriesPage = () => {
                 setName("");
                 setShowForm(false);
               }}
-              className="cursor-pointer border border-border px-5 py-2 text-sm"
+              className="cursor-pointer border border-border rounded-sm px-5 py-2 text-sm"
             >
               Cancel
             </button>
@@ -168,7 +168,7 @@ const AdminCategoriesPage = () => {
             <button
               type="submit"
               disabled={createCategoryMutation.isPending}
-              className="cursor-pointer bg-surface px-5 py-3 text-sm text-white transition hover:bg-neutral-800"
+              className="cursor-pointer bg-surface px-5 py-2 rounded-sm text-sm text-white transition hover:bg-neutral-800"
             >
               {createCategoryMutation.isPending ? (
                 <span className="flex items-center justify-center gap-2">

@@ -65,7 +65,7 @@ const AdminProductsPage = () => {
         <Link
           to={"/admin/products/new-product"}
           type="button"
-          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
+          className="flex cursor-pointer items-center gap-2 bg-surface rounded-sm px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
         >
           <HiOutlinePlus size={18} />
           Add Product
@@ -85,7 +85,7 @@ const AdminProductsPage = () => {
         />
       </div>
 
-      <div className="mt-6 overflow-x-auto bg-white shadow-lg">
+      <div className="mt-6 overflow-x-auto bg-white shadow-lg rounded-sm">
         <p className="text-sm text-muted p-4 font-normal ">
           <span className="text-text font-bold">Total products: </span>(
           {products?.length ?? 0})

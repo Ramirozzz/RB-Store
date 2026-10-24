@@ -5,28 +5,9 @@ import type { OrderStatus } from "../../types/adminOrder";
 import { statuses, getStatusStyle } from "../utils/orderstatus";
 import AdminOrdersSkeleton from "../AdminSkeletons/AdminOrdersSkeleton";
 
-// const getStatusStyle = (status: OrderStatus) => {
-//   switch (status) {
-//     case 0:
-//       return "bg-amber-100 text-amber-800";
-//     case 1:
-//       return "bg-green-100 text-green-800";
-//     case 2:
-//       return "bg-red-100 text-red-800";
-//     default:
-//       return "bg-gray-100 text-gray-800";
-//   }
-// };
-
 const AdminOrdersPage = () => {
   const { data: orders, isLoading, isError } = useAdminOrders();
   const updateStatus = useUpdateAdminOrderStatus();
-
-  // const statuses: { value: OrderStatus; label: string }[] = [
-  //   { value: 0 as unknown as OrderStatus, label: "Pending" },
-  //   { value: 1 as unknown as OrderStatus, label: "Delivered" },
-  //   { value: 2 as unknown as OrderStatus, label: "Cancelled" },
-  // ];
 
   return (
     <section>
@@ -35,7 +16,7 @@ const AdminOrdersPage = () => {
         <p className="mt-2 text-sm text-muted">Manage your store orders.</p>
       </div>
 
-      <div className="overflow-x-auto bg-white mt-6">
+      <div className="overflow-x-auto bg-white rounded-sm mt-6">
         <p className="text-sm text-muted p-4 ">
           Total orders: {orders?.length ?? 0}
         </p>
@@ -44,7 +25,7 @@ const AdminOrdersPage = () => {
         ) : isError || !orders ? (
           <ErrorState message="Could not load orders." />
         ) : (
-          <table className="w-full text-left text-sm mt-4">
+          <table className="w-full text-left text-sm  mt-4">
             <thead>
               <tr className="border-b border-border text-text">
                 <th className="p-4">Order ID</th>

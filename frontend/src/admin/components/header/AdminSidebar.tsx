@@ -58,7 +58,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           end
           onClick={onClose}
           className={({ isActive }) =>
-            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+            ` flex items-center gap-3 px-3 py-2 text-sm rounded-sm mt-1 transition ${
               isActive
                 ? "bg-neutral-100 underline underline-offset-3"
                 : "hover:bg-neutral-100 "
@@ -73,7 +73,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           to="/admin/products"
           onClick={onClose}
           className={({ isActive }) =>
-            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+            ` flex items-center gap-3 px-3 py-2 text-sm rounded-sm mt-1 transition ${
               isActive
                 ? "bg-neutral-100 underline underline-offset-3"
                 : "hover:bg-neutral-100 "
@@ -88,7 +88,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           to="/admin/categories"
           onClick={onClose}
           className={({ isActive }) =>
-            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+            ` flex items-center gap-3 px-3 py-2 text-sm rounded-sm mt-1 transition ${
               isActive
                 ? "bg-neutral-100 underline underline-offset-3"
                 : "hover:bg-neutral-100 "
@@ -103,7 +103,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           to="/admin/orders"
           onClick={onClose}
           className={({ isActive }) =>
-            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+            ` flex items-center gap-3 px-3 py-2 text-sm rounded-sm mt-1 transition ${
               isActive
                 ? "bg-neutral-100 underline underline-offset-3"
                 : "hover:bg-neutral-100 "
@@ -118,7 +118,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
           to="/admin/customers"
           onClick={onClose}
           className={({ isActive }) =>
-            ` flex items-center gap-3 px-3 py-2 text-sm mt-1 transition ${
+            ` flex items-center gap-3 px-3 py-2 text-sm rounded-sm mt-1 transition ${
               isActive
                 ? "bg-neutral-100 underline underline-offset-3"
                 : "hover:bg-neutral-100 "
@@ -132,7 +132,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onClose }) => {
         <button
           type="button"
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full px-3 py-2 text-sm mt-1 hover:bg-neutral-100 "
+          className="flex items-center gap-3 w-full px-3 py-2 text-sm rounded-sm mt-1 hover:bg-neutral-100 "
         >
           <AiOutlineLogout size={19} />
           Log out

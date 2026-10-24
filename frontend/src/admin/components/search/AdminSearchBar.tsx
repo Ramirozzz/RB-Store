@@ -12,7 +12,7 @@ const AdminSearchBar: React.FC<AdminSearchBarProps> = ({
   placeholder = "search...",
 }) => {
   return (
-    <div className="flex w-full items-center gap-3 border border-border bg-white px-4 py-2 sm:max-w-sm">
+    <div className="flex w-full items-center gap-3 border border-border rounded-sm bg-white px-4 py-2 sm:max-w-sm">
       <input
         type="search"
         value={value}

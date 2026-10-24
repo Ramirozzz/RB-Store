@@ -23,7 +23,7 @@ const AdminCreateProductPage = () => {
   };
 
   return (
-    <section className="md:mt-4 md:mt-0 py-8 bg-white md:shadow-lg px-6">
+    <section className="md:mt-4 md:mt-0 py-8 bg-white rounded-sm md:shadow-lg px-6">
       <div className="mx-auto max-w-6xl  ">
         <h1 className="text-2xl">Add New Product</h1>
 

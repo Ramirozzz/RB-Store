@@ -17,7 +17,7 @@ const RecentOrders = () => {
       ) : !recentOrders || recentOrders.length === 0 ? (
         <p className="mt-4 text-sm text-muted">No orders found.</p>
       ) : (
-        <div className="mt-4 overflow-x-auto rounded-xl border border-border">
+        <div className="mt-4 overflow-x-auto rounded-md border border-border">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-border bg-white">
               <tr>
