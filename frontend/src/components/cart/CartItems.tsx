@@ -25,7 +25,6 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Overlay */}
       <div
         onClick={onClose}
         className={`fixed inset-0 z-40 bg-surface/50 transition-opacity duration-500 ${
@@ -54,9 +53,7 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
         <div className="flex-1 overflow-y-auto py-6">
           {cartItems.length === 0 ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-base font-bold text-muted">
-                Your cart is empty.
-              </p>
+              <p className="text-lg text-muted">Your cart is empty.</p>
             </div>
           ) : (
             <div className="space-y-6">
@@ -98,14 +95,6 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
                           <IoIosAdd />
                         </button>
                       </div>
-
-                      {/* <button
-                      type="button"
-                      onClick={() => removeFromCart(item.product.id)}
-                      className="mt-2 cursor-pointer text-xs text-muted underline"
-                    >
-                      Remove
-                    </button> */}
                     </div>
                   </div>
                   <button
@@ -127,29 +116,29 @@ const CartItems: React.FC<CartItemsProps> = ({ isOpen, onClose }) => {
             <span className="text-sm">{subtotal.toFixed(2)} kr</span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              navigate("/checkout");
-            }}
-            className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
-          >
-            Checkout
-          </button>
-
-          {/* <button
-            type="button"
-            onClick={handleCheckout}
-            disabled={createOrderMutation.isPending}
-            className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
-          >
-            {createOrderMutation.isPending ? (
-              <LoadingSpinner size={18} color="#ffffff" />
-            ) : (
-              "Checkout"
-            )}
-          </button> */}
+          {cartItems.length === 0 ? (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                navigate("/shop");
+              }}
+              className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
+            >
+              Continue shopping
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                navigate("/checkout");
+              }}
+              className="mt-5 w-full cursor-pointer bg-black py-4 text-sm uppercase tracking-wider text-white transition hover:bg-neutral-800"
+            >
+              Checkout
+            </button>
+          )}
         </div>
       </aside>
     </>
