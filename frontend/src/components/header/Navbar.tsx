@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Searchbar from "../search/Searchbar";
 import CartItems from "../cart/CartItems";
 import useCartStore from "../../stores/cartStore";
@@ -11,7 +11,6 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FiHeart } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
-// import { CiSearch } from "react-icons/ci";
 import { VscMenu } from "react-icons/vsc";
 
 const Navbar = () => {
@@ -30,12 +29,13 @@ const Navbar = () => {
   const wishlistItemsCount = wishlistItems.length;
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white pt-1.5">
-      <div className="flex items-center justify-center bg-surface px-4 py-1.5 text-center text-xs text-white ">
-        <span>Up to 50% sale | shop now</span>
+    <nav className="fixed top-0 z-50 w-full bg-white">
+      <div className="bg-surface px-4 py-2 text-center text-xs text-white uppercase">
+        {/* <MdOutlineLocalShipping size={17} /> */}
+        <span>See it your way | Shop now</span>
       </div>
 
-      <div className="border-b border-border bg-white px-4 py-3.5 sm:px-7 lg:px-10 lg:py-4.5 xl:px-15">
+      <div className="border-b border-border bg-white px-4 py-3.5 sm:px-7 lg:px-10 lg:py-5 xl:px-15">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -44,11 +44,11 @@ const Navbar = () => {
               className="lg:hidden text-text"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              {mobileMenuOpen ? <IoClose size={23} /> : <VscMenu size={23} />}
+              {mobileMenuOpen ? <IoClose size={25} /> : <VscMenu size={24} />}
             </button>
 
             <Link to="/">
-              <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.4rem]">
+              <span className="text-xl font-primary-bold italic uppercase tracking-tight sm:text-3xl lg:text-[1.25rem]">
                 Rb Eyewear
               </span>
             </Link>
@@ -57,19 +57,55 @@ const Navbar = () => {
           {/* Desktop */}
           <div className="hidden lg:block">
             <ul className="flex items-center gap-5 text-sm uppercase text-text">
-              <Link to="/">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-current after:transition-transform after:duration-300 after:ease-out ${
+                    isActive
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 after:origin-left hover:after:scale-x-100"
+                  }`
+                }
+              >
                 <li>Home</li>
-              </Link>
+              </NavLink>
 
-              <Link to="/shop">
+              <NavLink
+                to="/shop"
+                className={({ isActive }) =>
+                  `relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-current after:transition-transform after:duration-300 after:ease-out ${
+                    isActive
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 after:origin-left hover:after:scale-x-100"
+                  }`
+                }
+              >
                 <li>Shop</li>
-              </Link>
-              <Link to="/best-sellers">
+              </NavLink>
+              <NavLink
+                to="/best-sellers"
+                className={({ isActive }) =>
+                  `relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-current after:transition-transform after:duration-300 after:ease-out ${
+                    isActive
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 after:origin-left hover:after:scale-x-100"
+                  }`
+                }
+              >
                 <li>Best Sellers</li>
-              </Link>
-              <Link to="/orders">
+              </NavLink>
+              <NavLink
+                to="/orders"
+                className={({ isActive }) =>
+                  `relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-current after:transition-transform after:duration-300 after:ease-out ${
+                    isActive
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 after:origin-left hover:after:scale-x-100"
+                  }`
+                }
+              >
                 <li>My Orders</li>
-              </Link>
+              </NavLink>
             </ul>
           </div>
 
