@@ -84,6 +84,11 @@ const CheckoutPage = () => {
               </div>
             ))}
           </div>
+          {cartItems.length === 0 && (
+            <p className="text-sm text-center py-12">
+              No items found to confirm order.
+            </p>
+          )}
 
           <button
             type="button"
@@ -122,7 +127,7 @@ const CheckoutPage = () => {
           <button
             type="button"
             onClick={handleOrderConfirmation}
-            // disabled={createOrderMutation.isPending}
+            disabled={cartItems.length === 0}
             className="mt-8 flex w-full cursor-pointer items-center justify-center bg-surface py-4 text-sm uppercase tracking-wider text-white transition-all duration-300 hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {createOrderMutation.isPending ? (
