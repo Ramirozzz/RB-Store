@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import classic from "../../assets/images/categories/classic.jpg";
 import square from "../../assets/images/categories/square.jpg";
 import round from "../../assets/images/categories/round.jpg";
 import sport from "../../assets/images/categories/sport.jpg";
 import aviator from "../../assets/images/categories/aviator.jpg";
+import CategoryCard from "./CategoryCard";
 
 const CollectionCategories = () => {
   return (
@@ -19,100 +19,14 @@ const CollectionCategories = () => {
       </div>
       <div className="grid gap-3">
         <div className="grid gap-3 sm:grid-cols-2">
-          <Link
-            to="/shop?category=1"
-            className="group relative overflow-hidden"
-          >
-            <img
-              src={classic}
-              alt="Classic eyewear"
-              loading="lazy"
-              className="h-100 w-full object-cover object-center sm:h-125"
-            />
-
-            <div className="absolute inset-0 flex items-end bg-black/10 p-5">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
-                Classic
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            to="/shop?category=2"
-            className="group relative overflow-hidden"
-          >
-            <img
-              src={round}
-              alt="Round eyewear"
-              loading="lazy"
-              className="h-100 w-full object-cover object-center sm:h-125"
-            />
-
-            <div className="absolute inset-0 flex items-end bg-black/10 p-5">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
-                Round
-              </span>
-            </div>
-          </Link>
+          <CategoryCard title="Classic" image={classic} categoryId={1} />
+          <CategoryCard title="Round" image={round} categoryId={2} />
         </div>
 
         <div className="grid sm:grid-cols-3 gap-3">
-          {/* Square */}
-          <Link
-            to="/shop?category=3"
-            className="group relative overflow-hidden"
-          >
-            <img
-              src={square}
-              alt="Square eyewear"
-              loading="lazy"
-              className="h-100 w-full object-cover object-center sm:h-125"
-            />
-
-            <div className="absolute inset-0 flex items-end bg-black/10 p-5">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
-                Square
-              </span>
-            </div>
-          </Link>
-
-          {/* Sport */}
-          <Link
-            to="/shop?category=4"
-            className="group relative overflow-hidden"
-          >
-            <img
-              src={sport}
-              alt="Sport eyewear"
-              loading="lazy"
-              className="h-100 w-full object-cover object-center sm:h-125"
-            />
-
-            <div className="absolute inset-0 flex items-end bg-black/10 p-5">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
-                Sport
-              </span>
-            </div>
-          </Link>
-
-          {/* Aviator */}
-          <Link
-            to="/shop?category=5"
-            className="group relative overflow-hidden"
-          >
-            <img
-              src={aviator}
-              alt="Aviator eyewear"
-              loading="lazy"
-              className="h-100 w-full object-cover object-center sm:h-125"
-            />
-
-            <div className="absolute inset-0 flex items-end bg-black/10 p-5">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
-                Aviator
-              </span>
-            </div>
-          </Link>
+          <CategoryCard title="Square" image={square} categoryId={3} />
+          <CategoryCard title="Sport" image={sport} categoryId={4} />
+          <CategoryCard title="Aviator" image={aviator} categoryId={5} />
         </div>
       </div>
     </section>
