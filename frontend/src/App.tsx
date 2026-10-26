@@ -15,8 +15,6 @@ import GlobalSpinner from "./components/LoadingSpinners/GlobalSpinner";
 import BestSellersPage from "./pages/BestSellersPage";
 import AdminRoute from "./components/auth/AdminRoute";
 import AdminDashboardPage from "./admin/pages/AdminDashboardPage";
-
-import "./App.css";
 import AdminLayout from "./admin/components/layout/AdminLayout";
 import AdminProductsPage from "./admin/pages/AdminProductsPage";
 import AdminCreateProductPage from "./admin/pages/AdminCreateProductPage";
@@ -24,10 +22,14 @@ import AdminCategoriesPage from "./admin/pages/AdminCategoriesPage";
 import AdminEditProductPage from "./admin/pages/AdminEditProductPage";
 import AdminOrdersPage from "./admin/pages/AdminOrdersPage";
 import AdminUsersPage from "./admin/pages/AdminUsersPage";
+import ScrollToTop from "./components/layout/ScrollToTop";
+
+import "./App.css";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <GlobalSpinner />
       <Toast />
       <Routes>
