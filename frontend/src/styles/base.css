@@ -1,10 +1,31 @@
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
     font-family: var(--font-primary);
+    background-color: #ffffff;
     color: var(--color-text);
+    letter-spacing: 0.3px;
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-primary-medium);
+    font-weight: bold;
+  }
+
+  p {
+    font-family: var(--font-primary-medium);
+    font-weight: bold;
+  }
+
+  button {
+    cursor: pointer;
   }
 }
