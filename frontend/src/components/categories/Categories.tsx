@@ -4,6 +4,7 @@ import CategoriesSkeleton from "./CategoriesSkeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/free-mode";
 import { TbFaceIdError } from "react-icons/tb";
 
 interface CategoriesProps {
@@ -38,12 +39,17 @@ const Categories: React.FC<CategoriesProps> = ({
         <div className="flex flex-col gap-7 md:gap-5 md:flex-row md:items-center md:justify-between">
           <Swiper
             slidesPerView="auto"
-            freeMode
             modules={[FreeMode]}
+            grabCursor
+            freeMode={{
+              enabled: true,
+              momentum: true,
+              sticky: true,
+            }}
             className="w-full"
             breakpoints={{
               320: {
-                spaceBetween: 50,
+                spaceBetween: 35,
               },
               640: {
                 spaceBetween: 34,
