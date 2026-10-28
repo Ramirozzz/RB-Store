@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               {product.price.toFixed(2)} kr
             </p>
 
-            <span className="text-sm text-red-600">
+            <span className="text-xs md:text-sm text-red-600">
               {product.stockQuantity === 0 ? "Sold Out" : ""}
             </span>
           </div>
