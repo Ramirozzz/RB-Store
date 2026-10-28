@@ -6,6 +6,7 @@ using RBStore.Api.Repositories;
 using RBStore.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Frontend", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")
+            .WithOrigins("http://192.168.0.9:5173", "http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -45,11 +46,13 @@ builder.Services
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
 
+        RoleClaimType = ClaimTypes.Role,
+
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(
-                builder.Configuration["Jwt:Key"]!
-            )
-        )
+         Encoding.UTF8.GetBytes(
+             builder.Configuration["Jwt:Key"]!
+         )
+     )
     };
 });
 
@@ -66,6 +69,9 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddOpenApi();
 
