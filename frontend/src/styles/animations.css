@@ -25,8 +25,8 @@
   background: linear-gradient(
     90deg,
     transparent,
-    var(--color-white),
-    var(--color-white),
+    var(--color-accent),
+    var(--color-accent),
     transparent
   );
   animation: loader 1.5s linear infinite;
