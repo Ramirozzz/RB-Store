@@ -5,8 +5,6 @@ using RBStore.Api.DTOs;
 using RBStore.Api.Models;
 using RBStore.Api.Services;
 
-
-
 namespace RBStore.Api.Controllers;
 
 [ApiController]
@@ -34,15 +32,6 @@ public class AdminController : ControllerBase
         _productService = productService;
         _categoryService = categoryService;
     }
-
-    // [HttpGet]
-    // public IActionResult GetAdmin()
-    // {
-    //     return Ok(new
-    //     {
-    //         message = "Welcome to the admin area."
-    //     });
-    // }
 
     [HttpGet("dashboard")]
     public async Task<ActionResult<AdminDashboardDto>> GetDashboard()
@@ -153,16 +142,5 @@ public class AdminController : ControllerBase
 
         return Ok(orders);
     }
-
-    // [HttpGet("categories")]
-    // public async Task<ActionResult<List<Category>>> GetCategories(
-    // [FromQuery] string? search,
-    // [FromQuery] string? sort)
-    // {
-    //     var categories = await _categoryService.GetAllAsync(search, sort);
-
-    //     return Ok(categories);
-    // }
-
 
 }

@@ -49,18 +49,6 @@ public class OrderService : IOrderService
         return order;
     }
 
-    // public async Task<List<Order>> GetByUserIdAsync(string userId)
-    // {
-    //     var user = await _userRepository.GetByIdAsync(userId);
-
-    //     if (user is null)
-    //     {
-    //         throw new ArgumentException("User not found.");
-    //     }
-
-    //     return await _orderRepository.GetByUserIdAsync(userId);
-    // }
-
     public async Task<Order> CreateAsync(CreateOrderDto orderDto, string userId)
     {
 
@@ -161,6 +149,5 @@ public class OrderService : IOrderService
             })
             .ToList();
     }
-
 
 }

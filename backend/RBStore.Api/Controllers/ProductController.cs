@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using RBStore.Api.Database;
 using RBStore.Api.Models;
 using RBStore.Api.Services;
 using RBStore.Api.DTOs;
@@ -140,7 +138,4 @@ public class ProductsController : ControllerBase
         }
 
     }
-
-
-
 }

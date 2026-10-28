@@ -27,28 +27,6 @@ public class ProductService : IProductService
     public async Task<Product> CreateAsync(CreateProductDto productDto)
     {
 
-        // if (string.IsNullOrEmpty(productDto.Name))
-        // {
-        //     throw new ArgumentException("The product name is required");
-        // }
-
-        // if (productDto.Name.Length > 100)
-        //     throw new ArgumentException("Product name cannot be longer than 100 characters.");
-
-        // if (productDto.Price <= 0)
-        //     throw new ArgumentException("Product price must be greater than zero.");
-
-        // if (productDto.StockQuantity < 0)
-        //     throw new ArgumentException("Stock quantity connot be under zero.");
-
-        // if (!string.IsNullOrWhiteSpace(productDto.ImageUrl) &&
-        // !Uri.IsWellFormedUriString(productDto.ImageUrl, UriKind.Absolute))
-        // {
-        //     throw new ArgumentException(
-        //         "Image URL is not valid."
-        //     );
-        // }
-
         var category = await _categoryRepository.GetByIdAsync(productDto.CategoryId);
 
         if (category is null)
@@ -85,32 +63,6 @@ public class ProductService : IProductService
         {
             throw new ArgumentException("Category not found.");
         }
-
-        // if (string.IsNullOrWhiteSpace(productDto.Name))
-        // {
-        //     throw new ArgumentException("Product name is required.");
-        // }
-
-        // if (productDto.Name.Length > 100)
-        // {
-        //     throw new ArgumentException(
-        //         "Product name cannot be longer than 100 characters."
-        //     );
-        // }
-
-        // if (productDto.Price <= 0)
-        // {
-        //     throw new ArgumentException(
-        //         "Product price must be greater than zero."
-        //     );
-        // }
-
-        // if (productDto.StockQuantity < 0)
-        // {
-        //     throw new ArgumentException(
-        //         "Stock quantity cannot be under zero."
-        //     );
-        // }
 
         product.Name = productDto.Name;
         product.Description = productDto.Description;

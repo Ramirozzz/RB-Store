@@ -14,12 +14,12 @@ namespace RBStore.Api.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
-    // private readonly IOrderService _orderService;
+
 
     public UsersController(IUserService userService, IOrderService orderService)
     {
         _userService = userService;
-        // _orderService = orderService;
+
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -67,33 +67,6 @@ public class UsersController : ControllerBase
         }
     }
 
-    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    // [HttpGet("me/orders")]
-    // public async Task<ActionResult<List<Order>>> GetUserOrders()
-    // {
-    //     try
-    //     {
-    //         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-    //         if (userId is null)
-    //         {
-    //             return Unauthorized();
-    //         }
-
-    //         var orders = await _orderService.GetByUserIdAsync(userId);
-
-    //         return Ok(orders);
-    //     }
-    //     catch (ArgumentException ex)
-    //     {
-    //         return NotFound(ex.Message);
-    //     }
-    //     catch (Exception)
-    //     {
-    //         return StatusCode(500, "An unexpected error occurred while retrieving user orders.");
-    //     }
-    // }
-
 
     [HttpPost]
     public async Task<ActionResult<LoginResponseDto>> CreateUser(CreateUserDto userDto)
@@ -136,6 +109,5 @@ public class UsersController : ControllerBase
             return StatusCode(500, "An unexpected error occurred.");
         }
     }
-
 
 }
