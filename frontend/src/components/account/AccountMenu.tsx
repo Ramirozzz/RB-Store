@@ -5,8 +5,6 @@ import LoadingOverlay from "../LoadingSpinners/LoadingOverlay";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-// import { PiUser } from "react-icons/pi";
-// import { BiUser } from "react-icons/bi";
 import { LiaUser } from "react-icons/lia";
 import { FiX } from "react-icons/fi";
 import { HiOutlineShieldCheck } from "react-icons/hi2";

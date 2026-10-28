@@ -52,10 +52,6 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   const prevClass = `product-slider-${type}-prev`;
   const nextClass = `product-slider-${type}-next`;
 
-  // if (isError) {
-  //   return <ErrorState message="Could not load products." />;
-  // }
-
   return (
     <div className="relative mb-4 py-4 pl-4 md:mb-8 lg:pl-16">
       <div className="mb-2 flex items-center justify-between pr-4 lg:pr-16">

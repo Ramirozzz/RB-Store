@@ -14,7 +14,6 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
 
   return (
     <article className="overflow-hidden border border-border bg-white">
-      {/* Header */}
       <div className="flex items-center justify-between border-b border-border px-5 py-5 sm:px-6">
         <div className="flex items-center gap-4">
           <div className="flex h-10 w-10 items-center justify-center bg-surface text-white">
@@ -33,7 +32,6 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <p className="text-xs font-medium text-muted">{formattedDate}</p>
       </div>
 
-      {/* Products */}
       <div className="divide-y divide-border">
         {order.orderItems.map((item) => (
           <div key={item.id} className="flex gap-4 px-5 py-5 sm:px-6">
@@ -70,7 +68,6 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         ))}
       </div>
 
-      {/* Footer */}
       <div className="flex items-center justify-between border-t border-border bg-neutral-50 px-5 py-6 sm:px-6">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted">

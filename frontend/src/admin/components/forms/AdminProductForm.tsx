@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import type { CreateProduct, Product } from "../../../types/product";
 import { useCategories } from "../../../hooks/useCategories";
 import LoadingSpinner from "../../../components/LoadingSpinners/LoadingSpinner";
-import ErrorState from "../../../components/states/ErrorState";
 
 interface AdminProductsFormProps {
   onSubmit: (product: CreateProduct) => void;

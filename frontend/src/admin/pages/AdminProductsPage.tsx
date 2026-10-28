@@ -185,6 +185,7 @@ const AdminProductsPage = () => {
           </table>
         )}
       </div>
+
       {/* Modal opens when there is a product saved in deleteProduct state */}
       <DeleteConfirmationModal
         isOpen={deleteProduct !== null}

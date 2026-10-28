@@ -71,7 +71,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div>
           <h3 className="text-sm text-text">{product.name}</h3>
 
-          {/* <p className="mt-1 text-sm text-muted">{product.category.name}</p> */}
           <div className="flex items-center gap-4 mt-1 ">
             <p className="shrink-0 text-sm text-muted">
               {product.price.toFixed(2)} kr

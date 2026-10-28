@@ -1,8 +1,4 @@
 import { Link } from "react-router-dom";
-// import { FaFacebook } from "react-icons/fa";
-// import { FaInstagram } from "react-icons/fa";
-// import { FaYoutube } from "react-icons/fa";
-// import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   return (

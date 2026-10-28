@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AiOutlineLogout } from "react-icons/ai";
+import useAuthStore from "../../../stores/authStore";
+import LoadingOverlay from "../../../components/LoadingSpinners/LoadingOverlay";
 import {
   HiOutlineChartBar,
   HiOutlineShoppingBag,
@@ -8,9 +11,6 @@ import {
   HiOutlineXMark,
   HiOutlineSquares2X2,
 } from "react-icons/hi2";
-import { AiOutlineLogout } from "react-icons/ai";
-import useAuthStore from "../../../stores/authStore";
-import LoadingOverlay from "../../../components/LoadingSpinners/LoadingOverlay";
 
 interface AdminSidebarProps {
   onClose?: () => void;

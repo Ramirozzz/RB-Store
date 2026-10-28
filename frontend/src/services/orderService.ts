@@ -2,7 +2,7 @@ import api from "./api";
 import type { Order } from "../types/order";
 
 import type { AdminOrder, OrderStatus } from "../types/adminOrder";
-import type { CreateOrder } from "../types/CreateOrder";
+import type { CreateOrder } from "../types/createOrder";
 
 export const getOrders = async (): Promise<Order[]> => {
   const res = await api.get<Order[]>("/orders");

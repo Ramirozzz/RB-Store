@@ -16,12 +16,6 @@ const ProductsList: React.FC<ProductsListProps> = ({
 }) => {
   const { data: products, isLoading, isError } = useProducts(undefined, sort);
 
-  // if (isError) {
-  //   return <ErrorState message="Could not load products." />;
-  // }
-
-  // if (!products) return null;
-
   const filteredProducts = products?.filter((product) => {
     if (bestSellers) {
       return product.isBestSeller;

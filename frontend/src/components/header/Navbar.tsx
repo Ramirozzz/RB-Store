@@ -7,7 +7,6 @@ import useWishlistStore from "../../stores/wishlistStore";
 import AccountMenu from "../account/AccountMenu";
 import MobileMenu from "./MobileMenu";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-// import { IoMdHeartEmpty } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
@@ -31,7 +30,6 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 z-50 w-full bg-white">
       <div className="bg-surface px-4 py-2 text-center text-xs text-white uppercase">
-        {/* <MdOutlineLocalShipping size={17} /> */}
         <span>See it your way | Shop now</span>
       </div>
 

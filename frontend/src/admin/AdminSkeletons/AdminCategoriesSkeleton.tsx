@@ -1,5 +1,3 @@
-import React from "react";
-
 const AdminCategoriesSkeleton = () => {
   return (
     <div className="rounded-lg bg-white shadow-lg">

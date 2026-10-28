@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Categories from "../components/categories/Categories";
 import ProductsList from "../components/products/ProductsList";

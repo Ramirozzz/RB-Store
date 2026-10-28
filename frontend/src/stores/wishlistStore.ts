@@ -36,9 +36,6 @@ const useWishlistStore = create<WishlistStore>()(
           items: state.items.filter((item) => item.id !== productId),
         })),
 
-      //   isInWishlist: (productId) =>
-      //     get().items.some((item) => item.id === productId),
-
       clearWishlist: () => set({ items: [] }),
     }),
     {

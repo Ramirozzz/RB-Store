@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-// import { HiOutlineBars3 } from "react-icons/hi2";
 import AdminSidebar from "../header/AdminSidebar";
 import AdminHeaderMobile from "../header/AdminHeaderMobile";
 import AdminHeader from "../header/AdminHeader";

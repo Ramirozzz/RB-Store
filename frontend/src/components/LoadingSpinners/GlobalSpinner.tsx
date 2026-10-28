@@ -22,7 +22,6 @@ const GlobalSpinner = () => {
   if (!showLoader) {
     return null;
   }
-  //   console.log("isFetching:", isFetching);
 
   return (
     <div className="fixed left-0 top-0 z-[9999] h-[2.5px] w-full overflow-hidden">

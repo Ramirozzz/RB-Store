@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
 import ProductPage from "./pages/ProductPage";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import WishlistPage from "./pages/WishlistPage";
 import LoginPage from "./pages/LoginPage";
 import Toast from "./components/Toasts/Toast";
@@ -65,7 +64,6 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </>
   );
 }

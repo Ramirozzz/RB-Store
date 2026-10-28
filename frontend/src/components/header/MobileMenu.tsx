@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import { AiOutlineUser } from "react-icons/ai";
 import { PiUser } from "react-icons/pi";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -51,13 +50,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
         >
           My Orders
         </Link>
-        {/* <Link
-          to="/register"
-          onClick={onClose}
-          className="border-b border-border px-5 py-4 text-base  uppercase tracking-wider text-text"
-        >
-          Join us
-        </Link> */}
       </nav>
       <div className="mt-15 px-5">
         <Link
