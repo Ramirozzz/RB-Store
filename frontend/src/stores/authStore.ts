@@ -1,13 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User } from "../types/auth";
-
-// interface User {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: string;
-// }
+import { expiredToken } from "../admin/utils/expiredToken";
 
 interface AuthStore {
   token: string | null;
@@ -41,6 +35,12 @@ const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "auth",
+
+      onRehydrateStorage: () => (state) => {
+        if (state?.token && expiredToken(state.token)) {
+          state.logout();
+        }
+      },
     },
   ),
 );
