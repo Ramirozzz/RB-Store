@@ -94,9 +94,17 @@ using (var scope = app.Services.CreateScope())
 
 using (var scope = app.Services.CreateScope())
 {
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var userManager = scope.ServiceProvider
+        .GetRequiredService<UserManager<User>>();
 
-    var adminEmail = "admin@rbstore.com";
+    var adminEmail = app.Configuration["Admin:Email"];
+    var adminPassword = app.Configuration["Admin:Password"];
+
+    if (string.IsNullOrWhiteSpace(adminEmail) ||
+        string.IsNullOrWhiteSpace(adminPassword))
+    {
+        throw new Exception("Admin credentials are not configured.");
+    }
 
     var admin = await userManager.FindByEmailAsync(adminEmail);
 
@@ -111,7 +119,7 @@ using (var scope = app.Services.CreateScope())
 
         var result = await userManager.CreateAsync(
             admin,
-            "AdminPassword123!"
+            adminPassword
         );
 
         if (!result.Succeeded)
@@ -127,7 +135,17 @@ using (var scope = app.Services.CreateScope())
 
     if (!await userManager.IsInRoleAsync(admin, "Admin"))
     {
-        await userManager.AddToRoleAsync(admin, "Admin");
+        var result = await userManager.AddToRoleAsync(admin, "Admin");
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(
+                ", ",
+                result.Errors.Select(error => error.Description)
+            );
+
+            throw new Exception($"Failed to assign Admin role: {errors}");
+        }
     }
 }
 
