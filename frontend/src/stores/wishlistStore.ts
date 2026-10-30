@@ -13,7 +13,7 @@ interface WishlistStore {
 
 const useWishlistStore = create<WishlistStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       items: [],
 
       addToWishlist: (product) =>
