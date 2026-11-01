@@ -22,8 +22,18 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
+        var allowedOrigins = new[]
+        {
+            "http://192.168.0.9:5173",
+            "http://localhost:5173",
+            builder.Configuration["Frontend:Url"]
+        };
+
         policy
-            .WithOrigins("http://192.168.0.9:5173", "http://localhost:5173")
+            .WithOrigins(allowedOrigins
+                .Where(origin => !string.IsNullOrWhiteSpace(origin))
+                .Select(origin => origin!)
+                .ToArray())
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
