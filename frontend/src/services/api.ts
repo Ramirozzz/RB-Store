@@ -2,7 +2,7 @@ import axios from "axios";
 import useAuthStore from "../stores/authStore";
 
 const api = axios.create({
-  baseURL: "http://localhost:5166/api",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use((config) => {
@@ -15,7 +15,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-//Redirects to login when token session expired
+// Redirects to login when token session expired
 api.interceptors.response.use(
   (response) => response,
   (error) => {
