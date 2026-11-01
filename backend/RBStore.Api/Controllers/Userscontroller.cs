@@ -22,7 +22,7 @@ public class UsersController : ControllerBase
 
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<List<UserResponseDto>>> GetUsers()
     {

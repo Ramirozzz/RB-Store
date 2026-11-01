@@ -9,9 +9,11 @@ namespace RBStore.Api.Controllers;
 
 [ApiController]
 [Route("api/admin")]
-[Authorize(
-    AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
-    Roles = "Admin"
+// [Authorize(
+//     AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+//     Roles = "Admin"
+// )]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, Demo"
 )]
 public class AdminController : ControllerBase
 {
@@ -67,11 +69,11 @@ public class AdminController : ControllerBase
         }
     }
 
-
+    [Authorize(Roles = "Admin")]
     [HttpPut("orders/{id}/status")]
     public async Task<IActionResult> UpdateOrderStatus(
-        int id,
-        [FromBody] UpdateOrderStatusDto dto)
+            int id,
+            [FromBody] UpdateOrderStatusDto dto)
     {
         try
         {

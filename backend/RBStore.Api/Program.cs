@@ -91,7 +91,7 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    string[] roles = { "User", "Admin" };
+    string[] roles = { "User", "Admin", "Demo" };
 
     foreach (var role in roles)
     {
@@ -155,6 +155,63 @@ using (var scope = app.Services.CreateScope())
             );
 
             throw new Exception($"Failed to assign Admin role: {errors}");
+        }
+    }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider
+        .GetRequiredService<UserManager<User>>();
+
+    var demoEmail = app.Configuration["Demo:Email"];
+    var demoPassword = app.Configuration["Demo:Password"];
+
+    if (string.IsNullOrWhiteSpace(demoEmail) ||
+        string.IsNullOrWhiteSpace(demoPassword))
+    {
+        throw new Exception("Demo credentials are not configured.");
+    }
+
+    var demoUser = await userManager.FindByEmailAsync(demoEmail);
+
+    if (demoUser is null)
+    {
+        demoUser = new User
+        {
+            UserName = demoEmail,
+            Email = demoEmail,
+            Name = "RB Store Demo"
+        };
+
+        var result = await userManager.CreateAsync(
+            demoUser,
+            demoPassword
+        );
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(
+                ", ",
+                result.Errors.Select(error => error.Description)
+            );
+
+            throw new Exception($"Failed to create demo user: {errors}");
+        }
+    }
+
+    if (!await userManager.IsInRoleAsync(demoUser, "Demo"))
+    {
+        var result = await userManager.AddToRoleAsync(demoUser, "Demo");
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(
+                ", ",
+                result.Errors.Select(error => error.Description)
+            );
+
+            throw new Exception($"Failed to assign Demo role: {errors}");
         }
     }
 }
