@@ -24,7 +24,7 @@ const GlobalSpinner = () => {
   }
 
   return (
-    <div className="fixed left-0 top-0 z-[9999] h-[2.5px] w-full overflow-hidden">
+    <div className="fixed left-0 top-0 z-[9999] h-[3px] w-full overflow-hidden">
       <div className="loader-line" />
     </div>
   );
