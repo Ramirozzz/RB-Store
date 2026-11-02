@@ -5,6 +5,16 @@ import AdminUsersSkeleton from "../AdminSkeletons/AdminUsersSkeleton";
 const AdminUsersPage = () => {
   const { data: users, isLoading, isError } = useAdminUsers();
 
+  const sortedUsers = [...(users ?? [])].sort((a, b) => {
+    const roleOrder: Record<string, number> = {
+      Admin: 0,
+      Demo: 1,
+      User: 2,
+    };
+
+    return (roleOrder[a.role] ?? 3) - (roleOrder[b.role] ?? 3);
+  });
+
   return (
     <section className="space-y-6">
       <div>
@@ -33,14 +43,14 @@ const AdminUsersPage = () => {
             </thead>
 
             <tbody className="divide-y divide-border bg-white">
-              {users.length === 0 ? (
+              {sortedUsers.length === 0 ? (
                 <tr>
                   <td colSpan={3} className="px-4 py-8 text-center text-muted">
                     No users found.
                   </td>
                 </tr>
               ) : (
-                users.map((user) => (
+                sortedUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-white/90">
                     <td className="px-4 py-4">{user.name}</td>
                     <td className="px-4 py-4">{user.email}</td>
