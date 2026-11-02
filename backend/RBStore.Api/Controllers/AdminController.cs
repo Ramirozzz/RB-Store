@@ -9,10 +9,6 @@ namespace RBStore.Api.Controllers;
 
 [ApiController]
 [Route("api/admin")]
-// [Authorize(
-//     AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
-//     Roles = "Admin"
-// )]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, Demo"
 )]
 public class AdminController : ControllerBase

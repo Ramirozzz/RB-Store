@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { FcLock } from "react-icons/fc";
-import { SiAdblock } from "react-icons/si";
 
 interface LockedActionsProps {
   children: ReactNode;
