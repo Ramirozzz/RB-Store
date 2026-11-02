@@ -30,22 +30,22 @@ const AdminDashboardPage = () => {
           <AdminDashboardCard
             title="Products"
             data={data.totalProducts}
-            icon={<HiOutlineShoppingBag size={35} color="#df7057" />}
+            icon={<HiOutlineShoppingBag size={35} />}
           />
           <AdminDashboardCard
             title="Categories"
             data={data.totalCategories}
-            icon={<HiOutlineSquares2X2 size={35} color="#7a6ee4" />}
+            icon={<HiOutlineSquares2X2 size={35} />}
           />
           <AdminDashboardCard
             title="Orders"
             data={data.totalOrders}
-            icon={<HiOutlineClipboardDocumentList size={35} color="#4f7fe6" />}
+            icon={<HiOutlineClipboardDocumentList size={35} />}
           />
           <AdminDashboardCard
             title="Customers"
             data={data.totalCustomers}
-            icon={<HiOutlineUsers size={35} color="#16834A" />}
+            icon={<HiOutlineUsers size={35} />}
           />
           <AdminDashboardCard
             title="Low Stock"
