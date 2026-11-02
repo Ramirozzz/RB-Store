@@ -14,6 +14,8 @@ import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModa
 import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
 import AdminSearchBar from "../components/search/AdminSearchBar";
 import Sort from "../components/sort/Sort";
+import useAuthStore from "../../stores/authStore";
+import LockedActions from "../components/demo/LockedActions";
 
 const AdminCategoriesPage = () => {
   const { search, setSearch, debouncedSearch, sort, setSort } =
@@ -113,6 +115,9 @@ const AdminCategoriesPage = () => {
     });
   };
 
+  const user = useAuthStore((state) => state.user);
+  const demoUser = user?.role === "Demo";
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -123,17 +128,25 @@ const AdminCategoriesPage = () => {
             Manage your product categories.
           </p>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setShowForm(true)}
-          className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm rounded-sm text-white"
-        >
-          <HiOutlinePlus size={18} />
-          Add Category
-        </button>
+        {demoUser ? (
+          <LockedActions className="bg-surface rounded-sm px-4 py-2.5 text-sm text-white">
+            <span className="flex items-center gap-2">
+              <HiOutlinePlus size={18} />
+              Add Category
+            </span>
+          </LockedActions>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setShowForm(true)}
+            className="flex cursor-pointer items-center gap-2 bg-surface px-4 py-2.5 text-sm rounded-sm text-white"
+          >
+            <HiOutlinePlus size={18} />
+            Add Category
+          </button>
+        )}
       </div>
-      {showForm && (
+      {showForm && !demoUser && (
         <form
           onSubmit={handleCreateCategory}
           className="mt-6 max-w-full rounded-sm bg-white p-6 shadow-lg"
@@ -221,7 +234,7 @@ const AdminCategoriesPage = () => {
                 </tr>
               ) : (
                 filteredCategories.map((category) =>
-                  editId === category.id ? (
+                  !demoUser && editId === category.id ? (
                     <tr
                       key={category.id}
                       className="border-b border-border last:border-0"
@@ -278,32 +291,55 @@ const AdminCategoriesPage = () => {
 
                       <td className="px-5 py-4 text-right">
                         <div className="flex justify-end items-center gap-4">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditId(category.id);
-                              setEditName(category.name);
-                            }}
-                            className="cursor-pointer text-muted transition hover:text-text"
-                            aria-label={`Edit category ${category.name}`}
-                          >
-                            <MdOutlineModeEdit size={20} aria-hidden="true" />
-                          </button>
+                          {demoUser ? (
+                            <>
+                              <LockedActions icon>
+                                <MdOutlineModeEdit
+                                  size={20}
+                                  className="text-muted"
+                                />
+                                <RiDeleteBin6Line
+                                  size={20}
+                                  className="text-muted"
+                                />
+                              </LockedActions>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setEditId(category.id);
+                                  setEditName(category.name);
+                                }}
+                                className="cursor-pointer text-muted transition hover:text-text"
+                                aria-label={`Edit category ${category.name}`}
+                              >
+                                <MdOutlineModeEdit
+                                  size={20}
+                                  aria-hidden="true"
+                                />
+                              </button>
 
-                          <button
-                            type="button"
-                            className="cursor-pointer text-muted transition hover:text-red-600"
-                            onClick={() =>
-                              setDeleteCategory({
-                                id: category.id,
-                                name: category.name,
-                              })
-                            }
-                            disabled={deleteCategoryMutation.isPending}
-                            aria-label={`Delete category ${category.name}`}
-                          >
-                            <RiDeleteBin6Line size={20} aria-hidden="true" />
-                          </button>
+                              <button
+                                type="button"
+                                className="cursor-pointer text-muted transition hover:text-red-600"
+                                onClick={() =>
+                                  setDeleteCategory({
+                                    id: category.id,
+                                    name: category.name,
+                                  })
+                                }
+                                disabled={deleteCategoryMutation.isPending}
+                                aria-label={`Delete category ${category.name}`}
+                              >
+                                <RiDeleteBin6Line
+                                  size={20}
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </>
+                          )}
                         </div>
                       </td>
                     </tr>

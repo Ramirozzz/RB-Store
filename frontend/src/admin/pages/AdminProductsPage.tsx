@@ -12,6 +12,8 @@ import { useAdminProducts } from "../../hooks/useAdminProducts";
 import AdminSearchBar from "../components/search/AdminSearchBar";
 import Sort from "../components/sort/Sort";
 import { useAdminSearchSort } from "../../hooks/useAdminSearchSort";
+import useAuthStore from "../../stores/authStore";
+import LockedActions from "../components/demo/LockedActions";
 
 const AdminProductsPage = () => {
   const { search, setSearch, debouncedSearch, sort, setSort } =
@@ -53,6 +55,9 @@ const AdminProductsPage = () => {
     });
   };
 
+  const user = useAuthStore((state) => state.user);
+  const demoUser = user?.role === "Demo";
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -62,14 +67,22 @@ const AdminProductsPage = () => {
           <p className="mt-2 text-sm text-muted">Manage your store products.</p>
         </div>
 
-        <Link
-          to={"/admin/products/new-product"}
-          type="button"
-          className="flex cursor-pointer items-center gap-2 bg-surface rounded-sm px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
-        >
-          <HiOutlinePlus size={18} />
-          Add Product
-        </Link>
+        {demoUser ? (
+          <LockedActions className="bg-surface rounded-sm px-4 py-2.5 text-sm text-white">
+            <span className="flex items-center gap-2">
+              <HiOutlinePlus size={18} />
+              Add Product
+            </span>
+          </LockedActions>
+        ) : (
+          <Link
+            to="/admin/products/new-product"
+            className="flex cursor-pointer items-center gap-2 bg-surface rounded-sm px-4 py-2.5 text-sm text-white transition hover:bg-neutral-800"
+          >
+            <HiOutlinePlus size={18} />
+            Add Product
+          </Link>
+        )}
       </div>
       <div className="flex items-center justify-between flex-wrap gap-3 mt-6">
         <AdminSearchBar
@@ -154,6 +167,52 @@ const AdminProductsPage = () => {
 
                     <td className="px-5 py-4">
                       <div className="flex gap-4">
+                        {demoUser ? (
+                          <>
+                            <LockedActions icon>
+                              <MdOutlineModeEdit
+                                size={20}
+                                className="text-muted"
+                                aria-hidden="true"
+                              />
+                              <RiDeleteBin6Line
+                                size={20}
+                                className="text-muted"
+                                aria-hidden="true"
+                              />
+                            </LockedActions>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              to={`/admin/products/${product.id}/edit`}
+                              className="cursor-pointer text-muted transition hover:text-text"
+                              aria-label={`Edit product ${product.name}`}
+                            >
+                              <MdOutlineModeEdit size={20} aria-hidden="true" />
+                            </Link>
+
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setDeleteProduct({
+                                  id: product.id,
+                                  name: product.name,
+                                })
+                              }
+                              disabled={deleteProductMutation.isPending}
+                              className="cursor-pointer text-muted transition hover:text-red-600"
+                              aria-label={`Delete product ${product.name}`}
+                            >
+                              <RiDeleteBin6Line size={20} aria-hidden="true" />
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </td>
+
+                    {/* <td className="px-5 py-4">
+                      <div className="flex gap-4">
                         <Link
                           to={`/admin/products/${product.id}/edit`}
                           className="cursor-pointer text-muted transition hover:text-text"
@@ -177,7 +236,7 @@ const AdminProductsPage = () => {
                           <RiDeleteBin6Line size={20} aria-hidden="true" />
                         </button>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               )}

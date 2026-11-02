@@ -102,7 +102,7 @@ const AccountMenu = () => {
                 Wishlist
               </Link>
 
-              {user?.role === "Admin" && (
+              {(user?.role === "Admin" || user?.role === "Demo") && (
                 <Link
                   to="/admin"
                   onClick={() => setAccountOpen(false)}

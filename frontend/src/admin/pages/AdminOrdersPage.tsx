@@ -4,10 +4,15 @@ import { useUpdateAdminOrderStatus } from "../../hooks/useUpdateAdminOrderStatus
 import type { OrderStatus } from "../../types/adminOrder";
 import { statuses, getStatusStyle } from "../utils/orderstatus";
 import AdminOrdersSkeleton from "../AdminSkeletons/AdminOrdersSkeleton";
+import useAuthStore from "../../stores/authStore";
+import LockedActions from "../components/demo/LockedActions";
 
 const AdminOrdersPage = () => {
   const { data: orders, isLoading, isError } = useAdminOrders();
   const updateStatus = useUpdateAdminOrderStatus();
+
+  const user = useAuthStore((state) => state.user);
+  const demoUser = user?.role === "Demo";
 
   return (
     <section>
@@ -54,28 +59,42 @@ const AdminOrdersPage = () => {
                       {new Date(order.orderDate).toLocaleDateString("sv-SE")}
                     </td>
                     <td className="p-3">
-                      <select
-                        value={order.status}
-                        disabled={updateStatus.isPending}
-                        onChange={(e) =>
-                          updateStatus.mutate({
-                            id: order.id,
-                            status: Number(e.target.value) as OrderStatus,
-                          })
-                        }
-                        className={`cursor-pointer rounded-md border-0 px-3 py-1.5 text-sm  ${getStatusStyle(order.status)}`}
-                        aria-label={`Change status for order ${order.id}`}
-                      >
-                        {statuses.map((status) => (
-                          <option
-                            key={status.value}
-                            value={status.value}
-                            className="bg-white text-gray-900"
+                      {demoUser ? (
+                        <LockedActions>
+                          <span
+                            className={`rounded-md px-3 py-1.5 text-sm ${getStatusStyle(order.status)}`}
                           >
-                            {status.label}
-                          </option>
-                        ))}
-                      </select>
+                            {
+                              statuses.find(
+                                (status) => status.value === order.status,
+                              )?.label
+                            }
+                          </span>
+                        </LockedActions>
+                      ) : (
+                        <select
+                          value={order.status}
+                          disabled={updateStatus.isPending}
+                          onChange={(e) =>
+                            updateStatus.mutate({
+                              id: order.id,
+                              status: Number(e.target.value) as OrderStatus,
+                            })
+                          }
+                          className={`cursor-pointer rounded-md border-0 px-3 py-1.5 text-sm ${getStatusStyle(order.status)}`}
+                          aria-label={`Change status for order ${order.id}`}
+                        >
+                          {statuses.map((status) => (
+                            <option
+                              key={status.value}
+                              value={status.value}
+                              className="bg-white text-gray-900"
+                            >
+                              {status.label}
+                            </option>
+                          ))}
+                        </select>
+                      )}
                     </td>
                     <td className="p-3">{order.totalPrice.toFixed(2)} kr</td>
                   </tr>
