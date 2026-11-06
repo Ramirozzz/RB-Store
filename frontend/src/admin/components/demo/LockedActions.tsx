@@ -15,14 +15,14 @@ const LockedActions: React.FC<LockedActionsProps> = ({
   return (
     <span
       title="Admin only"
-      className={`inline-flex items-center gap-2 cursor-not-allowed opacity-60 ${className}`}
+      className={`flex items-center gap-2 cursor-not-allowed opacity-60 ${className}`}
       aria-label="Admin only"
     >
       {children}
 
       <FcLock
         size={icon ? 19 : 20}
-        className="shrink-0 text-red-800"
+        className="shrink-0 ml-auto text-red-800"
         aria-hidden="true"
       />
     </span>
