@@ -120,16 +120,16 @@ const AdminCategoriesPage = () => {
 
   return (
     <section>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 md:gap-0">
         <div>
           <h1 className="text-2xl">Categories</h1>
 
           <p className="mt-2 text-sm text-muted">
-            Manage your product categories.
+            Manage your store categories.
           </p>
         </div>
         {demoUser ? (
-          <LockedActions className="bg-surface rounded-sm px-4 py-2.5 text-sm text-white">
+          <LockedActions className="bg-surface rounded-sm px-3 md:px-4 py-2.5 text-sm text-white">
             <span className="flex items-center gap-2">
               <HiOutlinePlus size={18} />
               Add Category
