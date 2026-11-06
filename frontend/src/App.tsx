@@ -21,6 +21,7 @@ import AdminCategoriesPage from "./admin/pages/AdminCategoriesPage";
 import AdminEditProductPage from "./admin/pages/AdminEditProductPage";
 import AdminOrdersPage from "./admin/pages/AdminOrdersPage";
 import AdminUsersPage from "./admin/pages/AdminUsersPage";
+import AdminOnlyRoute from "./components/auth/AdminOnlyRoute";
 import ScrollToTop from "./components/layout/ScrollToTop";
 
 import "./App.css";
@@ -51,17 +52,16 @@ function App() {
             <Route index element={<AdminDashboardPage />} />
             <Route path="products" element={<AdminProductsPage />} />
             <Route path="categories" element={<AdminCategoriesPage />} />
-            <Route
-              path="products/new-product"
-              element={<AdminCreateProductPage />}
-            />
-            <Route
-              path="products/:id/edit"
-              element={<AdminEditProductPage />}
-            />
             <Route path="orders" element={<AdminOrdersPage />} />
             <Route path="customers" element={<AdminUsersPage />} />
           </Route>
+        </Route>
+        <Route element={<AdminOnlyRoute />}>
+          <Route
+            path="products/new-product"
+            element={<AdminCreateProductPage />}
+          />
+          <Route path="products/:id/edit" element={<AdminEditProductPage />} />
         </Route>
       </Routes>
     </>
